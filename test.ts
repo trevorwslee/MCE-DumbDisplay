@@ -39,7 +39,7 @@ if (false) {
     basic.pause(10000)
 }
 dumbdisplay.backgroundColorNum(0xffffff)
-ddmb.ledColor("#0000ff")
+ddmb.ledColor("#0aa00")
 ddmb.showIcon(IconNames.Heart)
 basic.pause(1000)
 ddmb.ledColor("skyblue")
