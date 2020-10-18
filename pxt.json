@@ -1,7 +1,7 @@
 {
-    "name": "DumbDisplayMBE",
+    "name": "DumbDisplayMCExtension",
     "version": "0.0.0",
-    "description": "This is a server bfor DumbDisplay",
+    "description": "DumbDisplay MakeCode extension is a gateway to extend Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth or USB (Serial).",
     "dependencies": {
         "core": "*"
     },
@@ -20,6 +20,7 @@
         "microbit"
     ],
     "preferredEditor": "tsprj",
+    "icon": "icon.png",
     "yotta": {
         "config": {
             "microbit-dal": {
