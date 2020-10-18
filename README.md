@@ -1,5 +1,9 @@
 
-DumbDisplay MakeCode extension is a gateway to extend Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth or USB Serial.
+DumbDisplay MakeCode Extension
+------------------------------
+
+DumbDisplay MakeCode Extension is a gateway to extend Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth or USB Serial.
+
 
 You explode your creativity with a little aid from this extension, and use DumbDisplay to realize the virtual screen on your Android phone.
 
@@ -111,10 +115,4 @@ Enjoy!
 
 
 Jesus loves you!
-
-
-
-
-
-
 
