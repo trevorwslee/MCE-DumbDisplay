@@ -4,40 +4,6 @@ let b = 0
 let small = true
 ddmb.setup(5, 5)
 ddturtle.setup(189, 189)
-if (false) {
-    // turtle DEBUG CODE
-    ddturtle.left(20)
-    ddturtle.forward(20)
-    ddturtle.penColor("green")
-    ddturtle.penSize(5)
-    ddturtle.penFillColor("yellow")
-    ddturtle.polygon(40, 6)
-    basic.pause(20000)
-}
-if (false) {
-    // turtle DEBUG CODE
-    ddturtle.forward(20)
-    ddturtle.beginFill()
-    ddturtle.forward(60)
-    ddturtle.left(90)
-    ddturtle.forward(40)
-    ddturtle.left(90)
-    ddturtle.forward(60)
-    ddturtle.left(90)
-    ddturtle.forward(40)
-    ddturtle.left(90)
-    ddturtle.endFill()
-    basic.pause(10000)
-}
-if (false) {
-    // turtle DEBUG CODE
-    ddturtle.penColor("green")
-    ddturtle.penSize(5)
-    ddturtle.penFillColor("yellow")
-    ddturtle.forward(20)
-    ddturtle.rectangle(60, 40)
-    basic.pause(10000)
-}
 dumbdisplay.backgroundColorNum(0xffffff)
 ddmb.ledColor("#0aa00")
 ddmb.showIcon(IconNames.Heart)
@@ -48,10 +14,11 @@ if (true) {
     ddturtle.jumpTo(-30, -73)
     ddturtle.penColor("red")
     ddturtle.penSize(2)
-    ddturtle.penFillColor("lightcyan")
+    ddturtle.fillColor("lightcyan")
+    ddturtle.penFilled(true)
     ddturtle.polygon(61, 8)
     ddturtle.jumpHome()
-    ddturtle.noPenFillColor()
+    ddturtle.penFilled(false)
     ddturtle.penSize(1)
 }
 ddturtle.dot(21)

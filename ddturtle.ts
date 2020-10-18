@@ -188,25 +188,31 @@ namespace ddturtle {
     export function jumpHome() {
         _ddLayer.sendCommand0("jhome")
     }
-    //% block='set pen fill color %color'
-    //% advance=true
-    //% color.shadow="colorNumberPicker"
-    //% group='Advanced'
-    export function penFillColorNum(colornum: number) {
-        _ddLayer.sendCommand1("pfillcolor", colornum.toString())
-    }
-    //% block='set pen fill color %color'
+    //% block='set pen filled'
     //% advance=true
     //% group='Advanced'
-    export function penFillColor(color: string) {
-        _ddLayer.sendCommand1("pfillcolor", color)
+    export function penFilled(fillPen: boolean) {
+        _ddLayer.sendCommand1("pfilled", fillPen ? "1" : "0")
     }
-    //% block='set no pen fill color'
-    //% advance=true
-    //% group='Advanced'
-    export function noPenFillColor() {
-        _ddLayer.sendCommand0("pfillcolor")
-    }
+    // //% block='set pen fill color %color'
+    // //% advance=true
+    // //% color.shadow="colorNumberPicker"
+    // //% group='Advanced'
+    // export function penFillColorNum(colornum: number) {
+    //     _ddLayer.sendCommand1("pfillcolor", colornum.toString())
+    // }
+    // //% block='set pen fill color %color'
+    // //% advance=true
+    // //% group='Advanced'
+    // export function penFillColor(color: string) {
+    //     _ddLayer.sendCommand1("pfillcolor", color)
+    // }
+    // //% block='set no pen fill color'
+    // //% advance=true
+    // //% group='Advanced'
+    // export function noPenFillColor() {
+    //     _ddLayer.sendCommand0("pfillcolor")
+    // }
 
 
     //% block='layer'
