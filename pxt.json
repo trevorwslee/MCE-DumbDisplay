@@ -1,0 +1,38 @@
+{
+    "name": "DumbDisplayMBE",
+    "version": "0.0.0",
+    "description": "This is a server bfor DumbDisplay",
+    "dependencies": {
+        "core": "*"
+    },
+    "files": [
+        "README.md",
+        "dumbdisplay.ts",
+        "ddmb.ts",
+        "ddturtle.ts",
+        "dumbdisplay.cpp"
+    ],
+    "testFiles": [
+        "test.ts"
+    ],
+    "public": true,
+    "supportedTargets": [
+        "microbit"
+    ],
+    "preferredEditor": "tsprj",
+    "yotta": {
+        "config": {
+            "microbit-dal": {
+                "bluetooth": {
+                    "enabled": 1
+                }
+            }
+        },
+        "optionalConfig": {
+            "microbit-dal": {
+                "stack_size": "1024",
+                "gatt_table_size": "0x700"
+            }
+        }
+    }
+}
