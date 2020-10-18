@@ -44,14 +44,24 @@ ddmb.showIcon(IconNames.Heart)
 basic.pause(1000)
 ddmb.ledColor("skyblue")
 dumbdisplay.layerOpacity(ddmb.layer(), 60)
+if (true) {
+    ddturtle.jumpTo(-30, -73)
+    ddturtle.penColor("red")
+    ddturtle.penSize(2)
+    ddturtle.penFillColor("lightcyan")
+    ddturtle.polygon(61, 8)
+    ddturtle.jumpHome()
+    ddturtle.noPenFillColor()
+    ddturtle.penSize(1)
+}
 ddturtle.dot(21)
 ddturtle.dotOfColorNum(15, 0xffff00)
 
 basic.forever(function () {
     dumbdisplay.writeSerial("begin round")
     ddturtle.penColor(dumbdisplay.toColor(r, g, b))
-    ddturtle.circle(19)
-    ddturtle.rectangle(80, 20)
+    ddturtle.circle(27)
+    ddturtle.rectangle(90, 20)
     ddturtle.right(10)
     b = b + 20
     if (b > 255) {

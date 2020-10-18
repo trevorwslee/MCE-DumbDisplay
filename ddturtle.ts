@@ -201,6 +201,12 @@ namespace ddturtle {
     export function penFillColor(color: string) {
         _ddLayer.sendCommand1("pfillcolor", color)
     }
+    //% block='set no pen fill color'
+    //% advance=true
+    //% group='Advanced'
+    export function noPenFillColor() {
+        _ddLayer.sendCommand0("pfillcolor")
+    }
 
 
     //% block='layer'

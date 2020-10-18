@@ -93,7 +93,9 @@ DumbDisplayTurtle:
 - jumpHome() -- move to home (center of screen) without drawing 
 - jumpTo(x: number, y: number) -- go to a position on screen without drawing 
 - penFillColorNum(color: number) -- like fillcolorNum but it also affects fill color when drawing shape like circle 
-- penFillColor(color: string) -- like fillcolor but it also affects fill color when drawing shape like circle
+  . note that if not pen fill color, shape will be drawn only with the pen color without filling
+- penFillColor(color: string) -- like fillcolorNum, but in accept color name like "green"
+- noPenFillColor() -- no pen fill color
 - layer() -- return the layer object to be used for some functions of DumbDisplay
 
 DumbDisplay:
