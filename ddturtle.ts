@@ -52,6 +52,12 @@ namespace ddturtle {
     export function circle(radius: number) {
         _ddLayer.sendCommand1("circle", radius.toString())
     }
+    //% block='draw circle with radius %radius (and turtle being certer)'
+    //% advanced='true'
+    //% group='Drawing'
+    export function centeredCircle(radius: number) {
+        _ddLayer.sendCommand1("ccircle", radius.toString())
+    }
     //% block='draw rectangle with width %width height %height'
     //% group='Drawing'
     export function rectangle(width: number, height: number) {
@@ -63,15 +69,23 @@ namespace ddturtle {
         _ddLayer.sendCommand3("trisas", side1.toString(), angle.toString(), side2.toString())
     }
     //% block='draw isosceles triangle of side %side and angle %angle'
+    //% advanced='true'
     //% group='Drawing'
     export function isoscelesTriangle(side: number, angle: number) {
         _ddLayer.sendCommand2("trisas", side.toString(), angle.toString())
     }
     //% block='draw polygon of side %side and vertex count %vertexCount'
-    //% vertexCont.min=3
+    //% vertexCount.min=3
     //% group='Drawing'
     export function polygon(side: number, vertexCount: number) {
         _ddLayer.sendCommand2("poly", side.toString(), vertexCount.toString())
+    }
+    //% block='draw polygon with first vertex %radius away and vertex count %vertexCount (turtle being center)'
+    //% vertexCount.min=3
+    //% advanced='true'
+    //% group='Drawing'
+    export function centeredPolygon(radius: number, vertexCount: number) {
+        _ddLayer.sendCommand2("cpoly", radius.toString(), vertexCount.toString())
     }
     //% block='draw dot with size %size'
     //% size.min=1 size.defl=1
@@ -193,6 +207,13 @@ namespace ddturtle {
     //% group='Advanced'
     export function penFilled(fillPen: boolean) {
         _ddLayer.sendCommand1("pfilled", fillPen ? "1" : "0")
+    }
+    //% block='set pen text size'
+    //% penTextSize.min=1
+    //% advance=true
+    //% group='Advanced'
+    export function penTextSize(size: number) {
+        _ddLayer.sendCommand1("ptextsize", size.toString())
     }
     // //% block='set pen fill color %color'
     // //% advance=true

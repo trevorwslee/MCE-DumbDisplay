@@ -60,6 +60,7 @@ DumbDisplayTurtle:
 - home() -- move to home (center of screen)    
 - goto(x: number, y: number) -- go to a position of the screen
 - circle(radius: number) -- draw a circle
+- centeredCircle(radius: number) -- draw a circle with current position being the center
 - rectangle(width: number, height: number) -- draw a rectangle
   . it is basicaly the same as
     . forward(width)
@@ -73,6 +74,7 @@ DumbDisplayTurtle:
 - triangle(side1: number, angle: number, side2: number) -- draw a triangle given SAS (side1, angle, side2)    
 - isoscelesTriangle(side: number, angle: number) -- draw an isosceles triangle given side and angle
 - polygon(side: number, vertexCount: number) -- draw a polygon given side and # vertices
+- centeredPolygon(radius: number, vertexCount: number) -- draw a polygon with first vertex 'radius' away (i.e. the polygon will be enclosed in the virtual 'centered' circle with radius 'radius')
 - dot(size: number) -- draw a dot (with certain pen size)
 - dotOfColorNum(size: number, color: number) -- draw a dot (with certain pen size and pen color number)
 - dotOfColor(size: number, color: string) -- draw a dot (with certain pen size and pen color name like "green")
@@ -92,7 +94,8 @@ DumbDisplayTurtle:
 - clear() -- clear the screen
 - jumpHome() -- move to home (center of screen) without drawing 
 - jumpTo(x: number, y: number) -- go to a position on screen without drawing 
-- penFilled(fillPen: boolean) -- set whether pen filled (with fill color); note that when pen filled, drawn shape will be filled
+- penFilled(fillPen: boolean) -- set whether pen filled (with fill color); note that when pen filled, drawn shape - penTextSize(size: number) -- set the size of text (the default pen text size depends on your phone setting)
+will be filled
 - layer() -- return the layer object to be used for some functions of DumbDisplay
 
 DumbDisplay:
