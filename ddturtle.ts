@@ -80,7 +80,7 @@ namespace ddturtle {
     export function polygon(side: number, vertexCount: number) {
         _ddLayer.sendCommand2("poly", side.toString(), vertexCount.toString())
     }
-    //% block='draw polygon with first vertex %radius away and vertex count %vertexCount (turtle being center)'
+    //% block='draw polygon with first vertex %radius away and vertex count %vertexCount'
     //% vertexCount.min=3
     //% advanced=true
     //% group='Drawing'
