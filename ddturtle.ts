@@ -53,7 +53,7 @@ namespace ddturtle {
         _ddLayer.sendCommand1("circle", radius.toString())
     }
     //% block='draw circle with radius %radius (and turtle being certer)'
-    //% advanced='true'
+    //% advanced=true
     //% group='Drawing'
     export function centeredCircle(radius: number) {
         _ddLayer.sendCommand1("ccircle", radius.toString())
@@ -69,7 +69,7 @@ namespace ddturtle {
         _ddLayer.sendCommand3("trisas", side1.toString(), angle.toString(), side2.toString())
     }
     //% block='draw isosceles triangle of side %side and angle %angle'
-    //% advanced='true'
+    //% advanced=true
     //% group='Drawing'
     export function isoscelesTriangle(side: number, angle: number) {
         _ddLayer.sendCommand2("trisas", side.toString(), angle.toString())
@@ -82,7 +82,7 @@ namespace ddturtle {
     }
     //% block='draw polygon with first vertex %radius away and vertex count %vertexCount (turtle being center)'
     //% vertexCount.min=3
-    //% advanced='true'
+    //% advanced=true
     //% group='Drawing'
     export function centeredPolygon(radius: number, vertexCount: number) {
         _ddLayer.sendCommand2("cpoly", radius.toString(), vertexCount.toString())
