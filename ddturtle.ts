@@ -52,7 +52,7 @@ namespace ddturtle {
     export function circle(radius: number) {
         _ddLayer.sendCommand1("circle", radius.toString())
     }
-    //% block='draw circle with radius %radius (and turtle being certer)'
+    //% block='draw "centered" circle with radius %radius'
     //% advanced=true
     //% group='Drawing'
     export function centeredCircle(radius: number) {
@@ -62,6 +62,12 @@ namespace ddturtle {
     //% group='Drawing'
     export function rectangle(width: number, height: number) {
         _ddLayer.sendCommand2("rect", width.toString(), height.toString())
+    }
+    //% block='draw "centered" rectangle with width %width height %height'
+    //% advanced=true
+    //% group='Drawing'
+    export function centeredRectangle(width: number, height: number) {
+        _ddLayer.sendCommand2("crect", width.toString(), height.toString())        
     }
     //% block='draw triangle given side 1 %side1 angle %angle side 2 %side2'
     //% group='Drawing'

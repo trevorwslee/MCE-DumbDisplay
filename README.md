@@ -71,6 +71,7 @@ DumbDisplayTurtle:
     . left(90)
     . forward(height)
     . left(90)
+- centeredRectangle(width: number, height: number) -- draw a rectangle with current position being the center
 - triangle(side1: number, angle: number, side2: number) -- draw a triangle given SAS (side1, angle, side2)    
 - isoscelesTriangle(side: number, angle: number) -- draw an isosceles triangle given side and angle
 - polygon(side: number, vertexCount: number) -- draw a polygon given side and # vertices
