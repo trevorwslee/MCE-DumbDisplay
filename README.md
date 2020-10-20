@@ -75,7 +75,8 @@ DumbDisplayTurtle:
 - triangle(side1: number, angle: number, side2: number) -- draw a triangle given SAS (side1, angle, side2)    
 - isoscelesTriangle(side: number, angle: number) -- draw an isosceles triangle given side and angle
 - polygon(side: number, vertexCount: number) -- draw a polygon given side and # vertices
-- centeredPolygon(radius: number, vertexCount: number) -- draw a polygon with first vertex 'radius' away (i.e. the polygon will be enclosed in the virtual 'centered' circle with radius 'radius')
+- centeredPolygonInside(radius: number, vertexCount: number) -- draw a polygon, just inside an imaginary centered circle
+- centeredPolygonOutside(radius: number, vertexCount: number) -- draw a polygon, just outside an imaginary centered circle
 - dot(size: number) -- draw a dot (with certain pen size)
 - dotOfColorNum(size: number, color: number) -- draw a dot (with certain pen size and pen color number)
 - dotOfColor(size: number, color: string) -- draw a dot (with certain pen size and pen color name like "green")

@@ -17,7 +17,7 @@ if (true) {
     ddturtle.fillColor("lemonchiffon")
     ddturtle.penFilled(true)
     //ddturtle.polygon(61, 8)
-    ddturtle.centeredPolygon(73, 6)
+    ddturtle.centeredPolygonInside(73, 6)
     ddturtle.jumpHome()
     ddturtle.penFilled(false)
     ddturtle.penSize(1)
