@@ -167,6 +167,11 @@ namespace ddturtle {
     export function fillColor(color: string): void {
         _ddLayer.sendCommand1("fillcolor", color)
     }
+    //% block='set no fill color' 
+    //% group='Experimental'
+    export function noFillColor(): void {
+        _ddLayer.sendCommand0("nofillcolor")
+    }
     //% block='set background color %color' 
     //% color.shadow="colorNumberPicker"
     //% group='Setting'

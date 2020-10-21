@@ -62,7 +62,7 @@ DumbDisplayTurtle:
 - circle(radius: number) -- draw a circle
 - centeredCircle(radius: number) -- draw a circle with current position being the center
 - rectangle(width: number, height: number) -- draw a rectangle
-  . it is basicaly the same as
+  . it is basically the same as
     . forward(width)
     . left(90)
     . forward(height)
