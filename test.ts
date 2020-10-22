@@ -186,7 +186,7 @@ function shapeTestRound() {
             ddturtle.rectangle(80, 60)
             break
         case 2:
-            ddturtle.triangle(80, 45, 60)
+            ddturtle.triangle(80, 50, 60)
             break    
         case 3:
             ddturtle.isoscelesTriangle(50, 65)
@@ -255,7 +255,7 @@ function initStandardTest() {
         ddturtle.centeredCircle(79)
     }
     ddturtle.dot(21)
-    ddturtle.dotOfColorNum(15, 0xffff00)
+    ddturtle.dotOfColorNum(15, 0xaa8800)
 }
 function standardTestRound() {
     dumbdisplay.writeSerial("begin round")

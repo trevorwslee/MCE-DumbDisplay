@@ -153,6 +153,8 @@ namespace dumbdisplay {
     //% shim=DumbDisplayCpp::ddinit
     function _ddinit(enableWhat: number, onStart: Action, onStop: Action, onReceive: (data: string) => void) {
         _reset_callback = null  // actually, this is not necessary
+        basic.showString("initialized")
+        basic.showArrow(ArrowNames.North)
     }
     //% shim=DumbDisplayCpp::ddconnect
     function _ddconnect() {
@@ -221,7 +223,6 @@ namespace dumbdisplay {
             }
             round = round + 1
         }
-
         basic.showIcon(IconNames.Yes)
     }
 
