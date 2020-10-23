@@ -22,7 +22,7 @@ function adhocTestRound() {
     ddturtle.penDown()
     ddturtle.penColor("blue")
     //
-    ddturtle.jumpTo(-12, 0)
+    ddturtle.jumpTo(-12.5, 0)
     ddturtle.penSize(10)
     ddturtle.write("hello")
     basic.pause(2000)
@@ -31,8 +31,8 @@ function adhocTestRound() {
     ddturtle.penUp()
     ddturtle.fillColor("yellow")
     ddturtle.beginFill()
-    ddturtle.forward(10)
-    ddturtle.right(135)
+    ddturtle.forward(10.5)
+    ddturtle.right(135.5)
     ddturtle.forward(10)
     ddturtle.right(135)
     ddturtle.forward(10)
@@ -180,16 +180,16 @@ function shapeTestRound() {
     ddturtle.forward(20)
     switch (shape) {
         case 0: 
-            ddturtle.circle(50)
+            ddturtle.circle(50.5)
             break
         case 1:
-            ddturtle.rectangle(80, 60)
+            ddturtle.rectangle(80, 60.5)
             break
         case 2:
-            ddturtle.triangle(80, 50, 60)
+            ddturtle.triangle(80, 50.5, 60)
             break    
         case 3:
-            ddturtle.isoscelesTriangle(50, 65)
+            ddturtle.isoscelesTriangle(50, 65.5)
             break
         case 4:
             ddturtle.centeredCircle(50)
