@@ -86,19 +86,19 @@ namespace ddturtle {
     export function polygon(side: number, vertexCount: number) {
         _ddLayer.sendCommand2("poly", side.toString(), vertexCount.toString())
     }
+    //% block='draw polygon (ouside an imaginary circle with radius %radius) and vertex count %vertexCount'
+    //% vertexCount.min=3
+    //% advanced=true
+    //% group='Drawing'
+    export function centeredPolygon(radius: number, vertexCount: number) {
+        _ddLayer.sendCommand2("cpoly", radius.toString(), vertexCount.toString())
+    }
     //% block='draw polygon (insde an imaginary circle with radius %radius) and vertex count %vertexCount'
     //% vertexCount.min=3
     //% advanced=true
     //% group='Drawing'
     export function centeredPolygonInside(radius: number, vertexCount: number) {
         _ddLayer.sendCommand2("cpolyin", radius.toString(), vertexCount.toString())
-    }
-    //% block='draw polygon (ouside an imaginary circle with radius %radius) and vertex count %vertexCount'
-    //% vertexCount.min=3
-    //% advanced=true
-    //% group='Drawing'
-    export function centeredPolygonOutside(radius: number, vertexCount: number) {
-        _ddLayer.sendCommand2("cpolyout", radius.toString(), vertexCount.toString())
     }
     //% block='draw dot with size %size'
     //% size.min=1 size.defl=1

@@ -198,12 +198,15 @@ function shapeTestRound() {
             ddturtle.centeredRectangle(80, 60)
             break
         case 6:
-            ddturtle.centeredCircle(50)
-            ddturtle.centeredPolygonInside(50, 5)   
+            ddturtle.polygon(50, 5)   
             break
         case 7:
-            ddturtle.centeredPolygonOutside(50, 5)   
+            ddturtle.centeredPolygon(50, 5)   
             ddturtle.centeredCircle(50)
+            break
+        case 8:
+            ddturtle.centeredCircle(50)
+            ddturtle.centeredPolygonInside(50, 5)   
             break
         default:
             shape = -1
