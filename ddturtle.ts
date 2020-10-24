@@ -86,7 +86,7 @@ namespace ddturtle {
     export function polygon(side: number, vertexCount: number) {
         _ddLayer.sendCommand2("poly", side.toString(), vertexCount.toString())
     }
-    //% block='draw polygon (ouside an imaginary circle with radius %radius) and vertex count %vertexCount'
+    //% block='draw polygon (surrounding an imaginary "centered" circle with radius %radius) and vertex count %vertexCount'
     //% vertexCount.min=3
     //% advanced=true
     //% group='Drawing'
@@ -96,7 +96,7 @@ namespace ddturtle {
     //% block='draw polygon (insde an imaginary circle with radius %radius) and vertex count %vertexCount'
     //% vertexCount.min=3
     //% advanced=true
-    //% group='Drawing'
+    //% group='Experimental'
     export function centeredPolygonInside(radius: number, vertexCount: number) {
         _ddLayer.sendCommand2("cpolyin", radius.toString(), vertexCount.toString())
     }
