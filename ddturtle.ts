@@ -69,6 +69,17 @@ namespace ddturtle {
     export function centeredRectangle(width: number, height: number) {
         _ddLayer.sendCommand2("crect", width.toString(), height.toString())        
     }
+    //% block='draw oval with width %width height %height'
+    //% group='Experiment'
+    export function oval(width: number, height: number) {
+        _ddLayer.sendCommand2("oval", width.toString(), height.toString())
+    }
+    //% block='draw "centered" oval with width %width height %height'
+    //% advanced=true
+    //% group='Experiment'
+    export function centeredOval(width: number, height: number) {
+        _ddLayer.sendCommand2("coval", width.toString(), height.toString())        
+    }
     //% block='draw triangle given side 1 %side1 angle %angle side 2 %side2'
     //% group='Drawing'
     export function triangle(side1: number, angle: number, side2: number) {

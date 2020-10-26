@@ -186,7 +186,7 @@ function shapeTestRound() {
             ddturtle.rectangle(80, 60.5)
             break
         case 2:
-            ddturtle.triangle(80, 50.5, 60)
+            ddturtle.triangle(80, 50.5, 40)
             break    
         case 3:
             ddturtle.isoscelesTriangle(50, 65.5)
@@ -208,7 +208,19 @@ function shapeTestRound() {
             ddturtle.centeredCircle(50)
             ddturtle.centeredPolygonInside(50, 5)   
             break
+        case 9:
+            ddturtle.oval(60, 80)
+            break
+        case 10:
+            ddturtle.centeredOval(60, 80)
+            break
         default:
+            for (let size = 3; size <= 10; size++) {
+                ddturtle.clear()
+                ddturtle.centeredPolygon(40, size)   
+                ddturtle.centeredCircle(40)
+                basic.pause(500)
+            }
             shape = -1
             break
     }
@@ -301,7 +313,7 @@ basic.forever(function () {
         testNum++
     } else if (testNum == 1) {
         shapeTestRound()
-        if (testRound == 20) {
+        if (testRound == 24) {
             testRound = -1
             testNum++
         }
