@@ -1,5 +1,13 @@
 
-------------- NOT YET RELEASED -----------
+------------- DEVELOPMENT CODEBASE -----------
+
+
+Change History
+--------------
+
+v0.0.2
+* released
+
 
 
 DumbDisplay MakeCode Extension
