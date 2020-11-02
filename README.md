@@ -1,12 +1,4 @@
 
-Change History
---------------
-
-v0.0.2
-. working on it 
-
-
-
 DumbDisplay MakeCode Extension
 ------------------------------
 
@@ -126,4 +118,12 @@ Enjoy!
 
 
 Jesus loves you!
+
+
+
+Change History
+--------------
+
+v0.0.2
+. working on it 
 
