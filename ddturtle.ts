@@ -70,13 +70,13 @@ namespace ddturtle {
         _ddLayer.sendCommand2("crect", width.toString(), height.toString())        
     }
     //% block='draw oval with width %width height %height'
-    //% group='Experiment'
+    //% group='Experimental'
     export function oval(width: number, height: number) {
         _ddLayer.sendCommand2("oval", width.toString(), height.toString())
     }
     //% block='draw "centered" oval with width %width height %height'
     //% advanced=true
-    //% group='Experiment'
+    //% group='Experimental'
     export function centeredOval(width: number, height: number) {
         _ddLayer.sendCommand2("coval", width.toString(), height.toString())        
     }
@@ -97,7 +97,7 @@ namespace ddturtle {
     export function polygon(side: number, vertexCount: number) {
         _ddLayer.sendCommand2("poly", side.toString(), vertexCount.toString())
     }
-    //% block='draw polygon (in an imaginary "centered" circle with radius %radius) and vertex count %vertexCount'
+    //% block='draw polygon (surround an imaginary "centered" circle with radius %radius) and vertex count %vertexCount'
     //% vertexCount.min=3
     //% advanced=true
     //% group='Drawing'

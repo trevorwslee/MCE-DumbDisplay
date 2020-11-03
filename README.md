@@ -46,10 +46,10 @@ DumbDisplayMB:
 - notes:
   * unless "setup like local", which will replicate most commands to local Micro:bit, the DumbDisplayMB commands will be brief; in other words, you get to control the timing how long something is shown. For example, the text "Hello World!" can take a little while for Basic.showString() to finish (since it will scroll the text), DumbDisplay.showString() virtual takes no time to finish; you use Basic.pause() to allow time for the string to scroll in DD virtual screen on your phone.
   * showLeds() / createImage() input is a string -- an "image literal" or a normal string; if it is a normal string, some similar format should be followed
-    . character # -- ON 
-    . character . -- OFF
-    . character | -- end of row
-    . e.g. ".####.||||#....#" represents 5 rows, with 1st row being ".####." and last row being "#....#" 
+    ; char # -- ON 
+    ; char . -- OFF
+    ; char | -- end of row
+    ; e.g. ".####.||||#....#" represents 5 rows, with 1st row being ".####." and last row being "#....#" 
 
 DumbDisplayTurtle:
 - forward(distance: number) -- move forward
@@ -62,15 +62,15 @@ DumbDisplayTurtle:
 - circle(radius: number) -- draw a circle
 - centeredCircle(radius: number) -- draw a circle with current position being the center
 - rectangle(width: number, height: number) -- draw a rectangle
-  * it is simimlar to
-    . forward(width)
-    . left(90)
-    . forward(height)
-    . left(90)
-    . forward(width)
-    . left(90)
-    . forward(height)
-    . left(90)
+  * it is similar to
+    ; forward(width)
+    ; left(90)
+    ; forward(height)
+    ; left(90)
+    ; forward(width)
+    ; left(90)
+    ; forward(height)
+    ; left(90)
 - centeredRectangle(width: number, height: number) -- draw a rectangle with current position being the center
 - triangle(side1: number, angle: number, side2: number) -- draw a triangle given SAS (side1, angle, side2)    
 - isoscelesTriangle(side: number, angle: number) -- draw an isosceles triangle given side and angle
@@ -102,7 +102,7 @@ DumbDisplayTurtle:
 DumbDisplay:
 - powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true) -- if not explicitly called, powerUp() is automatically called when you setup DumbDisplayMB or DumbDisplayTurtle; however, you may want to call powerUp() before setting up layers in order to dictate more "power up" options
   * enableBluetooth -- set to false so that Bluetooth is not used
-    . this will leave more memory for your program
+    ; this will leave more memory for your program
   * enableSerial -- set to false so that Serial is not used, and you can freely make use of Serial
 - backgroundColorNum(color: number) -- set the background color of DumbDisplay with color number 
 - backgroundColor(color: number) -- set the background color of DumbDisplay with color name like "green", or a hex number (starting with "#")
@@ -112,7 +112,7 @@ DumbDisplay:
 - removeLayer(layer: Layer) -- remove a layer; yes, you can setup the layer again 
 - writeSerial(msg: string) -- you can write something to the serial port and be shown to DumbDisplay terminal (on the phone side)
 
-Lastly, a reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
+Lastly, a friendly reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
 
 
 
