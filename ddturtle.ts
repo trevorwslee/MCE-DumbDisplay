@@ -97,7 +97,7 @@ namespace ddturtle {
     export function polygon(side: number, vertexCount: number) {
         _ddLayer.sendCommand2("poly", side.toString(), vertexCount.toString())
     }
-    //% block='draw polygon (surrounding an imaginary "centered" circle with radius %radius) and vertex count %vertexCount'
+    //% block='draw polygon (in an imaginary "centered" circle with radius %radius) and vertex count %vertexCount'
     //% vertexCount.min=3
     //% advanced=true
     //% group='Drawing'

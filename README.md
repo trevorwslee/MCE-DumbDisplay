@@ -2,7 +2,7 @@
 DumbDisplay MakeCode Extension
 ------------------------------
 
-DumbDisplay MakeCode Extension is a simple tool to extend / migrate your Micro:bit screen to your Android phone via Micro:bit in-built Bluetooth or USB Serial.
+DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth or USB Serial.
 
 
 You explode your creativity with a little help from this extension, and use DumbDisplay to realize an enhanced Micro:bit virtual screen on your Android phone.
@@ -46,9 +46,9 @@ DumbDisplayMB:
 - notes:
   * unless "setup like local", which will replicate most commands to local Micro:bit, the DumbDisplayMB commands will be brief; in other words, you get to control the timing how long something is shown. For example, the text "Hello World!" can take a little while for Basic.showString() to finish (since it will scroll the text), DumbDisplay.showString() virtual takes no time to finish; you use Basic.pause() to allow time for the string to scroll in DD virtual screen on your phone.
   * showLeds() / createImage() input is a string -- an "image literal" or a normal string; if it is a normal string, some similar format should be followed
-    . # -- ON 
-    . . -- OFF
-    . | -- end of row
+    . character # -- ON 
+    . character . -- OFF
+    . character | -- end of row
     . e.g. ".####.||||#....#" represents 5 rows, with 1st row being ".####." and last row being "#....#" 
 
 DumbDisplayTurtle:
@@ -112,7 +112,7 @@ DumbDisplay:
 - removeLayer(layer: Layer) -- remove a layer; yes, you can setup the layer again 
 - writeSerial(msg: string) -- you can write something to the serial port and be shown to DumbDisplay terminal (on the phone side)
 
-Again, a reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
+Lastly, a reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
 
 
 
@@ -127,5 +127,5 @@ Change History
 --------------
 
 v0.0.2
-.  
+. preparing for first release 
 

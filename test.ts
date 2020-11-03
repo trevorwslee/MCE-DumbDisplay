@@ -1,6 +1,8 @@
-let testNum = 0  // 0 means adhoc test first
-                 // 1 means shape test first
+let testNum = 0  // 0 means adhoc test first ... then ...
+                 // 1 means shape test first ... then ...
                  // 2 means just the standard test
+
+
 let testRound = 0
 
 
@@ -11,7 +13,7 @@ function initAdhocTest() {
     ddmb.setup(11, 7)
     ddturtle.setup(50, 50)
     ddturtle.bgColor("orange")
-    // create an image to be used before testing turtle
+    // create an image to be used during adhoc test
     img = ddmb.createImage("#.#.#.#.#||.#.#.#")
 }
 function adhocTestRound() {
