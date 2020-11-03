@@ -2,25 +2,25 @@
 DumbDisplay MakeCode Extension
 ------------------------------
 
-DumbDisplay MakeCode Extension is simple tool to extend Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth or USB Serial.
+DumbDisplay MakeCode Extension is a simple tool to extend / migrate your Micro:bit screen to your Android phone via Micro:bit in-built Bluetooth or USB Serial.
 
 
-You explode your creativity with a little help from this extension, and use DumbDisplay to realize the virtual screen on your Android phone.
+You explode your creativity with a little help from this extension, and use DumbDisplay to realize an enhanced Micro:bit virtual screen on your Android phone.
 
 You can install the free DumbDisplay app from Android Play Store. The app can accept connection via
 * Bluetooth LE -- which is relatively slow (and memory hungry)
-* USB (OTG) -- which is faster, but need some wiring
+* USB (OTG) -- which is faster, but requires a wire
 
 
-Simply put, this extension allows you to use DumbDisplay as a screen in place of the Micro:bit built-in screen
+In a nutshell, this extension allows you to use DumbDisplay as a screen in place of the Micro:bit built-in screen
 * customizable screen size
 * customizable LED color
 * many screen-related MakeCode Core like commands
 * can mix with a Turtle layer using many Turtle-like commands
 
-To start with, you must first setup DumbDisplay (DD) using
-- DumbDisplayMB ddmb.setup(15, 5) -- setup a DD screen layer similar to Micro:bit screen but with size 15x5
-- DumbDisplayMB ddmb.setupLikeLocal() -- setup a DD screen layer similar to Micro:bit screen; plus, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
+To start with, you must setup DumbDisplay (DD) like
+- DumbDisplayMB ddmb.setup(15, 9) -- setup a DD screen layer similar to Micro:bit screen but with size 15x9
+- DumbDisplayMB ddmb.setupLikeLocal() -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
 - DumbDisplayTurtle ddturtle.setup(300, 200) -- setup a DD screen layer with size 300x200
 - notes:
   . you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
@@ -31,7 +31,7 @@ You largely do not need to use DumpDisplay package. Instead, you will mostly use
 
 DumbDisplayMB:
 - showIcon(name: IconNames) -- similar to Basic
-- function showArrow(name: ArrowNames) -- similar to Basic
+- showArrow(name: ArrowNames) -- similar to Basic
 - showString(str: string) -- similar to Basic
 - showNumber(num: number) -- similar to Basic 
 - clearScreen() -- similar to Basic
@@ -44,8 +44,8 @@ DumbDisplayMB:
 - createImage(leds: string) / showImage(offset: number) / scrollImage(offset: number, interval: number) -- similar to Images
 - layer() -- return the layer object to be used for some functions of DumbDisplay
 - notes:
-  . unless "setup like local", which will replicate most commands to local Micro:bit, the DumbDisplayMB commands will be brief; in other words, you get to control the timing how long something is shown. For example, the text "Hello World!" can take a little while for Basic.showString() to finish (since it will scroll the text), DumbDisplay.showString() virtual takes no time to finish; you use Basic.pause() to allow time for the string to scroll in DD virtual screen on your phone.
-  . showLeds() / createImage() input is a string -- an "image literal" or a normal string; if it is a normal string, some similar format should be followed
+  * unless "setup like local", which will replicate most commands to local Micro:bit, the DumbDisplayMB commands will be brief; in other words, you get to control the timing how long something is shown. For example, the text "Hello World!" can take a little while for Basic.showString() to finish (since it will scroll the text), DumbDisplay.showString() virtual takes no time to finish; you use Basic.pause() to allow time for the string to scroll in DD virtual screen on your phone.
+  * showLeds() / createImage() input is a string -- an "image literal" or a normal string; if it is a normal string, some similar format should be followed
     . # -- ON 
     . . -- OFF
     . | -- end of row
@@ -62,7 +62,7 @@ DumbDisplayTurtle:
 - circle(radius: number) -- draw a circle
 - centeredCircle(radius: number) -- draw a circle with current position being the center
 - rectangle(width: number, height: number) -- draw a rectangle
-  . it is basically the same as
+  * it is simimlar to
     . forward(width)
     . left(90)
     . forward(height)
@@ -95,16 +95,15 @@ DumbDisplayTurtle:
 - clear() -- clear the screen
 - jumpHome() -- move to home (center of screen) without drawing 
 - jumpTo(x: number, y: number) -- go to a position on screen without drawing 
-- penFilled(fillPen: boolean) -- set whether pen filled (with fill color); note that when pen filled, drawn shape - penTextSize(size: number) -- set the size of text (the default pen text size depends on your phone setting)
-will be filled
+- penFilled(fillPen: boolean) -- set whether pen filled (with fill color); note that when pen filled,  drawn shape will be filled
+- penTextSize(size: number) -- set the size of text (the default pen text size depends on your phone setting)
 - layer() -- return the layer object to be used for some functions of DumbDisplay
 
 DumbDisplay:
 - powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true) -- if not explicitly called, powerUp() is automatically called when you setup DumbDisplayMB or DumbDisplayTurtle; however, you may want to call powerUp() before setting up layers in order to dictate more "power up" options
-  . enableBluetooth -- set to false so that Bluetooth is not used
+  * enableBluetooth -- set to false so that Bluetooth is not used
     . this will leave more memory for your program
-    . or this will leave Bluetooth for your own purpose
-  . enableSerial -- set to false so that Serial is not used, and you can freely make use of Serial
+  * enableSerial -- set to false so that Serial is not used, and you can freely make use of Serial
 - backgroundColorNum(color: number) -- set the background color of DumbDisplay with color number 
 - backgroundColor(color: number) -- set the background color of DumbDisplay with color name like "green", or a hex number (starting with "#")
 - toColor(r: number, g: number, b: number) -- turn RGB into color name that you can use, say to set LED color
@@ -112,6 +111,9 @@ DumbDisplay:
 - layerOpacity(layer: Layer, opacity: number) -- set the opacity of a layer (0 being totally transparent; 255 being total opaque)
 - removeLayer(layer: Layer) -- remove a layer; yes, you can setup the layer again 
 - writeSerial(msg: string) -- you can write something to the serial port and be shown to DumbDisplay terminal (on the phone side)
+
+Again, a reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
+
 
 
 Enjoy!
@@ -125,5 +127,5 @@ Change History
 --------------
 
 v0.0.2
-. working on it 
+.  
 
