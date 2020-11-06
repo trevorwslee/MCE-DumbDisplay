@@ -252,7 +252,7 @@ let small = true
 function initStandardTest() {
     ddmb.setup(5, 5)
     ddturtle.setup(189, 189)
-    dumbdisplay.backgroundColorNum(0xffffff)
+    //dumbdisplay.backgroundColorNum(0xffffff)
     ddmb.ledColor("#0aa00")
     ddmb.showIcon(IconNames.Heart)
     basic.pause(1000)
