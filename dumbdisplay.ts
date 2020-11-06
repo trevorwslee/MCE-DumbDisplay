@@ -27,17 +27,17 @@ namespace dumbdisplay {
         _reset_callback = callback
     }
 
-    //% block='set background color %color' 
-    //% color.shadow="colorNumberPicker"
-    //% group='Basic'
-    export function backgroundColorNum(color: number): void {
-        _sendCommand1("BGC", color.toString())
-    }
-    //% block='set background color %color' 
-    //% group='Basic'
-    export function backgroundColor(color: string): void {
-        _sendCommand1("BGC", color)
-    }
+    // //% block='set background color %color' 
+    // //% color.shadow="colorNumberPicker"
+    // //% group='Basic'
+    // export function backgroundColorNum(color: number): void {
+    //     _sendCommand1("BGC", color.toString())
+    // }
+    // //% block='set background color %color' 
+    // //% group='Basic'
+    // export function backgroundColor(color: string): void {
+    //     _sendCommand1("BGC", color)
+    // }
 
     //% block='power up with Bluetooth %enableBluetooth and Serial %enableSerial'
     //% advanced=true
