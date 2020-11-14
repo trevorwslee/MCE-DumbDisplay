@@ -131,10 +131,10 @@ v0.0.4
 - working on in
 
 v0.0.3 
-- working on it
+- bug fixes
 
 v0.0.2
-- minor changes
+- bug fixes
 
 v0.0.1
 - initial release
