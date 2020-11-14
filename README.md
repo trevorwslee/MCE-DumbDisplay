@@ -127,12 +127,13 @@ Change History
 --------------
 
 v0.0.3 
+- working on it
 
 v0.0.2
-. minor changes
+- minor changes
 
 v0.0.1
-. initial release
+- initial release
 
 
 
