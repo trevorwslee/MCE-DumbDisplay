@@ -127,8 +127,11 @@ Jesus loves you!
 Change History
 --------------
 
-v0.0.3 
+v0.0.4 
 - working on in
+
+v0.0.3 
+- bug fixes
 
 v0.0.2
 - bug fixes
