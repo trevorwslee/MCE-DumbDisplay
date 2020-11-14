@@ -11,7 +11,7 @@ let testRound = 0
 let img: ddmb.ddmbimage = null
 function initAdhocTest() {
     ddmb.setup(11, 7)
-    ddturtle.setup(50, 50)
+    ddturtle.setup(51, 51)
     ddturtle.bgColor("orange")
     // create an image to be used during adhoc test
     img = ddmb.createImage("#.#.#.#.#||.#.#.#")
@@ -48,9 +48,9 @@ function adhocTestRound() {
     ddturtle.penDown()
     ddturtle.forward(10)
     ddturtle.penSize(3)
-    ddturtle.forward(10)
-    ddturtle.circle(5)
-    ddturtle.penSize(0)
+    ddturtle.forward(8)
+    ddturtle.circle(4)
+    ddturtle.penSize(1)
     basic.pause(2000)
     ddturtle.clear()
     //
@@ -77,6 +77,8 @@ function adhocTestRound() {
     ddturtle.dot()
     ddturtle.goto(25, -25)
     ddturtle.dot()
+    ddturtle.home()
+    ddturtle.dot(3)
     basic.pause(2000)
     ddturtle.clear()
     //

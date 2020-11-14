@@ -212,12 +212,14 @@ namespace dumbdisplay {
                 basic.showIcon(IconNames.Heart)
             else
                 basic.showIcon(IconNames.Diamond)
-            basic.pause(500)
+            basic.pause(400)
+            if (_initialized) break    
             if (!connected())
                 basic.showIcon(IconNames.SmallHeart)
             else
                 basic.showIcon(IconNames.SmallDiamond)
             basic.pause(100)
+            if (_initialized) break    
             if (connected() && round % 2 == 0) {
                 _sendCommand1(INIT_COMMAND, DD_SID)
             }

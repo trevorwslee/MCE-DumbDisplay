@@ -9,7 +9,7 @@ You explode your creativity with a little help from this extension, and use Dumb
 
 You can install the free DumbDisplay app from Android Play Store. The app can accept connection via
 * Bluetooth LE -- which is relatively slow (and memory hungry)
-* USB (OTG) -- which is faster, but requires a wire
+* USB (OTG) -- which is faster, but requires a cable and OTG adaptor
 
 
 In a nutshell, this extension allows you to use DumbDisplay as a screen in place of the Micro:bit built-in screen
@@ -126,6 +126,13 @@ Jesus loves you!
 Change History
 --------------
 
+v0.0.3 
+
 v0.0.2
-. preparing for first release 
+. minor changes
+
+v0.0.1
+. initial release
+
+
 
