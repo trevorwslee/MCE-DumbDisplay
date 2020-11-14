@@ -9,13 +9,13 @@ You explode your creativity with a little help from this extension, and use Dumb
 
 You can install the free DumbDisplay app from Android Play Store. The app can accept connection via
 * Bluetooth LE -- which is relatively slow (and memory hungry)
-* USB (OTG) -- which is faster, but requires a cable and OTG adaptor
+* USB (OTG) -- which is faster, but requires a cable and an adaptor (OTG)
 
 
 In a nutshell, this extension allows you to use DumbDisplay as a screen in place of the Micro:bit built-in screen
 * customizable screen size
 * customizable LED color
-* many screen-related MakeCode Core like commands
+* many screen-related MakeCode Core-like commands
 * can mix with a Turtle layer using many Turtle-like commands
 
 To start with, you must setup DumbDisplay (DD) like
@@ -23,9 +23,9 @@ To start with, you must setup DumbDisplay (DD) like
 - DumbDisplayMB ddmb.setupLikeLocal() -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
 - DumbDisplayTurtle ddturtle.setup(300, 200) -- setup a DD screen layer with size 300x200
 - notes:
-  . you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
-  . setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
-  . at any time, if you want to start again, press the reset button on the back of your Micro:bit
+  ; you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
+  ; setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
+  ; at any time, if you want to start again, press the reset button on the back of your Micro:bit
 
 You largely do not need to use DumpDisplay package. Instead, you will mostly use DumbDisplayMB and/or DumbDisplayTurtle to render drawings on the corresponding layers.
 
@@ -107,10 +107,11 @@ DumbDisplay:
 - backgroundColorNum(color: number) -- set the background color of DumbDisplay with color number 
 - backgroundColor(color: number) -- set the background color of DumbDisplay with color name like "green", or a hex number (starting with "#")
 - toColor(r: number, g: number, b: number) -- turn RGB into color name that you can use, say to set LED color
+  * in fact, the "color name" is simply the combine of the 3 RBG numbers -- e.g. R 100, B 0, G 200, will become "100-0-200"  
 - layerVisible(layer: Layer, visible: boolean) -- set whether a layer is visible or not
 - layerOpacity(layer: Layer, opacity: number) -- set the opacity of a layer (0 being totally transparent; 255 being total opaque)
 - removeLayer(layer: Layer) -- remove a layer; yes, you can setup the layer again 
-- writeSerial(msg: string) -- you can write something to the serial port and be shown to DumbDisplay terminal (on the phone side)
+- writeSerial(msg: string) -- you can write some "comment" to the serial port and have that "comment" be sent to DumbDisplay terminal (on the phone side)
 
 Lastly, a friendly reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
 
@@ -127,12 +128,13 @@ Change History
 --------------
 
 v0.0.3 
+- working on in
 
 v0.0.2
-. minor changes
+- bug fixes
 
 v0.0.1
-. initial release
+- initial release
 
 
 
