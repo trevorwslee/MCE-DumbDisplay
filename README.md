@@ -22,20 +22,40 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 
 To start with, you must setup DumbDisplay (DD) like
 
-     ddmb.setup(5, 5)
-        basic.forever(function () {
-            ddmb.showIcon(IconNames.Heart)
-            basic.pause(1000)
-            ddmb.showIcon(IconNames.SmallHeart)
-        })
+    ddmb.setup(5, 5)
         
 - DumbDisplayMB ddmb.setup(15, 9) -- setup a DD screen layer similar to Micro:bit screen but with size 15x9
 - DumbDisplayMB ddmb.setupLikeLocal() -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
 - DumbDisplayTurtle ddturtle.setup(300, 200) -- setup a DD screen layer with size 300x200
-- notes:
+
+Then you can program something intresting, like
+
+    ddmb.setup(5, 5)
+    basic.forever(function () {
+        ddmb.showIcon(IconNames.Heart)
+        basic.pause(1000)
+        ddmb.showIcon(IconNames.SmallHeart)
+   })
+
+Or like
+
+     ddturtle.setup(100, 100)
+     ddmb.setup(5, 5)
+     dumbdisplay.layerOpacity(ddmb.layer(), 20)
+     basic.forever(function () {
+         ddmb.showIcon(IconNames.Heart)
+         ddturtle.circle(50)
+         ddturtle.right(20)
+         basic.pause(1000)
+         ddmb.showIcon(IconNames.SmallHeart)
+     })
+
+
+Notes:
   ; you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
   ; setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
   ; at any time, if you want to start again, press the reset button on the back of your Micro:bit
+
 
 You largely do not need to use DumpDisplay package. Instead, you will mostly use DumbDisplayMB and/or DumbDisplayTurtle to render drawings on the corresponding layers.
 
@@ -124,6 +144,7 @@ DumbDisplay:
 - `writeSerial(msg: string)` -- you can write some "comment" to the serial port and have that "comment" be sent to DumbDisplay terminal (on the phone side)
 
 A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
+
 
 
 
