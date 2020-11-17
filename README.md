@@ -21,6 +21,13 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 * can mix with a Turtle layer using many Turtle-like commands
 
 To start with, you must setup DumbDisplay (DD) like
+    ``` ddmb.setup(5, 5)
+        basic.forever(function () {
+            ddmb.showIcon(IconNames.Heart)
+            basic.pause(1000)
+            ddmb.showIcon(IconNames.SmallHeart)
+        })```
+
 - DumbDisplayMB ddmb.setup(15, 9) -- setup a DD screen layer similar to Micro:bit screen but with size 15x9
 - DumbDisplayMB ddmb.setupLikeLocal() -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
 - DumbDisplayTurtle ddturtle.setup(300, 200) -- setup a DD screen layer with size 300x200
