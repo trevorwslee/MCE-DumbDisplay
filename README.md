@@ -60,6 +60,7 @@ Or like
          ddturtle.right(20)
          basic.pause(1000)
          ddmb.showIcon(IconNames.SmallHeart)
+         basic.pause(1000)
      })
 
 
