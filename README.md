@@ -93,14 +93,14 @@ DumbDisplayTurtle:
 - `centeredCircle(radius: number)` -- draw a circle with current position being the center
 - `rectangle(width: number, height: number)` -- draw a rectangle
   * it is similar to
-        forward(width)
+     ```forward(width)
         left(90)
         forward(height)
         left(90)
         forward(width)
         left(90)
         forward(height)
-        left(90)
+        left(90)```
 - `centeredRectangle(width: number, height: number)` -- draw a rectangle with current position being the center
 - `triangle(side1: number, angle: number, side2: number)` -- draw a triangle given SAS (side1, angle, side2)    
 - `isoscelesTriangle(side: number, angle: number)` -- draw an isosceles triangle given side and angle
