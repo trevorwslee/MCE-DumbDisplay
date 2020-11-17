@@ -104,7 +104,7 @@ function adhocTestRound() {
     //
     ddturtle.jumpTo(-ddturtle.width() / 2, 0)
     ddturtle.penColor("green")
-    ddturtle.write("the end")
+    ddturtle.write("the, end")
     basic.pause(2000)
     //
     dumbdisplay.layerOpacity(ddmb.layer(), 255)
@@ -158,14 +158,14 @@ function adhocTestRound() {
     basic.pause(2000)
     ddmb.showNumber(888)
     basic.pause(3000)
-    ddmb.showString("BYE!")
+    ddmb.showString("bye, now")
     //
     for (let y = 0; y <= ddmb.maxY(); y++)
         ddmb.plot(3, y)
     basic.pause(1000)
     for (let y = ddmb.maxY(); y >= 0; y--)
         ddmb.unplot(3, y)
-    basic.pause(2000)
+    basic.pause(5000)
 }
 
 
