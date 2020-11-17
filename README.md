@@ -21,6 +21,14 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 * can mix with a Turtle layer using many Turtle-like commands
 
 To start with, you must setup DumbDisplay (DD) like
+    ```forward(width)
+       left(90)
+       forward(height)
+       left(90)
+       forward(width)
+       left(90)
+       forward(height)
+       left(90)```
      ```ddmb.setup(5, 5)
         basic.forever(function () {
             ddmb.showIcon(IconNames.Heart)
