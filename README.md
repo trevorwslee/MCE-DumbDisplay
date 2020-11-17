@@ -157,9 +157,9 @@ A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB
 
 Greeting from the author Trevor Lee:
 
-  Hope you can enjoy this little extension.
+>  Hope you can enjoy this little extension.
 
-  Be happy! Jesus loves you!
+>  Be happy! Jesus loves you!
 
 
 
