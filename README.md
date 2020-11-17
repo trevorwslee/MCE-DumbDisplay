@@ -40,7 +40,7 @@ To start with, you must setup DumbDisplay (DD) like
 
 
 
-Then you can program something intresting, like
+Then you can program something more intresting, like
 
     ddmb.setup(5, 5)
     basic.forever(function () {
