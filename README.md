@@ -12,8 +12,6 @@ DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen 
 
 You explode your creativity with a little help from this extension, and use DumbDisplay to realize an enhanced Micro:bit virtual screen on your Android phone.
 
-![Image of DumbDisplay Phone Deom](https://github.com/trevorwslee/MCExtension-DumbDisplay/blob/develop/screenshots/phone1.png)(https://github.com/trevorwslee/MCExtension-DumbDisplay/blob/develop/screenshots/phone2.png)
-
 
 You can install the free DumbDisplay app from Android Play Store -- https://play.google.com/store/apps/details?id=nobody.trevorlee.dumbdisplay
 
