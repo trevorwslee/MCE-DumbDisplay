@@ -14,6 +14,7 @@ The app can accept connection via
 * USB (OTG) -- which is faster, but requires a cable and an adaptor (OTG)
 
 
+
 ![Image of DumbDisplay MakeCode Extension](https://github.com/trevorwslee/MCExtension-DumbDisplay/blob/develop/screenshots/makecode.png)
 
 In a nutshell, this extension allows you to use DumbDisplay as a screen in place of the Micro:bit built-in screen
