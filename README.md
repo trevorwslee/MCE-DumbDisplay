@@ -35,7 +35,7 @@ Then you can program something intresting, like
         ddmb.showIcon(IconNames.Heart)
         basic.pause(1000)
         ddmb.showIcon(IconNames.SmallHeart)
-   })
+    })
 
 Or like
 
