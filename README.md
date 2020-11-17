@@ -22,20 +22,12 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 
 To start with, you must setup DumbDisplay (DD) like
 
-    ```forward(width)
-       left(90)
-       forward(height)
-       left(90)
-       forward(width)
-       left(90)
-       forward(height)
-       left(90)```
-     ```ddmb.setup(5, 5)
+     ddmb.setup(5, 5)
         basic.forever(function () {
             ddmb.showIcon(IconNames.Heart)
             basic.pause(1000)
             ddmb.showIcon(IconNames.SmallHeart)
-        })```
+        })
         
 - DumbDisplayMB ddmb.setup(15, 9) -- setup a DD screen layer similar to Micro:bit screen but with size 15x9
 - DumbDisplayMB ddmb.setupLikeLocal() -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
@@ -81,14 +73,14 @@ DumbDisplayTurtle:
 - `centeredCircle(radius: number)` -- draw a circle with current position being the center
 - `rectangle(width: number, height: number)` -- draw a rectangle
   * it is similar to
-    ```forward(width)
-       left(90)
-       forward(height)
-       left(90)
-       forward(width)
-       left(90)
-       forward(height)
-       left(90)```
+        forward(width)
+        left(90)
+        forward(height)
+        left(90)
+        forward(width)
+        left(90)
+        forward(height)
+        left(90)
 - `centeredRectangle(width: number, height: number)` -- draw a rectangle with current position being the center
 - `triangle(side1: number, angle: number, side2: number)` -- draw a triangle given SAS (side1, angle, side2)    
 - `isoscelesTriangle(side: number, angle: number)` -- draw an isosceles triangle given side and angle
