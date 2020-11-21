@@ -52,17 +52,17 @@ Then you can program something more intresting, like
 
 Or like
 
-     ddturtle.setup(100, 100)
-     ddmb.setup(5, 5)
-     dumbdisplay.layerOpacity(ddmb.layer(), 20)
-     basic.forever(function () {
-         ddmb.showIcon(IconNames.Heart)
-         ddturtle.circle(50)
-         ddturtle.right(20)
-         basic.pause(1000)
-         ddmb.showIcon(IconNames.SmallHeart)
-         basic.pause(1000)
-     })
+    ddturtle.setup(100, 100)
+    ddmb.setup(5, 5)
+    dumbdisplay.layerOpacity(ddmb.layer(), 20)
+    basic.forever(function () {
+        ddmb.showIcon(IconNames.Heart)
+        ddturtle.circle(50)
+        ddturtle.right(20)
+        basic.pause(1000)
+        ddmb.showIcon(IconNames.SmallHeart)
+        basic.pause(1000)
+    })
 
 
 You largely do not need to use DumpDisplay package. Instead, you will mostly use DumbDisplayMB and/or DumbDisplayTurtle to render drawings on the corresponding layers.
@@ -158,7 +158,7 @@ A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB
 
 Greeting from the author Trevor Lee:
 
->  Hope you can enjoy this little extension.
+>  Hope you will enjoy this little extension.
 >  Be happy! Jesus loves you!
 
 
