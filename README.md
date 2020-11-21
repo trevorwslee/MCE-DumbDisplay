@@ -35,9 +35,9 @@ To start with, you must setup DumbDisplay (DD) like
 - DumbDisplayMB `ddmb.setupLikeLocal()` -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
 - DumbDisplayTurtle `ddturtle.setup(300, 200)` -- setup a DD screen layer with size 300x200
 - notes:
-  ; you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
-  ; setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
-  ; at any time, if you want to start again, press the reset button on the back of your Micro:bit
+  * you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
+  * setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
+  * at any time, if you want to start again, press the reset button on the back of your Micro:bit
 
 
 
