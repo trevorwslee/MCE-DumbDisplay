@@ -84,10 +84,10 @@ DumbDisplayMB:
 - notes:
   * unless "setup like local", which will replicate most commands to local Micro:bit, the DumbDisplayMB commands will be brief; in other words, you get to control the timing how long something is shown. For example, the text "Hello World!" can take a little while for Basic.showString() to finish (since it will scroll the text), DumbDisplay.showString() virtual takes no time to finish; you use Basic.pause() to allow time for the string to scroll in DD virtual screen on your phone.
   * showLeds() / createImage() input is a string -- an "image literal" or a normal string; if it is a normal string, some similar format should be followed
-    ```. char # -- ON 
-       . char . -- OFF
-       . char | -- end of row
-       e.g. ".####.||||#....#" represents 5 rows, with 1st row being ".####." and last row being "#....#" 
+    - char `#` -- ON 
+    - char `.` -- OFF
+    - char `|` -- end of row
+    - e.g. `.####.||||#....#` represents 5 rows, with 1st row being `.####.` and last row being `#....#` 
 
 DumbDisplayTurtle:
 - `forward(distance: number)` -- move forward
