@@ -31,13 +31,13 @@ To start with, you must setup DumbDisplay (DD) like
 
     ddmb.setup(5, 5)
         
-- DumbDisplayMB ddmb.setup(15, 9) -- setup a DD screen layer similar to Micro:bit screen but with size 15x9
-- DumbDisplayMB ddmb.setupLikeLocal() -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
-- DumbDisplayTurtle ddturtle.setup(300, 200) -- setup a DD screen layer with size 300x200
+- DumbDisplayMB `ddmb.setup(15, 9)` -- setup a DD screen layer similar to Micro:bit screen but with size 15x9
+- DumbDisplayMB `ddmb.setupLikeLocal()` -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
+- DumbDisplayTurtle `ddturtle.setup(300, 200)` -- setup a DD screen layer with size 300x200
 - notes:
-  ; you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
-  ; setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
-  ; at any time, if you want to start again, press the reset button on the back of your Micro:bit
+  * you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
+  * setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
+  * at any time, if you want to start again, press the reset button on the back of your Micro:bit
 
 
 
@@ -68,15 +68,15 @@ Or like
 You largely do not need to use DumpDisplay package. Instead, you will mostly use DumbDisplayMB and/or DumbDisplayTurtle to render drawings on the corresponding layers.
 
 DumbDisplayMB:
-- `showIcon(name: IconNames)` -- similar to Basic
-- `showArrow(name: ArrowNames)` -- similar to Basic
-- `showString(str: string)` -- similar to Basic
-- `showNumber(num: number)` -- similar to Basic 
+- `showIcon(name: IconNames)` -- similar to `Basic`
+- `showArrow(name: ArrowNames)` -- similar to `Basic`
+- `showString(str: string)` -- similar to `Basic`
+- `showNumber(num: number)` -- similar to `Basic` 
 - `clearScreen()` -- similar to Basic
-- `plot(x: number, y: number)` -- similary to Led
-- `unplot(x: number, y: number)` -- similar to Led
-- `toggle(x: number, y: number)` -- similar to Led
-- `showLeds(leds: string)` -- similar to Led
+- `plot(x: number, y: number)` -- similary to `Led`
+- `unplot(x: number, y: number)` -- similar to `Led`
+- `toggle(x: number, y: number)` -- similar to `Led`
+- `showLeds(leds: string)` -- similar to `Led`
 - `ledColorNum(color: number)` -- set the color of the LEDs with a color number
 - `ledColor(color: string)` -- set the color of the LEDs with a normal color name like "green", or a hex number (starting with "#")
 - `createImage(leds: string)` / `showImage(offset: number)` / `scrollImage(offset: number, interval: number)` -- similar to Images
@@ -84,10 +84,10 @@ DumbDisplayMB:
 - notes:
   * unless "setup like local", which will replicate most commands to local Micro:bit, the DumbDisplayMB commands will be brief; in other words, you get to control the timing how long something is shown. For example, the text "Hello World!" can take a little while for Basic.showString() to finish (since it will scroll the text), DumbDisplay.showString() virtual takes no time to finish; you use Basic.pause() to allow time for the string to scroll in DD virtual screen on your phone.
   * showLeds() / createImage() input is a string -- an "image literal" or a normal string; if it is a normal string, some similar format should be followed
-    ; char # -- ON 
-    ; char . -- OFF
-    ; char | -- end of row
-    ; e.g. ".####.||||#....#" represents 5 rows, with 1st row being ".####." and last row being "#....#" 
+    - char `#` -- ON 
+    - char `.` -- OFF
+    - char `|` -- end of row
+    - e.g. `.####.||||#....#` represents 5 rows, with 1st row being `.####.` and last row being `#....#` 
 
 DumbDisplayTurtle:
 - `forward(distance: number)` -- move forward
@@ -139,9 +139,9 @@ DumbDisplayTurtle:
 
 DumbDisplay:
 - `powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true)` -- if not explicitly called, powerUp() is automatically called when you setup DumbDisplayMB or DumbDisplayTurtle; however, you may want to call powerUp() before setting up layers in order to dictate more "power up" options
-  * enableBluetooth -- set to false so that Bluetooth is not used
+  * `enableBluetooth` -- set to false so that Bluetooth is not used
     ; this will leave more memory for your program
-  * enableSerial -- set to false so that Serial is not used, and you can freely make use of Serial
+  * `enableSerial` -- set to false so that Serial is not used, and you can freely make use of Serial
 - `backgroundColorNum(color: number)` -- set the background color of DumbDisplay with color number 
 - `backgroundColor(color: number)` -- set the background color of DumbDisplay with color name like "green", or a hex number (starting with "#")
 - `toColor(r: number, g: number, b: number)` -- turn RGB into color name that you can use, say to set LED color
@@ -160,7 +160,6 @@ Greeting from the author Trevor Lee:
 
 >  Hope you can enjoy this little extension.
 >  Be happy! Jesus loves you!
-
 
 
 
