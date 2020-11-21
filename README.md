@@ -68,15 +68,15 @@ Or like
 You largely do not need to use DumpDisplay package. Instead, you will mostly use DumbDisplayMB and/or DumbDisplayTurtle to render drawings on the corresponding layers.
 
 DumbDisplayMB:
-- `showIcon(name: IconNames)` -- similar to Basic
-- `showArrow(name: ArrowNames)` -- similar to Basic
-- `showString(str: string)` -- similar to Basic
-- `showNumber(num: number)` -- similar to Basic 
+- `showIcon(name: IconNames)` -- similar to `Basic`
+- `showArrow(name: ArrowNames)` -- similar to `Basic`
+- `showString(str: string)` -- similar to `Basic`
+- `showNumber(num: number)` -- similar to `Basic` 
 - `clearScreen()` -- similar to Basic
-- `plot(x: number, y: number)` -- similary to Led
-- `unplot(x: number, y: number)` -- similar to Led
-- `toggle(x: number, y: number)` -- similar to Led
-- `showLeds(leds: string)` -- similar to Led
+- `plot(x: number, y: number)` -- similary to `Led`
+- `unplot(x: number, y: number)` -- similar to `Led`
+- `toggle(x: number, y: number)` -- similar to `Led`
+- `showLeds(leds: string)` -- similar to `Led`
 - `ledColorNum(color: number)` -- set the color of the LEDs with a color number
 - `ledColor(color: string)` -- set the color of the LEDs with a normal color name like "green", or a hex number (starting with "#")
 - `createImage(leds: string)` / `showImage(offset: number)` / `scrollImage(offset: number, interval: number)` -- similar to Images
@@ -139,9 +139,9 @@ DumbDisplayTurtle:
 
 DumbDisplay:
 - `powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true)` -- if not explicitly called, powerUp() is automatically called when you setup DumbDisplayMB or DumbDisplayTurtle; however, you may want to call powerUp() before setting up layers in order to dictate more "power up" options
-  * enableBluetooth -- set to false so that Bluetooth is not used
+  * `enableBluetooth` -- set to false so that Bluetooth is not used
     ; this will leave more memory for your program
-  * enableSerial -- set to false so that Serial is not used, and you can freely make use of Serial
+  * `enableSerial` -- set to false so that Serial is not used, and you can freely make use of Serial
 - `backgroundColorNum(color: number)` -- set the background color of DumbDisplay with color number 
 - `backgroundColor(color: number)` -- set the background color of DumbDisplay with color name like "green", or a hex number (starting with "#")
 - `toColor(r: number, g: number, b: number)` -- turn RGB into color name that you can use, say to set LED color
@@ -160,7 +160,6 @@ Greeting from the author Trevor Lee:
 
 >  Hope you can enjoy this little extension.
 >  Be happy! Jesus loves you!
-
 
 
 
