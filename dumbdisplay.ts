@@ -1,10 +1,13 @@
 
 //% color=#000077 icon="\uf14d" block="DumbDisplay"
-//% groups=['Setup', 'Basic', 'Math', 'Layer', "Advanced", "Experimental"]
+//% groups=['Setup', 'Basic', 'Math', 'Layer', 'Advanced', 'Experimental', 'Led Layer']
 namespace dumbdisplay {
 
     export const LAYER_TYPE_MB = "mb"
     export const LAYER_TYPE_TURTLE = "turtle"
+
+    export const LOG_CONNECTION = true
+    export const DEBUG_ON = true
 
     //% block
     //% group='Basic'
@@ -47,28 +50,42 @@ namespace dumbdisplay {
         _powerUp(enableWhat)
     }
 
-    //% block='set layer %layer visibility %visible'
-    //% group='Layer'
-    export function layerVisible(layer: Layer, visible: boolean) {
-        _sendCommand1(layer.layerId + ".visible", visible ? "1" : "0")
-    }
+    // //% block='set layer %layer visibility %visible'
+    // //% group='Layer'
+    // export function layerVisible(layer: Layer, visible: boolean) {
+    //     _sendCommand1(layer.layerId + ".visible", visible ? "1" : "0")
+    // }
  
-    //% block='set layer %layer opacity %opacity'
-    //% opacity.min=0 opacity.min=255 
-    //% group='Layer'
-    export function layerOpacity(layer: Layer, opacity: number) {
-        _sendCommand1(layer.layerId + ".opacity", opacity.toString())
-    }
+    // //% block='set layer %layer opacity %opacity'
+    // //% opacity.min=0 opacity.min=255 
+    // //% group='Layer'
+    // export function layerOpacity(layer: Layer, opacity: number) {
+    //     _sendCommand1(layer.layerId + ".opacity", opacity.toString())
+    // }
 
- 
-    
     //% block
     //% group='Layer'
     //% advanced=true
     export function removeLayer(layer: Layer) {
         _sendCommand0(layer.layerId + ".DEL")
     }
+    export function removeAllLayers() {
+        _sendCommand0("DELALL")
+    }
 
+
+    //% block='create a LED layer with %numRows row(s) and %numCols column(s) of LED(s)'
+    //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
+    //% group='Layer'
+    //% advanced=true
+    export function setupLedLayer(numRows: number = 1, numCols: number = 1): LedLayer {
+        let layerId = (_next_leyer_id++).toString()
+        _setup(layerId, "led", numRows, numCols)
+        // _sendPartCommand1(layerId + ".SU", "led")
+        // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
+        // _sendCommand0((NO_COMMAND_IN))
+        return new LedLayer(layerId)
+    }
 
     //% block
     //% advanced=true
@@ -95,6 +112,45 @@ namespace dumbdisplay {
     }
 
 
+    export class Layer {
+        public layerId: string
+        public constructor(layerId: string) {
+            this.layerId = layerId
+        }
+        //% block='set layer %layer visibility %visible'
+        //% group='Layer'
+        public layerVisible(visible: boolean) {
+            _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
+        }
+    
+        //% block='set layer %layer opacity %opacity'
+        //% opacity.min=0 opacity.min=255 
+        //% group='Layer'
+        public layerOpacity(opacity: number) {
+            _sendCommand1(this.layerId + ".opacity", opacity.toString())
+        }
+    }
+
+    export class LedLayer extends Layer {
+        public constructor(layerId: string) {
+            super(layerId)
+        }
+        //% block="turn led x %x y %y on"
+        //% advanced=true
+        //% group='Led Layer'
+        public ledOn(x: Number, y: Number) {
+            _sendCommand2(this.layerId + ".ledon", x.toString(), y.toString())
+        }
+        //% block="turn led x %x y %y off"
+        //% advanced=true
+        //% group='Led Layer'
+        public ledOff(x: Number, y: Number) {
+            _sendCommand2(this.layerId + ".ledoff", x.toString(), y.toString())
+        }
+    }
+
+
+
     const DD_SID = "Microbit"
     const INIT_COMMAND = ">init>"
     const ACK_INIT_COMMAND_DATA = "<init<\n"
@@ -103,20 +159,13 @@ namespace dumbdisplay {
     const NO_COMMAND_IN = ""
 
 
-    export class Layer {
-        public layerId: string
-        public constructor(layerId: string) {
-            this.layerId = layerId
-        }
-    }
-
     export class DDLayer {
         private layerId: string
         public constructor(layer: Layer) {
             this.layerId = layer.layerId
         }
         public setup(layerType: string, width: number, height: number) {
-            _powerUp(DEF_ENABLE_WHAT)
+            //_powerUp(DEF_ENABLE_WHAT)
             _setup(this.layerId, layerType, width, height)
         }
         public sendCommand0(cmd: string): boolean {
@@ -196,8 +245,11 @@ namespace dumbdisplay {
     let _initialized: boolean = false
     let _reset_callback: () => void
 
+    let _next_leyer_id = 3
+
 
     function _setup(layerId: string, layerType: string, width: number, height: number) {
+        _powerUp(DEF_ENABLE_WHAT)
         if (!connected())
             _connect()
         _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
@@ -208,10 +260,17 @@ namespace dumbdisplay {
         while (!_initialized) {
             if (!connected())
                 _ddconnect()
-            if (!connected())
+            if (!connected()) {
+                if (LOG_CONNECTION) {
+                    writeSerial("% ... connecting ...")
+                }
                 basic.showIcon(IconNames.Heart)
-            else
+            } else {
+                if (LOG_CONNECTION) {
+                    writeSerial("% ... hand shaking ...")
+                }
                 basic.showIcon(IconNames.Diamond)
+            }
             basic.pause(400)
             if (_initialized) break    
             if (!connected())
@@ -224,6 +283,9 @@ namespace dumbdisplay {
                 _sendCommand1(INIT_COMMAND, DD_SID)
             }
             round = round + 1
+        }
+        if (LOG_CONNECTION) {
+            writeSerial("% connection established")
         }
         basic.showIcon(IconNames.Yes)
     }
@@ -243,6 +305,9 @@ namespace dumbdisplay {
             },
             function () {
                 // disconnected
+                if (LOG_CONNECTION) {
+                    writeSerial("% disconnected")
+                }
                 if (INDICATE_DISCONNECT_RESET) {
                     basic.showIcon(IconNames.No)
                     basic.pause(500)

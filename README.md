@@ -135,7 +135,9 @@ DumbDisplayTurtle:
 - `jumpTo(x: number, y: number)` -- go to a position on screen without drawing 
 - `penFilled(fillPen: boolean)` -- set whether pen filled (with fill color); note that when pen filled,  drawn shape will be filled
 - `penTextSize(size: number)` -- set the size of text (the default pen text size depends on your phone setting)
-- `layer()` -- return the layer object to be used for some functions of DumbDisplay
+- `layer()` -- return the layer object
+  * "Layer"  object have some common operations
+  * can be used for some functions of DumbDisplay
 
 DumbDisplay:
 - `powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true)` -- if not explicitly called, powerUp() is automatically called when you setup DumbDisplayMB or DumbDisplayTurtle; however, you may want to call powerUp() before setting up layers in order to dictate more "power up" options
@@ -146,10 +148,13 @@ DumbDisplay:
 - `backgroundColor(color: number)` -- set the background color of DumbDisplay with color name like "green", or a hex number (starting with "#")
 - `toColor(r: number, g: number, b: number)` -- turn RGB into color name that you can use, say to set LED color
   * in fact, the "color name" is simply the combine of the 3 RBG numbers -- e.g. R 100, B 0, G 200, will become "100-0-200"  
-- `layerVisible(layer: Layer, visible: boolean)` -- set whether a layer is visible or not
-- `layerOpacity(layer: Layer, opacity: number)` -- set the opacity of a layer (0 being totally transparent; 255 being total opaque)
+transparent; 255 being total opaque)
 - `removeLayer(layer: Layer)` -- remove a layer; yes, you can setup the layer again 
-- `writeSerial(msg: string)` -- you can write some "comment" to the serial port and have that "comment" be sent to DumbDisplay terminal (on the phone side)
+- `writeSerial(msg: string)` -- you can write some "comment" to the serial port (which will not be harmful to DD operations)
+
+"Layer" operations:
+- `layerVisible(visible: boolean)` -- set whether a layer is visible or not
+- `layerOpacity(opacity: number)` -- set the opacity of a layer (0 being totally 
 
 A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
 

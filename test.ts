@@ -1,9 +1,21 @@
-let testNum = 0  // 0 means adhoc test first ... then ...
-                 // 1 means shape test first ... then ...
-                 // 2 means just the standard test
+let testNum = 0  // 0 means develop test first ... then ...
+                 // 1 means adhoc test first ... then ...
+                 // 2 means shape test first ... then ...
+                 // 3 means just the standard test
 
 
 let testRound = 0
+
+
+
+// *** Develop Test
+let ledLayer: dumbdisplay.LedLayer = null
+function initDevelopTest() {
+    ledLayer = dumbdisplay.setupLedLayer(2, 2)
+}
+function developTestRound() {
+    ledLayer.ledOn(0, 0)
+}
 
 
 // *** Adhoc Test
@@ -17,7 +29,8 @@ function initAdhocTest() {
     img = ddmb.createImage("#.#.#.#.#||.#.#.#")
 }
 function adhocTestRound() {
-    dumbdisplay.layerOpacity(ddmb.layer(), 128)
+    //dumbdisplay.layerOpacity(ddmb.layer(), 128)
+    ddmb.layer().layerOpacity(128)
     img.scrollImage(1, 500)
     //
     ddturtle.jumpHome()
@@ -107,7 +120,8 @@ function adhocTestRound() {
     ddturtle.write("the, end")
     basic.pause(2000)
     //
-    dumbdisplay.layerOpacity(ddmb.layer(), 255)
+//    dumbdisplay.layerOpacity(ddmb.layer(), 255)
+    ddmb.layer().layerOpacity(255)
     //
     ddmb.showArrow(ArrowNames.North)
     basic.pause(2000)
@@ -259,7 +273,8 @@ function initStandardTest() {
     ddmb.showIcon(IconNames.Heart)
     basic.pause(1000)
     ddmb.ledColor("skyblue")
-    dumbdisplay.layerOpacity(ddmb.layer(), 60)
+    //dumbdisplay.layerOpacity(ddmb.layer(), 60)
+    ddmb.layer().layerOpacity(60)
     if (true) {
         //ddturtle.jumpTo(-30, -73)
         ddturtle.penColor("blue")
@@ -301,21 +316,28 @@ function standardTestRound() {
 
 basic.forever(function () {
     if (testRound == 0) {
-        dumbdisplay.removeLayer(ddmb.layer())
-        dumbdisplay.removeLayer(ddturtle.layer())
+        dumbdisplay.removeAllLayers()
+        //dumbdisplay.removeLayer(ddmb.layer())
+        //dumbdisplay.removeLayer(ddturtle.layer())
         if (testNum == 0) {
-            initAdhocTest()
+            initDevelopTest()
         } else if (testNum == 1) {
+            initAdhocTest()
+        } else if (testNum == 2) {
             initShapeTest()
         } else {
             initStandardTest()
         }
     }
     if (testNum == 0) {
-        adhocTestRound()
+        developTestRound()
         testRound = -1
         testNum++
     } else if (testNum == 1) {
+        adhocTestRound()
+        testRound = -1
+        testNum++
+    } else if (testNum == 2) {
         shapeTestRound()
         if (testRound == 24) {
             testRound = -1

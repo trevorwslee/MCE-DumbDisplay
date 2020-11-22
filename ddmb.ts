@@ -1,6 +1,6 @@
 
 //% color=#770000 icon="\uf14d" block="DumbDisplay.MB"
-//% groups=['Setup', 'Basic', 'Led', 'Images', "Advanced", "Experimental"]
+//% groups=['Setup', 'Basic', 'Led', 'Images', 'Advanced', 'Experimental']
 namespace ddmb {
 
     //% block='setup width %width and height %height'
@@ -220,4 +220,12 @@ namespace ddmb {
 
 }
 
+
+// namespace dumbdisplay {
+//     export class LcdLayer extends Layer {
+//         public constructor(layerId: string) {
+//             super(layerId)
+//         }
+//     }
+// }
 
