@@ -355,11 +355,11 @@ namespace dumbdisplay {
     //% group='Layer'
     export function setupLedLayer(numRows: number = 1, numCols: number = 1): dumbdisplay.LedLayer {
         let layerId = (_next_leyer_id++).toString()
-        //_setup(layerId, "led", numRows, numCols)
+        _setup(layerId, "led", numRows, numCols)
         // _sendPartCommand1(layerId + ".SU", "led")
         // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
         // _sendCommand0((NO_COMMAND_IN))
-        return new dumbdisplay.LedLayer(layerId, numRows, numCols, numRows >= numCols)
+        return new dumbdisplay.LedLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
     }
     
 
@@ -367,6 +367,7 @@ namespace dumbdisplay {
     // **************
     // *** layers *** 
     // **************
+
 
     export class Layer {
         public layerId: string
@@ -389,12 +390,11 @@ namespace dumbdisplay {
     }
 
 
-
     let _next_leyer_id = 3
 
-    class DDLayer extends Layer {
+    export class DDLayer extends Layer {
         protected _ddHelper: dumbdisplay.DDHelper
-        public constructor(layerId: string) {
+        protected constructor(layerId: string) {
             super(layerId)
             this._ddHelper = new dumbdisplay.DDHelper(this)
         }
@@ -402,10 +402,10 @@ namespace dumbdisplay {
 
     export class LedLayer extends DDLayer {
         private horizontal: boolean
-        public constructor(layerId: string, numRows: number, numCols: number, horizontal: boolean) {
+        public constructor(layerId: string/*, numRows: number, numCols: number*/, horizontal: boolean) {
             super(layerId)
             this.horizontal = horizontal
-            this._ddHelper.setup("led", numRows, numCols)
+            //this._ddHelper.setup("led", numRows, numCols)
         }
         //% block='turn led x %x y %y ON'
         //% group='Led Layer'
@@ -429,7 +429,7 @@ namespace dumbdisplay {
             this._ddHelper.sendCommand1(cmd, count.toString())
         }
         //% block='set led ON color %color'
-        //% color.shadow="colorNumberPicker"
+        //  color.shadow="colorNumberPicker"
         //% group='Led Layer'
         public ledOnColorNum(color: number) {
             this._ddHelper.sendCommand1("ledoncolor", color.toString())
@@ -440,7 +440,7 @@ namespace dumbdisplay {
             this._ddHelper.sendCommand1("ledoncolor", color)
         }
         //% block='set led OFF color %color'
-        //% color.shadow="colorNumberPicker"
+        // color.shadow="colorNumberPicker"
         //% group='Led Layer'
         public ledOffColorNum (color: number) {
             this._ddHelper.sendCommand1("ledoffcolor", color.toString())

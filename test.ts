@@ -23,7 +23,7 @@ function developTestRound() {
                 else if (i == 1)
                     ledLayer.ledOff(x, y)
                 else
-                ledLayer.ledToggle(x, y)
+                    ledLayer.ledToggle(x, y)
                 basic.pause(500)
             }
         }
