@@ -110,7 +110,7 @@ namespace DumbDisplayCpp {
             }   
         }
     }
-    bool _startSendCommand(const char *cmd) {
+    bool _startSendCommand(const char *lid, const char *cmd) {
         if (LOG_TO_SERIAL_EX_2 && !_serialConnected) uBit.serial.printf("[%d^", _sender);
 #ifdef NO_CONCURRENT_SEND_COMMAND
         if (_sender > 0) {
@@ -125,7 +125,7 @@ namespace DumbDisplayCpp {
         }
         if (_sender > 0) {
             if (LOG_TO_SERIAL && !_serialConnected)
-                uBit.serial.printf("X%s", cmd);
+                uBit.serial.printf("X%s.%s", lid, cmd);
             return false;
         }
 #endif    
@@ -133,6 +133,10 @@ namespace DumbDisplayCpp {
             uBit.serial.printf("|");
         _sender++;
         _param_count = 0;
+        if (lid != NULL) {
+            _sendData(lid, false);
+            _sendData(".", false);
+        }
         _sendData(cmd, false);
         _sendData(":", false);
         return true;
@@ -154,12 +158,12 @@ namespace DumbDisplayCpp {
         return cmdIn;
     }
 
-    bool __sendCommand(const char *cmd, const char *param1, const char *param2, const char *param3, bool completed) {
+    bool __sendCommand(const char *lid, const char *cmd, const char *param1, const char *param2, const char *param3, bool completed) {
         if (LOG_TO_SERIAL_EX_2 && !_serialConnected && false) {
-            uBit.serial.printf("~%d~|%s|%s|%s|%d--", _sender, cmd, param1, param2, completed);
+            uBit.serial.printf("~%d~|%s.%s|%s|%s|%d--", _sender, lid, cmd, param1, param2, completed);
         }
         if (cmd != NULL) {
-            if (!_startSendCommand(cmd))
+            if (!_startSendCommand(lid, cmd))
                 return false;
         }
         if (_sender == 0)
@@ -184,52 +188,53 @@ namespace DumbDisplayCpp {
             _endSendCommand();
         return true;
     }
-    bool _sendCommand(String _cmd, String _param1, String _param2, String _param3, bool completed) {
+    bool _sendCommand(String _lid, String _cmd, String _param1, String _param2, String _param3, bool completed) {
+        const char *lid = _checkCmdIn(_lid);
         const char *cmd = _checkCmdIn(_cmd);
         const char *param1 = _checkCmdIn(_param1);
         const char *param2 =  _checkCmdIn(_param2);
         const char *param3 =  _checkCmdIn(_param3);
-        return __sendCommand(cmd, param1, param2, param3, completed);
+        return __sendCommand(lid, cmd, param1, param2, param3, completed);
     }    
 
     //%
-    bool sendCommand0(String cmd) {
-        return _sendCommand(cmd, NULL, NULL, NULL, true);
+    bool sendCommand0(String lid, String cmd) {
+        return _sendCommand(lid, cmd, NULL, NULL, NULL, true);
     }
 
     //%
-    bool sendCommand1(String cmd, String param) {
-        return _sendCommand(cmd, param, NULL, NULL, true);
+    bool sendCommand1(String lid, String cmd, String param) {
+        return _sendCommand(lid, cmd, param, NULL, NULL, true);
     }
 
     //%
-    bool sendCommand2(String cmd, String param1, String param2) {
-        return _sendCommand(cmd, param1, param2, NULL, true);
+    bool sendCommand2(String lid, String cmd, String param1, String param2) {
+        return _sendCommand(lid, cmd, param1, param2, NULL, true);
     }
 
     //%
-    bool sendCommand3(String cmd, String param1, String param2, String param3) {
-        return _sendCommand(cmd, param1, param2, param3, true);
+    bool sendCommand3(String lid, String cmd, String param1, String param2, String param3) {
+        return _sendCommand(lid, cmd, param1, param2, param3, true);
     }
 
     //%
-    bool sendPartCommand0(String cmd) {
-        return _sendCommand(cmd, NULL, NULL, NULL, false);
+    bool sendPartCommand0(String lid, String cmd) {
+        return _sendCommand(lid, cmd, NULL, NULL, NULL, false);
     }
 
     //%
-    bool sendPartCommand1(String cmd, String param) {
-        return _sendCommand(cmd, param, NULL, NULL, false);
+    bool sendPartCommand1(String lid, String cmd, String param) {
+        return _sendCommand(lid, cmd, param, NULL, NULL, false);
     }
 
     //%
-    bool sendPartCommand2(String cmd, String param1, String param2) {
-        return _sendCommand(cmd, param1, param2, NULL, false);
+    bool sendPartCommand2(String lid, String cmd, String param1, String param2) {
+        return _sendCommand(lid, cmd, param1, param2, NULL, false);
     }
 
     //%
-    bool sendPartCommand3(String cmd, String param1, String param2, String param3) {
-        return _sendCommand(cmd, param1, param2, param3, false);
+    bool sendPartCommand3(String lid, String cmd, String param1, String param2, String param3) {
+        return _sendCommand(lid, cmd, param1, param2, param3, false);
     }
 
     void _scanMbLedsToDims(String _leds, int& width, int& height) {
@@ -333,7 +338,7 @@ namespace DumbDisplayCpp {
         if (false) {
             uBit.serial.printf("// command: %s, %s, %s\n", wb, hb, buffer);
         }   
-        return __sendCommand(NULL, wb, hb, buffer, false);
+        return __sendCommand(NULL, NULL, wb, hb, buffer, false);
     }
 
 
@@ -410,12 +415,6 @@ namespace DumbDisplayCpp {
                 runAction1(_onReceive, (TValue) mkString(in.toCharArray()));
             }
         }
-    }
-
-
-    //%
-    void writeSerial(String comment) {
-        uBit.serial.printf("// %s\n", comment->getUTF8Data());
     }
 
 

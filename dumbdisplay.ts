@@ -67,10 +67,10 @@ namespace dumbdisplay {
     //% group='Layer'
     //% advanced=true
     export function removeLayer(layer: dumbdisplay.Layer) {
-        _sendCommand0(layer.layerId + ".DEL")
+        _sendCommand0(layer.layerId, "DEL")
     }
     export function removeAllLayers() {
-        _sendCommand0("DELALL")
+        _sendCommand0(NO_LAYER_ID_IN, "DELALL")
     }
 
 
@@ -155,6 +155,7 @@ namespace dumbdisplay {
     const ACK_INIT_COMMAND_DATA = "<init<\n"
     const RESET_REQUEST_DATA = "<reset?\n"
 
+    const NO_LAYER_ID_IN = ""
     const NO_COMMAND_IN = ""
 
     // export class Layer {
@@ -187,28 +188,28 @@ namespace dumbdisplay {
             _setup(this.layerId, layerType, width, height)
         }
         public sendCommand0(cmd: string): boolean {
-            return _sendCommand0(this.layerId + "." + cmd)
+            return _sendCommand0(this.layerId, cmd)
         }
         public sendCommand1(cmd: string, param: string): boolean {
-            return _sendCommand1(this.layerId + "." + cmd, param)
+            return _sendCommand1(this.layerId, cmd, param)
         }
         public sendCommand2(cmd: string, param1: string, param2: string): boolean {
-            return _sendCommand2(this.layerId + "." + cmd, param1, param2)
+            return _sendCommand2(this.layerId, cmd, param1, param2)
         }
         public sendCommand3(cmd: string, param1: string, param2: string, param3: string): boolean {
-            return _sendCommand3(this.layerId + "." + cmd, param1, param2, param3)
+            return _sendCommand3(this.layerId, cmd, param1, param2, param3)
         }
         public beginSendCommand(cmd: string): boolean {
-            return _sendPartCommand0(this.layerId + "." + cmd)
+            return _sendPartCommand0(this.layerId , cmd)
         }
         public endSendCommand(): boolean {
-            return _sendCommand0(NO_COMMAND_IN)
+            return _sendCommand0(NO_LAYER_ID_IN, NO_COMMAND_IN)
         }
         public partSendCommand1(param: string): boolean {
-            return _sendPartCommand1(NO_COMMAND_IN, param)
+            return _sendPartCommand1(NO_LAYER_ID_IN, NO_COMMAND_IN, param)
         }
         public partSendCommand2(param1: string, param2: string): boolean {
-            return _sendPartCommand2(NO_COMMAND_IN, param1, param2)
+            return _sendPartCommand2(NO_LAYER_ID_IN, NO_COMMAND_IN, param1, param2)
         }
         public partSendCommandMbLeds(mbLeds: string/*, width: number, height: number*/): boolean {
             return _sendPartCommandMbLeds(mbLeds, -1, -1)
@@ -227,31 +228,31 @@ namespace dumbdisplay {
     function _ddconnect() {
     }
     //% shim=DumbDisplayCpp::sendCommand0
-    function _sendCommand0(cmd: string): boolean {
+    function _sendCommand0(lid: String, cmd: string): boolean {
         return true//ddmb.toggle(0, 0)
     }
     //% shim=DumbDisplayCpp::sendCommand1
-    function _sendCommand1(cmd: string, param: string): boolean {
+    function _sendCommand1(lid: String, cmd: string, param: string): boolean {
         return true 
     }
     //% shim=DumbDisplayCpp::sendCommand2
-    function _sendCommand2(cmd: string, param1: string, param2: string): boolean {
+    function _sendCommand2(lid: String, cmd: string, param1: string, param2: string): boolean {
         return true
     }
     //% shim=DumbDisplayCpp::sendCommand3
-    function _sendCommand3(cmd: string, param1: string, param2: string, param3: string): boolean {
+    function _sendCommand3(lid: String, cmd: string, param1: string, param2: string, param3: string): boolean {
         return true
     }
     //% shim=DumbDisplayCpp::sendPartCommand0
-    function _sendPartCommand0(cmd: string): boolean {
+    function _sendPartCommand0(lid: String, cmd: string): boolean {
         return true
     }
     //% shim=DumbDisplayCpp::sendPartCommand1
-    function _sendPartCommand1(cmd: string, param: string): boolean {
+    function _sendPartCommand1(lid: String, cmd: string, param: string): boolean {
         return true
     }
     //% shim=DumbDisplayCpp::sendPartCommand2
-    function _sendPartCommand2(cmd: string, param1: string, param2: string): boolean {
+    function _sendPartCommand2(lid: String, cmd: string, param1: string, param2: string): boolean {
         return true
     }
     //% shim=DumbDisplayCpp::sendPartCommandMbLeds
@@ -269,7 +270,7 @@ namespace dumbdisplay {
         _powerUp(DEF_ENABLE_WHAT)
         if (!connected())
             _connect()
-        _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
+        _sendCommand3(layerId, "SU", layerType, width.toString(), height.toString())
         if (LOG_CONNECTION) {
             writeSerial("% setup layer " + layerId + "." + layerType)
         }
@@ -303,7 +304,7 @@ namespace dumbdisplay {
             basic.pause(100)
             if (_initialized) break    
             if (connected() && round % 2 == 0) {
-                _sendCommand1(INIT_COMMAND, DD_SID)
+                _sendCommand1(NO_LAYER_ID_IN, INIT_COMMAND, DD_SID)
             }
             round = round + 1
         }
@@ -386,31 +387,31 @@ namespace dumbdisplay {
         //% block='set %this(myLayer) layer visibility %visible'
         //% group='Layer'
         public layerVisible(visible: boolean) {
-            _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
+            _sendCommand1(this.layerId, "visible", visible ? "1" : "0")
             //dumbdisplay.layerVisible(this, visible)
         }
         //% block='set %this(myLayer) layer opacity %opacity'
         //% opacity.min=0 opacity.max=255 
         //% group='Layer'
         public layerOpacity(opacity: number) {
-            _sendCommand1(this.layerId + ".opacity", opacity.toString())
+            _sendCommand1(this.layerId, "opacity", opacity.toString())
             //dumbdisplay.layerOpacity(this, opacity)
         }
         //% block='set %this(myLayer) layer background color %color'
         //% color.shadow="colorNumberPicker"
         //% group='Layer'
         public layerBackgroundColorNum(color: number) {
-            _sendCommand1(this.layerId + ".backgroundcolor", color.toString())
+            _sendCommand1(this.layerId, "backgroundcolor", color.toString())
         }
         //% block='set %this(myLayer) layer background color %color'
         //% group='Layer'
         public layerBackgroundColor(color: string) {
-            _sendCommand1(this.layerId + ".backgroundcolor", color)
+            _sendCommand1(this.layerId, "backgroundcolor", color)
         }
         //% block='set %this(myLayer) layer no background color'
         //% group='Layer'
         public layerNoBackgroundColor() {
-            _sendCommand0(this.layerId + ".backgroundcolor")
+            _sendCommand0(this.layerId, "backgroundcolor")
         }
         // //% block
         // //% group='Layer'
