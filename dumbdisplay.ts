@@ -6,8 +6,8 @@ namespace dumbdisplay {
     export const LAYER_TYPE_MB = "mb"
     export const LAYER_TYPE_TURTLE = "turtle"
 
-    export const LOG_CONNECTION = true
-    export const DEBUG_ON = true
+    const LOG_CONNECTION = true     
+    const DEBUG_ON = false
 
     //% block
     //% group='Basic'
@@ -269,10 +269,10 @@ namespace dumbdisplay {
         _powerUp(DEF_ENABLE_WHAT)
         if (!connected())
             _connect()
+        _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
         if (LOG_CONNECTION) {
             writeSerial("% setup layer " + layerId + "." + layerType)
         }
-        _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
     }
 
     function _connect() {
@@ -320,10 +320,7 @@ namespace dumbdisplay {
     function _powerUp(enableWhat: number) {
         if (_poweredUp)
             return
-        if (LOG_CONNECTION) {
-            writeSerial("% power up")
-        }
-            _poweredUp = true
+         _poweredUp = true
         _ddinit(
             enableWhat,
             function () {
@@ -356,7 +353,10 @@ namespace dumbdisplay {
                     control.reset()
                 }
             }
-        );
+        )
+        if (LOG_CONNECTION) {
+            writeSerial("% power up")
+        }
     }
 
     //% block='create a LED layer with %numRows row(s) and %numCols column(s)'

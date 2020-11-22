@@ -330,8 +330,13 @@ function standardTestRound() {
 basic.forever(function () {
     if (testRound == 0) {
         dumbdisplay.removeAllLayers()
-        //dumbdisplay.removeLayer(ddmb.layer())
-        //dumbdisplay.removeLayer(ddturtle.layer())
+        // if (ledLayer != null)
+        //     dumbdisplay.removeLayer(ledLayer)
+        // dumbdisplay.removeLayer(ddmb.layer())
+        // dumbdisplay.removeLayer(ddturtle.layer())
+        ledLayer = null
+        img = null
+        dumbdisplay.writeSerial("testing " + testNum)
         if (testNum == 0) {
             initDevelopTest()
         } else if (testNum == 1) {

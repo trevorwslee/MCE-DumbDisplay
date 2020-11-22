@@ -414,6 +414,12 @@ namespace DumbDisplayCpp {
 
 
     //%
+    void writeSerial(String comment) {
+        uBit.serial.printf("// %s\n", comment->getUTF8Data());
+    }
+
+
+    //%
     void ddconnect() {
         uBit.serial.printf("ddhello\n");
     }
