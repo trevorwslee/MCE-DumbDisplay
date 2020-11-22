@@ -9,12 +9,20 @@ let testRound = 0
 
 
 // *** Develop Test
-let ledLayer: dumbdisplay.LedLayer = null
+let ledLayer: ddlayers.LedLayer = null
 function initDevelopTest() {
     ledLayer = dumbdisplay.setupLedLayer(2, 2)
+    ledLayer.ledOnColor("green")
 }
 function developTestRound() {
     ledLayer.ledOn(0, 0)
+    basic.pause(500)
+    ledLayer.ledOn(0, 1)
+    basic.pause(500)
+    ledLayer.ledOn(1, 0)
+    basic.pause(500)
+    ledLayer.ledOn(1, 1)
+    basic.pause(500)
 }
 
 

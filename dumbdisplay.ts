@@ -78,13 +78,13 @@ namespace dumbdisplay {
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
     //% group='Layer'
     //% advanced=true
-    export function setupLedLayer(numRows: number = 1, numCols: number = 1): LedLayer {
+    export function setupLedLayer(numRows: number = 1, numCols: number = 1): ddlayers.LedLayer {
         let layerId = (_next_leyer_id++).toString()
         _setup(layerId, "led", numRows, numCols)
         // _sendPartCommand1(layerId + ".SU", "led")
         // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
         // _sendCommand0((NO_COMMAND_IN))
-        return new LedLayer(layerId)
+        return new ddlayers.LedLayer(layerId, numRows >= numCols)
     }
 
     //% block
@@ -131,23 +131,23 @@ namespace dumbdisplay {
         }
     }
 
-    export class LedLayer extends Layer {
-        public constructor(layerId: string) {
-            super(layerId)
-        }
-        //% block="turn led x %x y %y on"
-        //% advanced=true
-        //% group='Led Layer'
-        public ledOn(x: Number, y: Number) {
-            _sendCommand2(this.layerId + ".ledon", x.toString(), y.toString())
-        }
-        //% block="turn led x %x y %y off"
-        //% advanced=true
-        //% group='Led Layer'
-        public ledOff(x: Number, y: Number) {
-            _sendCommand2(this.layerId + ".ledoff", x.toString(), y.toString())
-        }
-    }
+    // export class LedLayer extends Layer {
+    //     public constructor(layerId: string) {
+    //         super(layerId)
+    //     }
+    //     //% block="turn led x %x y %y on"
+    //     //% advanced=true
+    //     //% group='Led Layer'
+    //     public ledOn(x: Number, y: Number) {
+    //         _sendCommand2(this.layerId + ".ledon", x.toString(), y.toString())
+    //     }
+    //     //% block="turn led x %x y %y off"
+    //     //% advanced=true
+    //     //% group='Led Layer'
+    //     public ledOff(x: Number, y: Number) {
+    //         _sendCommand2(this.layerId + ".ledoff", x.toString(), y.toString())
+    //     }
+    // }
 
 
 
@@ -159,7 +159,7 @@ namespace dumbdisplay {
     const NO_COMMAND_IN = ""
 
 
-    export class DDLayer {
+    export class DDHelper {
         private layerId: string
         public constructor(layer: Layer) {
             this.layerId = layer.layerId
