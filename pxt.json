@@ -10,7 +10,6 @@
         "dumbdisplay.ts",
         "ddmb.ts",
         "ddturtle.ts",
-        "ddlayers.ts",
         "dumbdisplay.cpp"
     ],
     "testFiles": [

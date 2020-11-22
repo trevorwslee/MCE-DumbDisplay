@@ -9,9 +9,9 @@ let testRound = 0
 
 
 // *** Develop Test
-let ledLayer: ddlayers.LedLayer = null
+let ledLayer: dumbdisplay.LedLayer = null
 function initDevelopTest() {
-    ledLayer = ddlayers.setupLedLayer(2, 2)
+    ledLayer = dumbdisplay.setupLedLayer(2, 2)
     ledLayer.ledOnColor("green")
 }
 function developTestRound() {
@@ -133,7 +133,7 @@ function adhocTestRound() {
     ddturtle.write("the, end")
     basic.pause(2000)
     //
-//    dumbdisplay.layerOpacity(ddmb.layer(), 255)
+    //dumbdisplay.layerOpacity(ddmb.layer(), 255)
     ddmb.layer().layerOpacity(255)
     //
     ddmb.showArrow(ArrowNames.North)

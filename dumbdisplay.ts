@@ -52,21 +52,21 @@ namespace dumbdisplay {
 
     // //% block='set layer %layer visibility %visible'
     // //% group='Layer'
-    // export function layerVisible(layer: Layer, visible: boolean) {
+    // export function layerVisible(layer: dumbdisplay.Layer, visible: boolean) {
     //     _sendCommand1(layer.layerId + ".visible", visible ? "1" : "0")
     // }
  
     // //% block='set layer %layer opacity %opacity'
     // //% opacity.min=0 opacity.min=255 
     // //% group='Layer'
-    // export function layerOpacity(layer: Layer, opacity: number) {
+    // export function layerOpacity(layer: dumbdisplay.Layer, opacity: number) {
     //     _sendCommand1(layer.layerId + ".opacity", opacity.toString())
     // }
 
     //% block
     //% group='Layer'
     //% advanced=true
-    export function removeLayer(layer: Layer) {
+    export function removeLayer(layer: dumbdisplay.Layer) {
         _sendCommand0(layer.layerId + ".DEL")
     }
     export function removeAllLayers() {
@@ -157,29 +157,29 @@ namespace dumbdisplay {
 
     const NO_COMMAND_IN = ""
 
-    export class Layer {
-        public layerId: string
-        public constructor(layerId: string) {
-            this.layerId = layerId
-        }
-        //% block='set layer %layer visibility %visible'
-        //% group='Layer'
-        public layerVisible(visible: boolean) {
-            _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
-        }
+    // export class Layer {
+    //     public layerId: string
+    //     public constructor(layerId: string) {
+    //         this.layerId = layerId
+    //     }
+    //     //% block='set layer %layer visibility %visible'
+    //     //% group='Layer'
+    //     public layerVisible(visible: boolean) {
+    //         _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
+    //     }
     
-        //% block='set layer %layer opacity %opacity'
-        //% opacity.min=0 opacity.min=255 
-        //% group='Layer'
-        public layerOpacity(opacity: number) {
-            _sendCommand1(this.layerId + ".opacity", opacity.toString())
-        }
-    }
+    //     //% block='set layer %layer opacity %opacity'
+    //     //% opacity.min=0 opacity.min=255 
+    //     //% group='Layer'
+    //     public layerOpacity(opacity: number) {
+    //         _sendCommand1(this.layerId + ".opacity", opacity.toString())
+    //     }
+    // }
 
 
     export class DDHelper {
         private layerId: string
-        public constructor(layer: Layer) {
+        public constructor(layer: dumbdisplay.Layer) {
             this.layerId = layer.layerId
         }
         public setup(layerType: string, width: number, height: number) {
@@ -260,12 +260,11 @@ namespace dumbdisplay {
     }
 
 
+
     let _initialized: boolean = false
     let _reset_callback: () => void
 
-    //let _next_leyer_id = 3
-
-
+ 
     function _setup(layerId: string, layerType: string, width: number, height: number) {
         _powerUp(DEF_ENABLE_WHAT)
         if (!connected())
@@ -274,6 +273,9 @@ namespace dumbdisplay {
     }
 
     function _connect() {
+        if (LOG_CONNECTION) {
+            writeSerial("% establish connection ...")
+        }
         let round = 0
         while (!_initialized) {
             if (!connected())
@@ -303,7 +305,7 @@ namespace dumbdisplay {
             round = round + 1
         }
         if (LOG_CONNECTION) {
-            writeSerial("% connection established")
+            writeSerial("% ... connection established")
         }
         basic.showIcon(IconNames.Yes)
     }
@@ -348,64 +350,107 @@ namespace dumbdisplay {
         );
     }
 
-    // class DDLayer extends dumbdisplay.Layer {
-    //     protected _ddHelper: dumbdisplay.DDHelper
-    //     public constructor(layerId: string) {
-    //         super(layerId)
-    //         this._ddHelper = new dumbdisplay.DDHelper(this)
-    //     }
-    // }
+    //% block='create a LED layer with %numRows row(s) and %numCols column(s)'
+    //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
+    //% group='Layer'
+    export function setupLedLayer(numRows: number = 1, numCols: number = 1): dumbdisplay.LedLayer {
+        let layerId = (_next_leyer_id++).toString()
+        //_setup(layerId, "led", numRows, numCols)
+        // _sendPartCommand1(layerId + ".SU", "led")
+        // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
+        // _sendCommand0((NO_COMMAND_IN))
+        return new dumbdisplay.LedLayer(layerId, numRows, numCols, numRows >= numCols)
+    }
+    
 
-    // export class LedLayer extends DDLayer {
-    //     private horizontal: boolean
-    //     public constructor(layerId: string, horizontal: boolean) {
-    //         super(layerId)
-    //         this.horizontal = horizontal
-    //     }
-    //     //% block='turn led x %x y %y ON'
-    //     //% group='Led Layer'
-    //     public ledOn(x: number = 0, y: number = 0) {
-    //         this._ddHelper.sendCommand2("ledon", x.toString(), y.toString())
-    //     }
-    //     //% block='turn led x %x y %y OFF'
-    //     //% group='Led Layer'
-    //     public ledOff(x: number = 0, y: number = 0) {
-    //         this._ddHelper.sendCommand2("ledoff", x.toString(), y.toString())
-    //     }
-    //     //% block='toggle led x %x y %y'
-    //     //% group='Led Layer'
-    //     public ledToggle(x: number = 0, y: number = 0) {
-    //         this._ddHelper.sendCommand2("ledtoggle", x.toString(), y.toString())
-    //     }
-    //     //% block='turn on %ledNums led(s) like a bar'
-    //     //% group='Led Layer'
-    //     public ledBar(ledNums: number) {
-    //         let cmd = this.horizontal ? "ledhoribar" : "ledvertbar"
-    //         this._ddHelper.sendCommand1(cmd, ledNums.toString())
-    //     }
-    //     //% block='set led ON color %color'
-    //     //% color.shadow="colorNumberPicker"
-    //     //% group='Led Layer'
-    //     public ledOnColorNum(color: number) {
-    //         this._ddHelper.sendCommand1("ledoncolor", color.toString())
-    //     }
-    //     //% block='set led ON color %color'
-    //     //% group='Led Layer'
-    //     public ledOnColor(color: string) {
-    //         this._ddHelper.sendCommand1("ledoncolor", color)
-    //     }
-    //     //% block='set led OFF color %color'
-    //     //% color.shadow="colorNumberPicker"
-    //     //% group='Led Layer'
-    //     public ledOffColorNum (color: number) {
-    //         this._ddHelper.sendCommand1("ledoffcolor", color.toString())
-    //     }
-    //     //% block='set led OFF color %color'
-    //     //% group='Led Layer'
-    //     public ledOffColor(color: string) {
-    //         this._ddHelper.sendCommand1("ledoffcolor", color)
-    //     }
-    // }
+
+    // **************
+    // *** layers *** 
+    // **************
+
+    export class Layer {
+        public layerId: string
+        public constructor(layerId: string) {
+            this.layerId = layerId
+        }
+        //% block='set layer %layer visibility %visible'
+        //% group='Layer'
+        public layerVisible(visible: boolean) {
+            _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
+            //dumbdisplay.layerVisible(this, visible)
+        }
+        //% block='set layer %layer opacity %opacity'
+        //% opacity.min=0 opacity.min=255 
+        //% group='Layer'
+        public layerOpacity(opacity: number) {
+            _sendCommand1(this.layerId + ".opacity", opacity.toString())
+            //dumbdisplay.layerOpacity(this, opacity)
+        }
+    }
+
+
+
+    let _next_leyer_id = 3
+
+    class DDLayer extends Layer {
+        protected _ddHelper: dumbdisplay.DDHelper
+        public constructor(layerId: string) {
+            super(layerId)
+            this._ddHelper = new dumbdisplay.DDHelper(this)
+        }
+    }
+
+    export class LedLayer extends DDLayer {
+        private horizontal: boolean
+        public constructor(layerId: string, numRows: number, numCols: number, horizontal: boolean) {
+            super(layerId)
+            this.horizontal = horizontal
+            this._ddHelper.setup("led", numRows, numCols)
+        }
+        //% block='turn led x %x y %y ON'
+        //% group='Led Layer'
+        public ledOn(x: number = 0, y: number = 0) {
+            this._ddHelper.sendCommand2("ledon", x.toString(), y.toString())
+        }
+        //% block='turn led x %x y %y OFF'
+        //% group='Led Layer'
+        public ledOff(x: number = 0, y: number = 0) {
+            this._ddHelper.sendCommand2("ledoff", x.toString(), y.toString())
+        }
+        //% block='toggle led x %x y %y'
+        //% group='Led Layer'
+        public ledToggle(x: number = 0, y: number = 0) {
+            this._ddHelper.sendCommand2("ledtoggle", x.toString(), y.toString())
+        }
+        //% block='turn on %count led(s) like a bar'
+        //% group='Led Layer'
+        public ledBar(count: number) {
+            let cmd = this.horizontal ? "ledhoribar" : "ledvertbar"
+            this._ddHelper.sendCommand1(cmd, count.toString())
+        }
+        //% block='set led ON color %color'
+        //% color.shadow="colorNumberPicker"
+        //% group='Led Layer'
+        public ledOnColorNum(color: number) {
+            this._ddHelper.sendCommand1("ledoncolor", color.toString())
+        }
+        //% block='set led ON color %color'
+        //% group='Led Layer'
+        public ledOnColor(color: string) {
+            this._ddHelper.sendCommand1("ledoncolor", color)
+        }
+        //% block='set led OFF color %color'
+        //% color.shadow="colorNumberPicker"
+        //% group='Led Layer'
+        public ledOffColorNum (color: number) {
+            this._ddHelper.sendCommand1("ledoffcolor", color.toString())
+        }
+        //% block='set led OFF color %color'
+        //% group='Led Layer'
+        public ledOffColor(color: string) {
+            this._ddHelper.sendCommand1("ledoffcolor", color)
+        }
+    }
 
 }
 
