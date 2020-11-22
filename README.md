@@ -82,8 +82,8 @@ DumbDisplayMB:
 - `createImage(leds: string)` / `showImage(offset: number)` / `scrollImage(offset: number, interval: number)` -- similar to Images
 - `layer()` -- return the layer object to be used for some functions of DumbDisplay
 - notes:
-  * unless "setup like local", which will replicate most commands to local Micro:bit, the DumbDisplayMB commands will be brief; in other words, you get to control the timing how long something is shown. For example, the text "Hello World!" can take a little while for Basic.showString() to finish (since it will scroll the text), DumbDisplay.showString() virtual takes no time to finish; you use Basic.pause() to allow time for the string to scroll in DD virtual screen on your phone.
-  * showLeds() / createImage() input is a string -- an "image literal" or a normal string; if it is a normal string, some similar format should be followed
+  * unless "setup like local", which will replicate most commands to local Micro:bit, the DumbDisplayMB commands will be brief; in other words, you get to control the timing how long something is shown. For example, the text "Hello World!" can take a little while for `basic.showString()` to finish (since it will scroll the text), `ddmb.showString()` virtual takes no time to finish; you use `basic.pause()` to allow time for the string to scroll in DD virtual screen on your phone.
+  * `showLeds()` / `createImage()` input is a string -- an "image literal" or a normal string; if it is a normal string, some similar format should be followed
     - char `#` -- ON 
     - char `.` -- OFF
     - char `|` -- end of row
@@ -144,8 +144,6 @@ DumbDisplay:
   * `enableBluetooth` -- set to false so that Bluetooth is not used
     ; this will leave more memory for your program
   * `enableSerial` -- set to false so that Serial is not used, and you can freely make use of Serial
-- `backgroundColorNum(color: number)` -- set the background color of DumbDisplay with color number 
-- `backgroundColor(color: number)` -- set the background color of DumbDisplay with color name like "green", or a hex number (starting with "#")
 - `toColor(r: number, g: number, b: number)` -- turn RGB into color name that you can use, say to set LED color
   * in fact, the "color name" is simply the combine of the 3 RBG numbers -- e.g. R 100, B 0, G 200, will become "100-0-200"  
 transparent; 255 being total opaque)
@@ -155,6 +153,9 @@ transparent; 255 being total opaque)
 "Layer" operations:
 - `layerVisible(visible: boolean)` -- set whether a layer is visible or not
 - `layerOpacity(opacity: number)` -- set the opacity of a layer (0 being totally 
+- `layerBackgroundColorNum(color: number)` -- set the background color of a layer with color number 
+- `layerBackgroundColor(color: number)` -- set the background color of a layer with color name like "green", or a hex number (starting with "#")
+- `layerNoBackgroundColor()` -- set the background of a layer to no color (i.e. transparent) 
 
 A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
 
