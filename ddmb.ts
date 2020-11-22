@@ -3,7 +3,7 @@
 //% groups=['Setup', 'Basic', 'Led', 'Images', 'Advanced', 'Experimental']
 namespace ddmb {
 
-    //% block='setup width %width and height %height'
+    //% block='setup MB layer width %width and height %height'
     //% width.min=5 width.defl=5 height.min=5 height.defl=5
     //% group='Setup'
     export function setup(width: number, height: number) {
@@ -13,7 +13,7 @@ namespace ddmb {
     }
 
 
-    //% block='setup like local micro:bit'
+    //% block='setup MB layer like local micro:bit'
     //% group='Setup'
     export function setupLikeLocal() {
         _also_output_to_screen = false

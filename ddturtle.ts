@@ -2,7 +2,7 @@
 //% groups=['Setup', 'Movement', 'Drawing', 'Setting', 'Advanced', 'Experimental']
 namespace ddturtle {
 
-    //% block='setup width %width and height %height'
+    //% block='setup Turtle layer width %width and height %height'
     //% group='Setup'
     //% width.min=5 width.defl=50 height.min=5 height.defl=50 
     //% weight=100

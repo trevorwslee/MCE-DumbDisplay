@@ -374,18 +374,34 @@ namespace dumbdisplay {
         public constructor(layerId: string) {
             this.layerId = layerId
         }
-        //% block='set layer %layer visibility %visible'
+        //% block='set %this(myLayer) layer visibility %visible'
         //% group='Layer'
         public layerVisible(visible: boolean) {
             _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
             //dumbdisplay.layerVisible(this, visible)
         }
-        //% block='set layer %layer opacity %opacity'
+        //% block='set %this(myLayer) layer opacity %opacity'
         //% opacity.min=0 opacity.min=255 
         //% group='Layer'
         public layerOpacity(opacity: number) {
             _sendCommand1(this.layerId + ".opacity", opacity.toString())
             //dumbdisplay.layerOpacity(this, opacity)
+        }
+        //% block='set %this(myLayer) layer background color %color'
+        //% color.shadow="colorNumberPicker"
+        //% group='Layer'
+        public layerBackgroundColorNum(color: number) {
+            _sendCommand1(this.layerId + ".backgroundcolor", color.toString())
+        }
+        //% block='set %this(myLayer) layer background color %color'
+        //% group='Layer'
+        public layerBackgroundColor(color: string) {
+            _sendCommand1(this.layerId + ".backgroundcolor", color)
+        }
+        //% block='set %this(myLayer) layer no background color'
+        //% group='Layer'
+        public layerNoBackgroundColor() {
+            _sendCommand0(this.layerId + ".backgroundcolor")
         }
     }
 
@@ -407,45 +423,45 @@ namespace dumbdisplay {
             this.horizontal = horizontal
             //this._ddHelper.setup("led", numRows, numCols)
         }
-        //% block='turn led x %x y %y ON'
+        //% block='turn %this(myLedLayer) led x %x y %y ON'
         //% group='Led Layer'
         public ledOn(x: number = 0, y: number = 0) {
             this._ddHelper.sendCommand2("ledon", x.toString(), y.toString())
         }
-        //% block='turn led x %x y %y OFF'
+        //% block='turn %this(myLedLayer) led x %x y %y OFF'
         //% group='Led Layer'
         public ledOff(x: number = 0, y: number = 0) {
             this._ddHelper.sendCommand2("ledoff", x.toString(), y.toString())
         }
-        //% block='toggle led x %x y %y'
+        //% block='toggle %this(myLedLayer) led x %x y %y'
         //% group='Led Layer'
         public ledToggle(x: number = 0, y: number = 0) {
             this._ddHelper.sendCommand2("ledtoggle", x.toString(), y.toString())
         }
-        //% block='turn on %count led(s) like a bar'
+        //% block='turn %this(myLedLayer) %count led(s) on like a bar'
         //% group='Led Layer'
         public ledBar(count: number) {
             let cmd = this.horizontal ? "ledhoribar" : "ledvertbar"
             this._ddHelper.sendCommand1(cmd, count.toString())
         }
-        //% block='set led ON color %color'
-        //  color.shadow="colorNumberPicker"
+        //% block='set %this(myLedLayer) led ON color %color'
+        //% color.shadow="colorNumberPicker"
         //% group='Led Layer'
         public ledOnColorNum(color: number) {
             this._ddHelper.sendCommand1("ledoncolor", color.toString())
         }
-        //% block='set led ON color %color'
+        //% block='set %this(myLedLayer) led ON color %color'
         //% group='Led Layer'
         public ledOnColor(color: string) {
             this._ddHelper.sendCommand1("ledoncolor", color)
         }
-        //% block='set led OFF color %color'
-        // color.shadow="colorNumberPicker"
+        //% block='set %this(myLedLayer) led OFF color %color'
+        //% color.shadow="colorNumberPicker"
         //% group='Led Layer'
         public ledOffColorNum (color: number) {
             this._ddHelper.sendCommand1("ledoffcolor", color.toString())
         }
-        //% block='set led OFF color %color'
+        //% block='set %this(myLedLayer) led OFF color %color'
         //% group='Led Layer'
         public ledOffColor(color: string) {
             this._ddHelper.sendCommand1("ledoffcolor", color)
