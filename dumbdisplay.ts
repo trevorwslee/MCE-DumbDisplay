@@ -381,7 +381,7 @@ namespace dumbdisplay {
             //dumbdisplay.layerVisible(this, visible)
         }
         //% block='set %this(myLayer) layer opacity %opacity'
-        //% opacity.min=0 opacity.min=255 
+        //% opacity.min=0 opacity.max=255 
         //% group='Layer'
         public layerOpacity(opacity: number) {
             _sendCommand1(this.layerId + ".opacity", opacity.toString())
@@ -418,10 +418,9 @@ namespace dumbdisplay {
 
     export class LedLayer extends DDLayer {
         private horizontal: boolean
-        public constructor(layerId: string/*, numRows: number, numCols: number*/, horizontal: boolean) {
+        public constructor(layerId: string, horizontal: boolean) {
             super(layerId)
             this.horizontal = horizontal
-            //this._ddHelper.setup("led", numRows, numCols)
         }
         //% block='turn %this(myLedLayer) led x %x y %y ON'
         //% group='Led Layer'
