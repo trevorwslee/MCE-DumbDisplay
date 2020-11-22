@@ -269,6 +269,9 @@ namespace dumbdisplay {
         _powerUp(DEF_ENABLE_WHAT)
         if (!connected())
             _connect()
+        if (LOG_CONNECTION) {
+            writeSerial("% setup layer " + layerId + "." + layerType)
+        }
         _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
     }
 
@@ -317,7 +320,10 @@ namespace dumbdisplay {
     function _powerUp(enableWhat: number) {
         if (_poweredUp)
             return
-        _poweredUp = true
+        if (LOG_CONNECTION) {
+            writeSerial("% power up")
+        }
+            _poweredUp = true
         _ddinit(
             enableWhat,
             function () {
@@ -344,6 +350,9 @@ namespace dumbdisplay {
                 } else if (data == RESET_REQUEST_DATA) {
                     if (_reset_callback != null)
                         _reset_callback()
+                    if (LOG_CONNECTION) {
+                        writeSerial("% RESET!")
+                    }
                     control.reset()
                 }
             }
@@ -403,6 +412,11 @@ namespace dumbdisplay {
         public layerNoBackgroundColor() {
             _sendCommand0(this.layerId + ".backgroundcolor")
         }
+        // //% block
+        // //% group='Layer'
+        // public removeLayer() {
+        //     dumbdisplay.removeLayer(this)
+        // }
     }
 
 
