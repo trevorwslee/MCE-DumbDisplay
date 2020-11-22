@@ -11,7 +11,7 @@ let testRound = 0
 // *** Develop Test
 let ledLayer: ddlayers.LedLayer = null
 function initDevelopTest() {
-    ledLayer = dumbdisplay.setupLedLayer(2, 2)
+    ledLayer = ddlayers.setupLedLayer(2, 2)
     ledLayer.ledOnColor("green")
 }
 function developTestRound() {
