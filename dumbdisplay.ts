@@ -74,7 +74,7 @@ namespace dumbdisplay {
     }
 
 
-    //% block='create a LED layer with %numRows row(s) and %numCols column(s) of LED(s)'
+    //% block='create a LED layer with %numRows row(s) and %numCols column(s)'
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
     //% group='Layer'
     //% advanced=true

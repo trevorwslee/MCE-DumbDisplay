@@ -1,5 +1,5 @@
 //% color=#007700 icon="\uf14d" block="DumbDisplay.Turtle"
-//% groups=['Setup', 'Movement', 'Drawing', 'Setting', "Advanced", "Experimental"]
+//% groups=['Setup', 'Movement', 'Drawing', 'Setting', 'Advanced', 'Experimental']
 namespace ddturtle {
 
     //% block='setup width %width and height %height'

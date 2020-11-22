@@ -1,5 +1,7 @@
 
 
+//% color=#770077 icon="\uf14d" block="DDLayers"
+//% groups=['Led Layer', 'Experimental']
 namespace ddlayers {
 
     export class DDLayer extends dumbdisplay.Layer {
@@ -16,30 +18,26 @@ namespace ddlayers {
             super(layerId)
             this.horizontal = horizontal
         }
-        //% block="turn ON led x %x y %y on"
-        //% advanced=true
+        //% block='turn led x %x y %y ON'
         //% group='Led Layer'
         public ledOn(x: number = 0, y: number = 0) {
             this._ddHelper.sendCommand2("ledon", x.toString(), y.toString())
         }
-        //% block="turn OFF led x %x y %y off"
-        //% advanced=true
+        //% block='turn led x %x y %y OFF'
         //% group='Led Layer'
         public ledOff(x: number = 0, y: number = 0) {
             this._ddHelper.sendCommand2("ledoff", x.toString(), y.toString())
         }
-        //% block="toggle led x %x y %y on"
-        //% advanced=true
+        //% block='toggle led x %x y %y'
         //% group='Led Layer'
         public ledToggle(x: number = 0, y: number = 0) {
             this._ddHelper.sendCommand2("ledtoggle", x.toString(), y.toString())
         }
-        //% block="toggle led x %x y %y on"
-        //% advanced=true
+        //% block='turn on %ledNums led(s) like a bar'
         //% group='Led Layer'
-        public ledGauge(value: number) {
-            let cmd = this.horizontal ? "ledhorigauge" : "ledvertgauge"
-            this._ddHelper.sendCommand1(cmd, value.toString())
+        public ledBar(ledNums: number) {
+            let cmd = this.horizontal ? "ledhoribar" : "ledvertbar"
+            this._ddHelper.sendCommand1(cmd, ledNums.toString())
         }
         //% block='set led ON color %color'
         //% color.shadow="colorNumberPicker"

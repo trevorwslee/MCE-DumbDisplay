@@ -15,14 +15,19 @@ function initDevelopTest() {
     ledLayer.ledOnColor("green")
 }
 function developTestRound() {
-    ledLayer.ledOn(0, 0)
-    basic.pause(500)
-    ledLayer.ledOn(0, 1)
-    basic.pause(500)
-    ledLayer.ledOn(1, 0)
-    basic.pause(500)
-    ledLayer.ledOn(1, 1)
-    basic.pause(500)
+    for (let i = 0; i < 4; i++) {
+        for (let x = 0; x < 2; x++) {
+            for (let y = 0; y < 2; y++) {
+                if (i == 0)
+                    ledLayer.ledOn(x, y)
+                else if (i == 1)
+                    ledLayer.ledOff(x, y)
+                else
+                ledLayer.ledToggle(x, y)
+                basic.pause(500)
+            }
+        }
+    }
 }
 
 
