@@ -200,7 +200,7 @@ v0.0.1
 
 # Thank You!
 
-Personal greeting from the author Trevor Lee:
+Greeting from the author Trevor Lee:
 
 >  Hope you will enjoy this little extension.
 >  Be happy! Jesus loves you!
