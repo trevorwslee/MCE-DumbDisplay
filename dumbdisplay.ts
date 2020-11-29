@@ -390,30 +390,29 @@ namespace dumbdisplay {
         }
     }
 
-    //% block='create and setup a LED-grid layer with size %numRows row(s) by %numCols column(s)'
+    //% block='a LED-grid layer with size %numCols column(s) by %numRows row(s)'
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
-    //% group='Layer'
-    export function setupLedGridLayer(numRows: number = 1, numCols: number = 1): dumbdisplay.LedGridLayer {
+    //% group='Setup'
+    export function setupLedGridLayer(numCols: number = 1, numRows: number = 1): dumbdisplay.LedGridLayer {
         let layerId = (_next_leyer_id++).toString()
-        _setup(layerId, "ledgrid", numRows, numCols)
+        _setup(layerId, "ledgrid", numCols, numRows)
         // _sendPartCommand1(layerId + ".SU", "led")
         // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
         // _sendCommand0((NO_COMMAND_IN))
         return new dumbdisplay.LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
     }
 
-    //% block='create and setup a LCD layer with size %numRows row(s) by %numCols column(s)'
+    //% block='a LCD layer with size %numCols column(s) by %numRows row(s)'
     //% numRows.min=1 numRows.defl=2 numCols.min=1 numCols.defl=16
-    //% group='Layer'
-    export function setupLcdLayer(numRows: number = 2, numCols: number = 16, charHeight: number = 0, fontName: string = ""): dumbdisplay.LedGridLayer {
+    //% group='Setup'
+    export function setupLcdLayer(numCols: number = 16, numRows: number = 2): dumbdisplay.LcdLayer {
         let layerId = (_next_leyer_id++).toString()
-        //_setup(layerId, "lcd", numRows, numCols)
-        _preSetup();
-        _sendPartCommand1(layerId + ".SU", "lcd")
-        _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
-        _sendPartCommand2(NO_COMMAND_IN, charHeight.toString(), fontName)
-        _sendCommand0((NO_COMMAND_IN))
-        return new dumbdisplay.LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
+        _setup(layerId, "lcd", numCols, numRows)
+        // _preSetup();
+        // _sendPartCommand1(layerId + ".SU", "lcd")
+        // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
+        // _sendCommand0((NO_COMMAND_IN))
+        return new dumbdisplay.LcdLayer(layerId)
     }
     
 
@@ -535,65 +534,65 @@ namespace dumbdisplay {
         public constructor(layerId: string) {
             super(layerId)
         }
-        //% block
+        //% block='print %text to %this(myLcdLayer)'
         //% group='Lcd Layer'
         public print(text: string) {
             this._ddHelper.sendCommand1("print", text)
         }
-        //% block
+        //% block='set %this(myLcdLayer) cursor home'
         //% group='Lcd Layer'
         public home() {
             this._ddHelper.sendCommand0("home")
         }
-        //% block
+        //% block='set %this(myLcdLayer) cursor %x %y'
         //% group='Lcd Layer'
         public setCursor(x: number, y: number) {
             this._ddHelper.sendCommand2("setcursor", x.toString(), y.toString())
         }
-        //% block
+        //% block='turn on %this(myLcdLayer) cursor'
         //% group='Lcd Layer'
         public cursor() {
             this._ddHelper.sendCommand1("cursor", "1")
         }
-        //% block
+        //% block='turn off %this(myLcdLayer) cursor'
         //% group='Lcd Layer'
         public noCursor() {
             this._ddHelper.sendCommand1("cursor", "0")
         }
-        //% block
+        //% block='autoscroll %this(myLcdLayer)'
         //% group='Lcd Layer'
         public autoscroll() {
             this._ddHelper.sendCommand1("autoscroll", "1")
         }
-        //% block
+        //% block='no autoscroll %this(myLcdLayer)'
         //% group='Lcd Layer'
         public noAutoscroll() {
             this._ddHelper.sendCommand1("autoscroll", "0")
         }
-        //% block
+        //% block='turn on %this(myLcdLayer) display'
         //% group='Lcd Layer'
         public display() {
             this._ddHelper.sendCommand1("display", "1")
         }
-        //% block
+        //% block='turn off %this(myLcdLayer) display'
         //% group='Lcd Layer'
         public noDisplay() {
             this._ddHelper.sendCommand1("display", "0")
         }
-        //% block
+        //% block='scroll %this(myLcdLayer) display left'
         //% group='Lcd Layer'
         public scrollDisplayLeft() {
             this._ddHelper.sendCommand0("scrollleft")
         }
-        //% block
+        //% block'scroll %this(myLcdLayer) display right'
         //% group='Lcd Layer'
         public scrollDisplayRight() {
             this._ddHelper.sendCommand0("scrollright")
         }
         //% block='to %this(myLcdLayer) write %line as a line to %y'
         //% group='Lcd Layer'
-        public writeLine(line: string, y: number = 0, align: string = "L") {
-            this._ddHelper.sendCommand3("writeline", y.toString(), align, line)
+        public writeLine(line: string, y: number = 0) {
+            this._ddHelper.sendCommand3("writeline", y.toString(), "L", line)
         }
         //% block='set %this(myLcdLayer) pixel color %color'
         //% color.shadow="colorNumberPicker"
