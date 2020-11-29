@@ -15,6 +15,9 @@ DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen 
 |![DumbDisplay MakeCode Extension Illustration](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/phone1.png)|![DumbDisplay MakeCode Extension Illustration](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/phone2.png)|
 
 
+
+# Description
+
 You explode your creativity with a little help from this extension, and use DumbDisplay to realize an enhanced Micro:bit virtual screen on your Android phone.
 
 
@@ -32,6 +35,10 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 * many screen-related MakeCode Core-like commands
 * can mix with a Turtle layer using many Turtle-like commands
 
+
+
+# Usage and Sample Code
+
 To start with, you must setup DumbDisplay (DD) like
 
     ddmb.setup(5, 5)
@@ -43,7 +50,6 @@ To start with, you must setup DumbDisplay (DD) like
   * you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
   * setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
   * at any time, if you want to start again, press the reset button on the back of your Micro:bit
-
 
 
 Then you can program something more intresting, like
@@ -171,8 +177,6 @@ Greeting from the author Trevor Lee:
 
 >  Hope you will enjoy this little extension.
 >  Be happy! Jesus loves you!
-
-
 
 
 
