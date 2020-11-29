@@ -147,9 +147,9 @@ namespace DumbDisplayCpp {
     }
 
 
-    inline const char*_checkCmdIn(String _cmdIn) {
+    inline const char*_checkCmdIn(String _cmdIn, bool canBeEmpty) {
         const char* cmdIn = _cmdIn != NULL ? _cmdIn->getUTF8Data() : NULL; 
-        if (cmdIn != NULL && cmdIn[0] == '\0')
+        if (!canBeEmpty && cmdIn != NULL && cmdIn[0] == '\0')
             cmdIn = NULL;
         return cmdIn;
     }
@@ -185,10 +185,10 @@ namespace DumbDisplayCpp {
         return true;
     }
     bool _sendCommand(String _cmd, String _param1, String _param2, String _param3, bool completed) {
-        const char *cmd = _checkCmdIn(_cmd);
-        const char *param1 = _checkCmdIn(_param1);
-        const char *param2 =  _checkCmdIn(_param2);
-        const char *param3 =  _checkCmdIn(_param3);
+        const char *cmd = _checkCmdIn(_cmd, false);
+        const char *param1 = _checkCmdIn(_param1, true);
+        const char *param2 =  _checkCmdIn(_param2, true);
+        const char *param3 =  _checkCmdIn(_param3, true);
         return __sendCommand(cmd, param1, param2, param3, completed);
     }    
 
