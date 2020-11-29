@@ -165,16 +165,10 @@ transparent; 255 being total opaque)
 - `layerBackgroundColorNum(color: number)` -- set the background color of a layer with color number 
 - `layerBackgroundColor(color: number)` -- set the background color of a layer with color name like "green", or a hex number (starting with "#")
 - `layerNoBackgroundColor()` -- set the background of a layer to no color (i.e. transparent) 
+- `layerClear()` -- clear the layer
+
 
 A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
-
-
-
-
-Greeting from the author Trevor Lee:
-
->  Hope you will enjoy this little extension.
->  Be happy! Jesus loves you!
 
 
 
@@ -196,6 +190,17 @@ v0.0.2
 
 v0.0.1
 - initial internal release
+
+
+
+# Thank You
+
+Greeting from the author Trevor Lee:
+
+>  Hope you will enjoy this little extension.
+>  Be happy! Jesus loves you!
+
+
 
 
 
