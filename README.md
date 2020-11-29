@@ -50,7 +50,7 @@ To start with, you must setup DumbDisplay (DD) like
   * at any time, if you want to start again, press the reset button on the back of your Micro:bit
 
 
-Then you can program something more intresting, like
+Then you can program something more interesting, like
 
     ddmb.setup(5, 5)
     basic.forever(function () {
@@ -63,7 +63,7 @@ Or like
 
     ddturtle.setup(100, 100)
     ddmb.setup(5, 5)
-    dumbdisplay.layerOpacity(ddmb.layer(), 20)
+    ddmb.layer().layerOpacity(20)
     basic.forever(function () {
         ddmb.showIcon(IconNames.Heart)
         ddturtle.circle(50)
@@ -175,6 +175,11 @@ A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB
 
 Change History
 --------------
+
+v0.2.0 
+- added LCD layer
+- added LED layer
+
 
 v0.1.1 
 - bug fixes

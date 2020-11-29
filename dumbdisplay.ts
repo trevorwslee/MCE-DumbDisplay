@@ -1,6 +1,6 @@
 
 //% color=#000077 icon="\uf14d" block="DumbDisplay"
-//% groups=['Setup', 'Basic', 'Math', 'Layer', 'Advanced', 'Experimental', 'Led Layer']
+//% groups=['Setup', 'Basic', 'Math', 'Layer', 'Advanced', 'Experimental', 'Led Layer', 'Lcd Layer']
 namespace dumbdisplay {
 
     export const LAYER_TYPE_MB = "mb"
@@ -9,19 +9,18 @@ namespace dumbdisplay {
     const LOG_CONNECTION = true     
     const DEBUG_ON = false
 
+
     //% block
     //% group='Basic'
     //% shim=DumbDisplayCpp::getConnected
     export function connected(): boolean { return true }
 
     //% block="convert to color from R %r G %g B %b"
-    //% advanced=true
-    //% group='Advanced'
+    //% group='Basic'
     //% r.min=0 r.max=255 g.min=0 g.max=255 b.min=0 b.max=255
     export function toColor(r: number, g: number, b: number): string {
         return r + "-" + g + "-" + b
     }
-
 
     //% block="on DumbDisplay reset"
     //% advanced=true
@@ -42,13 +41,23 @@ namespace dumbdisplay {
     //     _sendCommand1("BGC", color)
     // }
 
-    //% block='power up with Bluetooth %enableBluetooth and Serial %enableSerial'
+    //% block='explicitly power up with Bluetooth %enableBluetooth and Serial %enableSerial'
     //% advanced=true
     //% group='Setup'
     export function powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true) {
         let enableWhat = (enableBluetooth ? 1 : 0) + (enableSerial ? 2 : 0)
         _powerUp(enableWhat)
     }
+    
+    //% block='explicitly wait for a connection'
+    //% advanced=true
+    //% group='Setup'
+    export function connect(): void {
+        _powerUp(DEF_ENABLE_WHAT)
+        _connect();
+    }
+
+   
 
     // //% block='set layer %layer visibility %visible'
     // //% group='Layer'
@@ -63,12 +72,24 @@ namespace dumbdisplay {
     //     _sendCommand1(layer.layerId + ".opacity", opacity.toString())
     // }
 
-    //% block
+    //% block='pin a layer to the virtual frame of 100 units x 100 units'
     //% group='Layer'
     //% advanced=true
-    export function removeLayer(layer: dumbdisplay.Layer) {
+    export function pinLayer(layer: Layer, uLeft: number, uTop: number, uWidth: number, uHeight: number, align: string = "") {
+        _sendPartCommand0(layer.layerId + ".PIN")
+        _sendPartCommand2(NO_COMMAND_IN, uLeft.toString(), uTop.toString());
+        _sendPartCommand2(NO_COMMAND_IN, uWidth.toString(), uHeight.toString());
+        _sendPartCommand1(NO_COMMAND_IN, align);
+        _sendCommand0(NO_COMMAND_IN)
+    }
+
+    //% block='delete a layer'
+    //% group='Layer'
+    //% advanced=true
+    export function removeLayer(layer: Layer) {
         _sendCommand0(layer.layerId + ".DEL")
     }
+
     export function removeAllLayers() {
         _sendCommand0("DELALL")
     }
@@ -269,16 +290,22 @@ namespace dumbdisplay {
     let _reset_callback: () => void
 
  
-    function _setup(layerId: string, layerType: string, width: number, height: number) {
+    function _preSetup() {
         _powerUp(DEF_ENABLE_WHAT)
         if (!connected())
             _connect()
+    }
+    function _setup(layerId: string, layerType: string, width: number, height: number) {
+        // _powerUp(DEF_ENABLE_WHAT)
+        // if (!connected())
+        //     _connect()
+        _preSetup();
         _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
         if (LOG_CONNECTION) {
             writeSerial("% setup layer " + layerId + "." + layerType)
         }
     }
-
+    
     function _connect() {
         if (LOG_CONNECTION) {
             writeSerial("% establish connection ...")
@@ -363,7 +390,7 @@ namespace dumbdisplay {
         }
     }
 
-    //% block='create a LED-grid layer with %numRows row(s) and %numCols column(s)'
+    //% block='create and setup a LED-grid layer with size %numRows row(s) by %numCols column(s)'
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
     //% group='Layer'
     export function setupLedGridLayer(numRows: number = 1, numCols: number = 1): dumbdisplay.LedGridLayer {
@@ -372,6 +399,20 @@ namespace dumbdisplay {
         // _sendPartCommand1(layerId + ".SU", "led")
         // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
         // _sendCommand0((NO_COMMAND_IN))
+        return new dumbdisplay.LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
+    }
+
+    //% block='create and setup a LCD layer with size %numRows row(s) by %numCols column(s)'
+    //% numRows.min=1 numRows.defl=2 numCols.min=1 numCols.defl=16
+    //% group='Layer'
+    export function setupLcdLayer(numRows: number = 2, numCols: number = 16, charHeight: number = 0, fontName: string = ""): dumbdisplay.LedGridLayer {
+        let layerId = (_next_leyer_id++).toString()
+        //_setup(layerId, "lcd", numRows, numCols)
+        _preSetup();
+        _sendPartCommand1(layerId + ".SU", "lcd")
+        _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
+        _sendPartCommand2(NO_COMMAND_IN, charHeight.toString(), fontName)
+        _sendCommand0((NO_COMMAND_IN))
         return new dumbdisplay.LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
     }
     
@@ -480,7 +521,7 @@ namespace dumbdisplay {
         //% block='set %this(myLedLayer) led OFF color %color'
         //% color.shadow="colorNumberPicker"
         //% group='Led Layer'
-        public ledOffColorNum (color: number) {
+        public ledOffColorNum(color: number) {
             this._ddHelper.sendCommand1("ledoffcolor", color.toString())
         }
         //% block='set %this(myLedLayer) led OFF color %color'
@@ -490,6 +531,98 @@ namespace dumbdisplay {
         }
     }
 
+    export class LcdLayer extends DDLayer {
+        public constructor(layerId: string) {
+            super(layerId)
+        }
+        //% block
+        //% group='Lcd Layer'
+        public print(text: string) {
+            this._ddHelper.sendCommand1("print", text)
+        }
+        //% block
+        //% group='Lcd Layer'
+        public home() {
+            this._ddHelper.sendCommand0("home")
+        }
+        //% block
+        //% group='Lcd Layer'
+        public setCursor(x: number, y: number) {
+            this._ddHelper.sendCommand2("setcursor", x.toString(), y.toString())
+        }
+        //% block
+        //% group='Lcd Layer'
+        public cursor() {
+            this._ddHelper.sendCommand1("cursor", "1")
+        }
+        //% block
+        //% group='Lcd Layer'
+        public noCursor() {
+            this._ddHelper.sendCommand1("cursor", "0")
+        }
+        //% block
+        //% group='Lcd Layer'
+        public autoscroll() {
+            this._ddHelper.sendCommand1("autoscroll", "1")
+        }
+        //% block
+        //% group='Lcd Layer'
+        public noAutoscroll() {
+            this._ddHelper.sendCommand1("autoscroll", "0")
+        }
+        //% block
+        //% group='Lcd Layer'
+        public display() {
+            this._ddHelper.sendCommand1("display", "1")
+        }
+        //% block
+        //% group='Lcd Layer'
+        public noDisplay() {
+            this._ddHelper.sendCommand1("display", "0")
+        }
+        //% block
+        //% group='Lcd Layer'
+        public scrollDisplayLeft() {
+            this._ddHelper.sendCommand0("scrollleft")
+        }
+        //% block
+        //% group='Lcd Layer'
+        public scrollDisplayRight() {
+            this._ddHelper.sendCommand0("scrollright")
+        }
+        //% block='to %this(myLcdLayer) write %line as a line to %y'
+        //% group='Lcd Layer'
+        public writeLine(line: string, y: number = 0, align: string = "L") {
+            this._ddHelper.sendCommand3("writeline", y.toString(), align, line)
+        }
+        //% block='set %this(myLcdLayer) pixel color %color'
+        //% color.shadow="colorNumberPicker"
+        //% group='Lcd Layer'
+        public pixelColorNum(color: number) {
+            this._ddHelper.sendCommand1("pixelcolor", color.toString())
+        }
+        //% block='set %this(myLcdLayer) pixel color %color'
+        //% group='Lcd Layer'
+        public pixelColor(color: string) {
+            this._ddHelper.sendCommand1("pixelcolor", color)
+        }
+        //% block='set %this(myLcdLayer) "background" pixel color %color'
+        //% color.shadow="colorNumberPicker"
+        //% group='Lcd Layer'
+        public bgPixelColorNum(color: number) {
+            this._ddHelper.sendCommand1("bgpixelcolor", color.toString())
+        }
+        //% block='set %this(myLcdLayer) "background" pixel color %color'
+        //% group='Lcd Layer'
+        public bgPixelColor(color: string) {
+            this._ddHelper.sendCommand1("bgpixelcolor", color)
+        }
+        //% block='set %this(myLcdLayer) no "background" pixel color'
+        //% group='Lcd Layer'
+        public noBgPixelColor() {
+            this._ddHelper.sendCommand0("bgpixelcolor")
+        }
+    }
 }
 
 
