@@ -277,7 +277,7 @@ namespace ddturtle {
     //% fixedInstance whenUsed
     let _layer = new dumbdisplay.Layer(LAYER_ID)
     //% fixedInstance whenUsed
-    let _ddHelper = new dumbdisplay.DDHelper(_layer)
+    let _ddHelper = new dumbdisplay.DDHelper(LAYER_ID)
     let _width = 0
     let _height = 0
 

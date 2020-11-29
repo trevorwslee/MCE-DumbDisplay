@@ -9,21 +9,21 @@ let testRound = 0
 
 
 // *** Develop Test
-let ledLayer: dumbdisplay.LedLayer = null
+let ledGridLayer: dumbdisplay.LedGridLayer = null
 function initDevelopTest() {
-    ledLayer = dumbdisplay.setupLedLayer(2, 2)
-    ledLayer.ledOnColor("green")
+    ledGridLayer = dumbdisplay.setupLedGridLayer(2, 2)
+    ledGridLayer.ledOnColor("green")
 }
 function developTestRound() {
     for (let i = 0; i < 4; i++) {
         for (let x = 0; x < 2; x++) {
             for (let y = 0; y < 2; y++) {
                 if (i == 0)
-                    ledLayer.ledOn(x, y)
+                    ledGridLayer.ledOn(x, y)
                 else if (i == 1)
-                    ledLayer.ledOff(x, y)
+                    ledGridLayer.ledOff(x, y)
                 else
-                    ledLayer.ledToggle(x, y)
+                    ledGridLayer.ledToggle(x, y)
                 basic.pause(500)
             }
         }
@@ -330,12 +330,8 @@ function standardTestRound() {
 basic.forever(function () {
     if (testRound == 0) {
         dumbdisplay.removeAllLayers()
-        // if (ledLayer != null)
-        //     dumbdisplay.removeLayer(ledLayer)
-        // dumbdisplay.removeLayer(ddmb.layer())
-        // dumbdisplay.removeLayer(ddturtle.layer())
-        ledLayer = null
-        img = null
+        // ledGridLayer = null
+        // img = null
         dumbdisplay.writeSerial("testing " + testNum)
         if (testNum == 0) {
             initDevelopTest()

@@ -12,7 +12,7 @@ namespace dumbdisplay {
     //% block
     //% group='Basic'
     //% shim=DumbDisplayCpp::getConnected
-    export function connected() { return true }
+    export function connected(): boolean { return true }
 
     //% block="convert to color from R %r G %g B %b"
     //% advanced=true
@@ -67,10 +67,10 @@ namespace dumbdisplay {
     //% group='Layer'
     //% advanced=true
     export function removeLayer(layer: dumbdisplay.Layer) {
-        _sendCommand0(layer.layerId, "DEL")
+        _sendCommand0(layer.layerId + ".DEL")
     }
     export function removeAllLayers() {
-        _sendCommand0(NO_LAYER_ID_IN, "DELALL")
+        _sendCommand0("DELALL")
     }
 
 
@@ -155,7 +155,7 @@ namespace dumbdisplay {
     const ACK_INIT_COMMAND_DATA = "<init<\n"
     const RESET_REQUEST_DATA = "<reset?\n"
 
-    const NO_LAYER_ID_IN = ""
+    //const NO_LAYER_ID_IN = ""
     const NO_COMMAND_IN = ""
 
     // export class Layer {
@@ -180,36 +180,35 @@ namespace dumbdisplay {
 
     export class DDHelper {
         private layerId: string
-        public constructor(layer: dumbdisplay.Layer) {
-            this.layerId = layer.layerId
+        public constructor(layerId: string) {
+            this.layerId = layerId
         }
         public setup(layerType: string, width: number, height: number) {
-            //_powerUp(DEF_ENABLE_WHAT)
             _setup(this.layerId, layerType, width, height)
         }
         public sendCommand0(cmd: string): boolean {
-            return _sendCommand0(this.layerId, cmd)
+            return _sendCommand0(this.layerId + "." + cmd)
         }
         public sendCommand1(cmd: string, param: string): boolean {
-            return _sendCommand1(this.layerId, cmd, param)
+            return _sendCommand1(this.layerId + "." + cmd, param)
         }
         public sendCommand2(cmd: string, param1: string, param2: string): boolean {
-            return _sendCommand2(this.layerId, cmd, param1, param2)
+            return _sendCommand2(this.layerId + "." + cmd, param1, param2)
         }
         public sendCommand3(cmd: string, param1: string, param2: string, param3: string): boolean {
-            return _sendCommand3(this.layerId, cmd, param1, param2, param3)
+            return _sendCommand3(this.layerId + "." + cmd, param1, param2, param3)
         }
         public beginSendCommand(cmd: string): boolean {
-            return _sendPartCommand0(this.layerId , cmd)
+            return _sendPartCommand0(this.layerId + "." + cmd)
         }
         public endSendCommand(): boolean {
-            return _sendCommand0(NO_LAYER_ID_IN, NO_COMMAND_IN)
+            return _sendCommand0(NO_COMMAND_IN)
         }
         public partSendCommand1(param: string): boolean {
-            return _sendPartCommand1(NO_LAYER_ID_IN, NO_COMMAND_IN, param)
+            return _sendPartCommand1(NO_COMMAND_IN, param)
         }
         public partSendCommand2(param1: string, param2: string): boolean {
-            return _sendPartCommand2(NO_LAYER_ID_IN, NO_COMMAND_IN, param1, param2)
+            return _sendPartCommand2(NO_COMMAND_IN, param1, param2)
         }
         public partSendCommandMbLeds(mbLeds: string/*, width: number, height: number*/): boolean {
             return _sendPartCommandMbLeds(mbLeds, -1, -1)
@@ -227,32 +226,36 @@ namespace dumbdisplay {
     //% shim=DumbDisplayCpp::ddconnect
     function _ddconnect() {
     }
-    //% shim=DumbDisplayCpp::sendCommand0
-    function _sendCommand0(lid: String, cmd: string): boolean {
+    //% shim=DumbDisplayCpp::sendCommand0   
+    function _sendCommand0(cmd: string): boolean {
         return true//ddmb.toggle(0, 0)
     }
     //% shim=DumbDisplayCpp::sendCommand1
-    function _sendCommand1(lid: String, cmd: string, param: string): boolean {
+    function _sendCommand1(cmd: string, param: string): boolean {
         return true 
     }
     //% shim=DumbDisplayCpp::sendCommand2
-    function _sendCommand2(lid: String, cmd: string, param1: string, param2: string): boolean {
+    function _sendCommand2(cmd: string, param1: string, param2: string): boolean {
         return true
     }
+    // function __sendCommand3(lid: string, cmd: string, params: string[]): boolean {
+    //     return true
+    // }
     //% shim=DumbDisplayCpp::sendCommand3
-    function _sendCommand3(lid: String, cmd: string, param1: string, param2: string, param3: string): boolean {
-        return true
+    function _sendCommand3(cmd: string, param1: string, param2: string, param3: string): boolean {
+        return true;
+        //return __sendCommand3(lid, cmd, [ param1, param2, param3 ])
     }
     //% shim=DumbDisplayCpp::sendPartCommand0
-    function _sendPartCommand0(lid: String, cmd: string): boolean {
+    function _sendPartCommand0(cmd: string): boolean {
         return true
     }
     //% shim=DumbDisplayCpp::sendPartCommand1
-    function _sendPartCommand1(lid: String, cmd: string, param: string): boolean {
+    function _sendPartCommand1(cmd: string, param: string): boolean {
         return true
     }
     //% shim=DumbDisplayCpp::sendPartCommand2
-    function _sendPartCommand2(lid: String, cmd: string, param1: string, param2: string): boolean {
+    function _sendPartCommand2(cmd: string, param1: string, param2: string): boolean {
         return true
     }
     //% shim=DumbDisplayCpp::sendPartCommandMbLeds
@@ -270,7 +273,7 @@ namespace dumbdisplay {
         _powerUp(DEF_ENABLE_WHAT)
         if (!connected())
             _connect()
-        _sendCommand3(layerId, "SU", layerType, width.toString(), height.toString())
+        _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
         if (LOG_CONNECTION) {
             writeSerial("% setup layer " + layerId + "." + layerType)
         }
@@ -304,7 +307,7 @@ namespace dumbdisplay {
             basic.pause(100)
             if (_initialized) break    
             if (connected() && round % 2 == 0) {
-                _sendCommand1(NO_LAYER_ID_IN, INIT_COMMAND, DD_SID)
+                _sendCommand1(INIT_COMMAND, DD_SID)
             }
             round = round + 1
         }
@@ -360,16 +363,16 @@ namespace dumbdisplay {
         }
     }
 
-    //% block='create a LED layer with %numRows row(s) and %numCols column(s)'
+    //% block='create a LED-grid layer with %numRows row(s) and %numCols column(s)'
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
     //% group='Layer'
-    export function setupLedLayer(numRows: number = 1, numCols: number = 1): dumbdisplay.LedLayer {
+    export function setupLedGridLayer(numRows: number = 1, numCols: number = 1): dumbdisplay.LedGridLayer {
         let layerId = (_next_leyer_id++).toString()
-        _setup(layerId, "led", numRows, numCols)
+        _setup(layerId, "ledgrid", numRows, numCols)
         // _sendPartCommand1(layerId + ".SU", "led")
         // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
         // _sendCommand0((NO_COMMAND_IN))
-        return new dumbdisplay.LedLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
+        return new dumbdisplay.LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
     }
     
 
@@ -387,31 +390,36 @@ namespace dumbdisplay {
         //% block='set %this(myLayer) layer visibility %visible'
         //% group='Layer'
         public layerVisible(visible: boolean) {
-            _sendCommand1(this.layerId, "visible", visible ? "1" : "0")
+            _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
             //dumbdisplay.layerVisible(this, visible)
         }
         //% block='set %this(myLayer) layer opacity %opacity'
         //% opacity.min=0 opacity.max=255 
         //% group='Layer'
         public layerOpacity(opacity: number) {
-            _sendCommand1(this.layerId, "opacity", opacity.toString())
+            _sendCommand1(this.layerId + ".opacity", opacity.toString())
             //dumbdisplay.layerOpacity(this, opacity)
         }
         //% block='set %this(myLayer) layer background color %color'
         //% color.shadow="colorNumberPicker"
         //% group='Layer'
         public layerBackgroundColorNum(color: number) {
-            _sendCommand1(this.layerId, "backgroundcolor", color.toString())
+            _sendCommand1(this.layerId + ".bgcolor", color.toString())
         }
         //% block='set %this(myLayer) layer background color %color'
         //% group='Layer'
         public layerBackgroundColor(color: string) {
-            _sendCommand1(this.layerId, "backgroundcolor", color)
+            _sendCommand1(this.layerId + ".bgcolor", color)
         }
         //% block='set %this(myLayer) layer no background color'
         //% group='Layer'
         public layerNoBackgroundColor() {
-            _sendCommand0(this.layerId, "backgroundcolor")
+            _sendCommand0(this.layerId + ".nobgcolor")
+        }
+        //% block='clear the layer'
+        //% group='Layer'
+        public layerClear() {
+            _sendCommand0(this.layerId + ".clear")
         }
         // //% block
         // //% group='Layer'
@@ -427,11 +435,11 @@ namespace dumbdisplay {
         protected _ddHelper: dumbdisplay.DDHelper
         protected constructor(layerId: string) {
             super(layerId)
-            this._ddHelper = new dumbdisplay.DDHelper(this)
+            this._ddHelper = new dumbdisplay.DDHelper(layerId)
         }
     }
 
-    export class LedLayer extends DDLayer {
+    export class LedGridLayer extends DDLayer {
         private horizontal: boolean
         public constructor(layerId: string, horizontal: boolean) {
             super(layerId)
