@@ -37,7 +37,7 @@ namespace dumbdisplay {
         _powerUp(enableWhat)
     }
     
-    //% block='explicitly wait for a connection (also setup "pin frame" to be x-units by y-units)'
+    //% block='explicitly wait for a connection (also setup "pin frame" to be %xUnitCount by %yUnitCount)'
     //% xUnitCount.defl=100 yUnitCount.defl=100
     //% advanced=true
     //% group='Setup'
@@ -51,7 +51,7 @@ namespace dumbdisplay {
     }
 
 
-    //% block='pin a layer to the virtual "pin frame" of default size 100 units x 100 units'
+    //% block='pin a layer to the virtual "pin frame" @ position (%uLeft, %uTop) with size (%uWidth x %uHeight)'
     //% group='Layer'
     //% advanced=true
     export function pinLayer(layer: Layer, uLeft: number, uTop: number, uWidth: number, uHeight: number) {
@@ -73,18 +73,6 @@ namespace dumbdisplay {
         _sendCommand0("DELALL")
     }
 
-
-    // //% block='create a LED layer with %numRows row(s) and %numCols column(s)'
-    // //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
-    // //% group='Layer'
-    // export function setupLedLayer(numRows: number = 1, numCols: number = 1): ddlayers.LedLayer {
-    //     let layerId = (_next_leyer_id++).toString()
-    //     _setup(layerId, "led", numRows, numCols)
-    //     // _sendPartCommand1(layerId + ".SU", "led")
-    //     // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
-    //     // _sendCommand0((NO_COMMAND_IN))
-    //     return new ddlayers.LedLayer(layerId, numRows >= numCols)
-    // }
 
     //% block
     //% advanced=true
@@ -308,7 +296,7 @@ namespace dumbdisplay {
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
     //% group='Setup'
     export function setupLedGridLayer(numCols: number = 1, numRows: number = 1): dumbdisplay.LedGridLayer {
-        let layerId = (_next_leyer_id++).toString()
+        let layerId = (_next_layer_id++).toString()
         _setup(layerId, "ledgrid", numCols, numRows)
         // _sendPartCommand1(layerId + ".SU", "led")
         // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
@@ -320,7 +308,7 @@ namespace dumbdisplay {
     //% numRows.min=1 numRows.defl=2 numCols.min=1 numCols.defl=16
     //% group='Setup'
     export function setupLcdLayer(numCols: number = 16, numRows: number = 2): dumbdisplay.LcdLayer {
-        let layerId = (_next_leyer_id++).toString()
+        let layerId = (_next_layer_id++).toString()
         _setup(layerId, "lcd", numCols, numRows)
         // _preSetup();
         // _sendPartCommand1(layerId + ".SU", "lcd")
@@ -378,7 +366,7 @@ namespace dumbdisplay {
     }
 
 
-    let _next_leyer_id = 3
+    let _next_layer_id = 3
 
     export class DDLayer extends Layer {
         protected _ddHelper: dumbdisplay.DDHelper
@@ -498,7 +486,7 @@ namespace dumbdisplay {
         public scrollDisplayRight() {
             this._ddHelper.sendCommand0("scrollright")
         }
-        //% block='to %this(myLcdLayer) write %line as a line to %y'
+        //% block='write to %this(myLcdLayer) write %line as a line to %y'
         //% group='Lcd Layer'
         public writeLine(line: string, y: number = 0) {
             this._ddHelper.sendCommand3("writeline", y.toString(), "L", line)
