@@ -49,30 +49,19 @@ namespace dumbdisplay {
         _powerUp(enableWhat)
     }
     
-    //% block='explicitly wait for a connection'
+    //% block='explicitly wait for a connection (also setup "pin frame" to be x-units by y-units)'
+    //% xUnitCount.defl=100 yUnitCount.defl=100
     //% advanced=true
     //% group='Setup'
-    export function connect(): void {
+    export function connect(xUnitCount: number = 100, yUnitCount: number = 100): void {
         _powerUp(DEF_ENABLE_WHAT)
         _connect();
+        if (xUnitCount != 100 || yUnitCount != 100)
+          _sendPartCommand2("SUPF", xUnitCount.toString(), yUnitCount.toString());
     }
 
-   
 
-    // //% block='set layer %layer visibility %visible'
-    // //% group='Layer'
-    // export function layerVisible(layer: dumbdisplay.Layer, visible: boolean) {
-    //     _sendCommand1(layer.layerId + ".visible", visible ? "1" : "0")
-    // }
- 
-    // //% block='set layer %layer opacity %opacity'
-    // //% opacity.min=0 opacity.min=255 
-    // //% group='Layer'
-    // export function layerOpacity(layer: dumbdisplay.Layer, opacity: number) {
-    //     _sendCommand1(layer.layerId + ".opacity", opacity.toString())
-    // }
-
-    //% block='pin a layer to the virtual frame of 100 units x 100 units'
+    //% block='pin a layer to the virtual "pin frame" of default size 100 units x 100 units'
     //% group='Layer'
     //% advanced=true
     export function pinLayer(layer: Layer, uLeft: number, uTop: number, uWidth: number, uHeight: number, align: string = "") {
