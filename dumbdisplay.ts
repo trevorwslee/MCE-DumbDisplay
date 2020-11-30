@@ -111,71 +111,12 @@ namespace dumbdisplay {
     }
 
 
-    // export class Layer {
-    //     public layerId: string
-    //     public constructor(layerId: string) {
-    //         this.layerId = layerId
-    //     }
-    //     //% block='set layer %layer visibility %visible'
-    //     //% group='Layer'
-    //     public layerVisible(visible: boolean) {
-    //         _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
-    //     }
-    
-    //     //% block='set layer %layer opacity %opacity'
-    //     //% opacity.min=0 opacity.min=255 
-    //     //% group='Layer'
-    //     public layerOpacity(opacity: number) {
-    //         _sendCommand1(this.layerId + ".opacity", opacity.toString())
-    //     }
-    // }
-
-    // export class LedLayer extends Layer {
-    //     public constructor(layerId: string) {
-    //         super(layerId)
-    //     }
-    //     //% block="turn led x %x y %y on"
-    //     //% advanced=true
-    //     //% group='Led Layer'
-    //     public ledOn(x: Number, y: Number) {
-    //         _sendCommand2(this.layerId + ".ledon", x.toString(), y.toString())
-    //     }
-    //     //% block="turn led x %x y %y off"
-    //     //% advanced=true
-    //     //% group='Led Layer'
-    //     public ledOff(x: Number, y: Number) {
-    //         _sendCommand2(this.layerId + ".ledoff", x.toString(), y.toString())
-    //     }
-    // }
-
-
-
     const DD_SID = "Microbit"
     const INIT_COMMAND = ">init>"
     const ACK_INIT_COMMAND_DATA = "<init<\n"
     const RESET_REQUEST_DATA = "<reset?\n"
 
-    //const NO_LAYER_ID_IN = ""
     const NO_COMMAND_IN = ""
-
-    // export class Layer {
-    //     public layerId: string
-    //     public constructor(layerId: string) {
-    //         this.layerId = layerId
-    //     }
-    //     //% block='set layer %layer visibility %visible'
-    //     //% group='Layer'
-    //     public layerVisible(visible: boolean) {
-    //         _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
-    //     }
-    
-    //     //% block='set layer %layer opacity %opacity'
-    //     //% opacity.min=0 opacity.min=255 
-    //     //% group='Layer'
-    //     public layerOpacity(opacity: number) {
-    //         _sendCommand1(this.layerId + ".opacity", opacity.toString())
-    //     }
-    // }
 
 
     export class DDHelper {
@@ -362,6 +303,7 @@ namespace dumbdisplay {
         }
     }
 
+
     //% block='a LED-grid layer with size %numCols column(s) by %numRows row(s)'
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
     //% group='Setup'
@@ -433,11 +375,6 @@ namespace dumbdisplay {
         public layerClear() {
             _sendCommand0(this.layerId + ".clear")
         }
-        // //% block
-        // //% group='Layer'
-        // public removeLayer() {
-        //     dumbdisplay.removeLayer(this)
-        // }
     }
 
 
