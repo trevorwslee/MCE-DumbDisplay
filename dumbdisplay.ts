@@ -54,8 +54,8 @@ namespace dumbdisplay {
     //% block='pin a layer to the virtual "pin frame" @ position (%uLeft, %uTop) with size (%uWidth x %uHeight)'
     //% group='Layer'
     //% advanced=true
-    export function pinLayer(layer: Layer, uLeft: number, uTop: number, uWidth: number, uHeight: number) {
-        _sendPartCommand0(layer.layerId + ".PIN")
+    export function pinLayer(layer: DDLayer, uLeft: number, uTop: number, uWidth: number, uHeight: number) {
+        _sendPartCommand0(layer._ddHelper.layerId + ".PIN")
         _sendPartCommand2(NO_COMMAND_IN, uLeft.toString(), uTop.toString());
         _sendPartCommand2(NO_COMMAND_IN, uWidth.toString(), uHeight.toString());
         //_sendPartCommand1(NO_COMMAND_IN, align);
@@ -65,8 +65,8 @@ namespace dumbdisplay {
     //% block='delete a layer'
     //% group='Layer'
     //% advanced=true
-    export function removeLayer(layer: Layer) {
-        _sendCommand0(layer.layerId + ".DEL")
+    export function removeLayer(layer: DDLayer) {
+        _sendCommand0(layer._ddHelper.layerId + ".DEL")
     }
 
     export function removeAllLayers() {
@@ -108,7 +108,7 @@ namespace dumbdisplay {
 
 
     export class DDHelper {
-        private layerId: string
+        public layerId: string
         public constructor(layerId: string) {
             this.layerId = layerId
         }
@@ -324,55 +324,91 @@ namespace dumbdisplay {
     // **************
 
 
-    export class Layer {
-        public layerId: string
+    // export class Layer {
+    //     public layerId: string
+    //     public constructor(layerId: string) {
+    //         this.layerId = layerId
+    //     }
+    //     //% block='set %this(myLayer) layer visibility %visible'
+    //     //% group='Layer'
+    //     public layerVisible(visible: boolean) {
+    //         _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
+    //         //dumbdisplay.layerVisible(this, visible)
+    //     }
+    //     //% block='set %this(myLayer) layer opacity %opacity'
+    //     //% opacity.min=0 opacity.max=255 
+    //     //% group='Layer'
+    //     public layerOpacity(opacity: number) {
+    //         _sendCommand1(this.layerId + ".opacity", opacity.toString())
+    //         //dumbdisplay.layerOpacity(this, opacity)
+    //     }
+    //     //% block='set %this(myLayer) layer background color %color'
+    //     //% color.shadow="colorNumberPicker"
+    //     //% group='Layer'
+    //     public layerBackgroundColorNum(color: number) {
+    //         _sendCommand1(this.layerId + ".bgcolor", color.toString())
+    //     }
+    //     //% block='set %this(myLayer) layer background color %color'
+    //     //% group='Layer'
+    //     public layerBackgroundColor(color: string) {
+    //         _sendCommand1(this.layerId + ".bgcolor", color)
+    //     }
+    //     //% block='set %this(myLayer) layer no background color'
+    //     //% group='Layer'
+    //     public layerNoBackgroundColor() {
+    //         _sendCommand0(this.layerId + ".nobgcolor")
+    //     }
+    //     //% block='clear the layer'
+    //     //% group='Layer'
+    //     public layerClear() {
+    //         _sendCommand0(this.layerId + ".clear")
+    //     }
+    // }
+
+
+    let _next_layer_id = 3
+
+    export class DDLayer /*extends Layer */{
+        //public layerId: string
+        public _ddHelper: dumbdisplay.DDHelper
         public constructor(layerId: string) {
-            this.layerId = layerId
+            //super(layerId)
+            //this.layerId = layerId
+            this._ddHelper = new dumbdisplay.DDHelper(layerId)
         }
         //% block='set %this(myLayer) layer visibility %visible'
         //% group='Layer'
         public layerVisible(visible: boolean) {
-            _sendCommand1(this.layerId + ".visible", visible ? "1" : "0")
+            this._ddHelper.sendCommand1("visible", visible ? "1" : "0")
             //dumbdisplay.layerVisible(this, visible)
         }
         //% block='set %this(myLayer) layer opacity %opacity'
         //% opacity.min=0 opacity.max=255 
         //% group='Layer'
         public layerOpacity(opacity: number) {
-            _sendCommand1(this.layerId + ".opacity", opacity.toString())
+            this._ddHelper.sendCommand1("opacity", opacity.toString())
             //dumbdisplay.layerOpacity(this, opacity)
         }
         //% block='set %this(myLayer) layer background color %color'
         //% color.shadow="colorNumberPicker"
         //% group='Layer'
         public layerBackgroundColorNum(color: number) {
-            _sendCommand1(this.layerId + ".bgcolor", color.toString())
+            this._ddHelper.sendCommand1("bgcolor", color.toString())
         }
         //% block='set %this(myLayer) layer background color %color'
         //% group='Layer'
         public layerBackgroundColor(color: string) {
-            _sendCommand1(this.layerId + ".bgcolor", color)
+            this._ddHelper.sendCommand1("bgcolor", color)
         }
         //% block='set %this(myLayer) layer no background color'
         //% group='Layer'
         public layerNoBackgroundColor() {
-            _sendCommand0(this.layerId + ".nobgcolor")
+            this._ddHelper.sendCommand0("nobgcolor")
         }
         //% block='clear the layer'
         //% group='Layer'
         public layerClear() {
-            _sendCommand0(this.layerId + ".clear")
-        }
-    }
-
-
-    let _next_layer_id = 3
-
-    export class DDLayer extends Layer {
-        protected _ddHelper: dumbdisplay.DDHelper
-        protected constructor(layerId: string) {
-            super(layerId)
-            this._ddHelper = new dumbdisplay.DDHelper(layerId)
+            this._ddHelper.sendCommand0("clear")
         }
     }
 
