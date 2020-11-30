@@ -200,7 +200,7 @@ namespace ddmb {
     //% block='layer'
     //% advanced=true
     //% group='Advanced'
-    export function layer():dumbdisplay.Layer { return _layer }
+    export function layer(): dumbdisplay.Layer { return _layer }
 
 
 

@@ -10,7 +10,6 @@ DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen 
 |![](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/phone1.png)|![](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/phone2.png)|![](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/phone3.png)|
 
 
-
 # Description
 
 You explode your creativity with a little help from this extension, and use DumbDisplay to realize an enhanced Micro:bit virtual screen on your Android phone.
@@ -36,6 +35,7 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 
 To start with, you must setup DumbDisplay (DD) like
 
+    // set a Micro:bit layer of size (5, 5)
     ddmb.setup(5, 5)
         
 - DumbDisplayMB `ddmb.setup(15, 9)` -- setup a DD screen layer similar to Micro:bit screen but with size 15x9
@@ -49,27 +49,70 @@ To start with, you must setup DumbDisplay (DD) like
 
 Then you can program something more interesting, like
 
-    ddmb.setup(5, 5)
+    // setup a Micro:bit layer of size (5, 5)
+	ddmb.setup(5, 5)
     basic.forever(function () {
+        // draw a heart icon to Micro:bit layer
         ddmb.showIcon(IconNames.Heart)
         basic.pause(1000)
+        // draw a small heart icon to Micro:bit layer
         ddmb.showIcon(IconNames.SmallHeart)
     })
 
 Or like
 
+
+    // setup a Turtle layer of size (100, 100)
     ddturtle.setup(100, 100)
+    // setup a Micro:bit layer of size (5, 5)
     ddmb.setup(5, 5)
+
+    // set Micro:bit layer opacity to 20 (of 255)
     ddmb.layer().layerOpacity(20)
+
     basic.forever(function () {
+        // turtle draws a circle
+        ddturtle.circle(20)
+        // turtle turns right 20
+        ddturtle.right(20)  
+        // draw a heart icon to Micro:bit layer
         ddmb.showIcon(IconNames.Heart)
-        ddturtle.circle(50)
-        ddturtle.right(20)
+        // pause a second
         basic.pause(1000)
+        // draw a small heart icon to Micro:bit layer
         ddmb.showIcon(IconNames.SmallHeart)
         basic.pause(1000)
     })
 
+
+Or like
+
+    // exclicitly wait for connection and setup the imaginary "pin frame" to be 3 units x 1 unit
+    dumbdisplay.connect(3, 2)
+
+    // create a LED layer
+    let ledLayer = dumbdisplay.setupLedGridLayer(3, 1)
+    // create a LCD layer
+    let lcdLayer = dumbdisplay.setupLcdLayer()
+
+    // pin LED layer to position (0, 0) with size (3, 1)
+    dumbdisplay.pinLayer(ledLayer, 0, 0, 3, 1)
+    // pin LCD layer to position (0, 1) with size (3, 1)
+    dumbdisplay.pinLayer(lcdLayer, 0, 1, 3, 1)
+
+    // turn on LEDs
+    ledLayer.ledOnColor("red")
+    ledLayer.ledOn(0, 0)
+    ledLayer.ledOnColor("green")
+    ledLayer.ledOn(1, 0)
+    ledLayer.ledOnColor("blue")
+    ledLayer.ledOn(2, 0)
+
+    // print messages to LCD
+    lcdLayer.setCursor(2, 0)
+    lcdLayer.print("Hello There!")
+    lcdLayer.setCursor(2, 1)
+    lcdLayer.print("How are you!")
 
 You largely do not need to use DumpDisplay package. Instead, you will mostly use DumbDisplayMB and/or DumbDisplayTurtle to render drawings on the corresponding layers.
 

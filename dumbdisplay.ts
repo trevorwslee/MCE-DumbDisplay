@@ -29,18 +29,6 @@ namespace dumbdisplay {
         _reset_callback = callback
     }
 
-    // //% block='set background color %color' 
-    // //% color.shadow="colorNumberPicker"
-    // //% group='Basic'
-    // export function backgroundColorNum(color: number): void {
-    //     _sendCommand1("BGC", color.toString())
-    // }
-    // //% block='set background color %color' 
-    // //% group='Basic'
-    // export function backgroundColor(color: string): void {
-    //     _sendCommand1("BGC", color)
-    // }
-
     //% block='explicitly power up with Bluetooth %enableBluetooth and Serial %enableSerial'
     //% advanced=true
     //% group='Setup'
@@ -54,21 +42,23 @@ namespace dumbdisplay {
     //% advanced=true
     //% group='Setup'
     export function connect(xUnitCount: number = 100, yUnitCount: number = 100): void {
-        _powerUp(DEF_ENABLE_WHAT)
-        _connect();
-        if (xUnitCount != 100 || yUnitCount != 100)
-          _sendPartCommand2("SUPF", xUnitCount.toString(), yUnitCount.toString());
+        _preSetup()
+        // _powerUp(DEF_ENABLE_WHAT)
+        // _connect();
+        if (xUnitCount != 100 || yUnitCount != 100) {
+            _sendCommand2("SUPF", xUnitCount.toString(), yUnitCount.toString());
+        }
     }
 
 
     //% block='pin a layer to the virtual "pin frame" of default size 100 units x 100 units'
     //% group='Layer'
     //% advanced=true
-    export function pinLayer(layer: Layer, uLeft: number, uTop: number, uWidth: number, uHeight: number, align: string = "") {
+    export function pinLayer(layer: Layer, uLeft: number, uTop: number, uWidth: number, uHeight: number) {
         _sendPartCommand0(layer.layerId + ".PIN")
         _sendPartCommand2(NO_COMMAND_IN, uLeft.toString(), uTop.toString());
         _sendPartCommand2(NO_COMMAND_IN, uWidth.toString(), uHeight.toString());
-        _sendPartCommand1(NO_COMMAND_IN, align);
+        //_sendPartCommand1(NO_COMMAND_IN, align);
         _sendCommand0(NO_COMMAND_IN)
     }
 
@@ -248,13 +238,9 @@ namespace dumbdisplay {
     function _sendCommand2(cmd: string, param1: string, param2: string): boolean {
         return true
     }
-    // function __sendCommand3(lid: string, cmd: string, params: string[]): boolean {
-    //     return true
-    // }
     //% shim=DumbDisplayCpp::sendCommand3
     function _sendCommand3(cmd: string, param1: string, param2: string, param3: string): boolean {
         return true;
-        //return __sendCommand3(lid, cmd, [ param1, param2, param3 ])
     }
     //% shim=DumbDisplayCpp::sendPartCommand0
     function _sendPartCommand0(cmd: string): boolean {
@@ -285,9 +271,6 @@ namespace dumbdisplay {
             _connect()
     }
     function _setup(layerId: string, layerType: string, width: number, height: number) {
-        // _powerUp(DEF_ENABLE_WHAT)
-        // if (!connected())
-        //     _connect()
         _preSetup();
         _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
         if (LOG_CONNECTION) {
