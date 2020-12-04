@@ -1,7 +1,56 @@
 //% color=#000077 icon="\uf14d" block="DDLayers"
-//% groups=['Led Layer', 'Lcd Layer']
+//% groups=['Layer', 'Led Layer', 'Lcd Layer']
 namespace ddlayers {
-  export class LedGridLayer extends dumbdisplay.DDLayer {
+
+  let _next_layer_id = 3
+
+  export class DDLayer /*extends Layer */{
+      //public layerId: string
+      public _ddHelper: dumbdisplay.DDHelper
+      public constructor(layerId: string) {
+          //super(layerId)
+          //this.layerId = layerId
+          this._ddHelper = new dumbdisplay.DDHelper(layerId)
+      }
+      //% block='set %this(myLayer) layer visibility %visible'
+      //% group='Layer'
+      public layerVisible(visible: boolean) {
+          this._ddHelper.sendCommand1("visible", visible ? "1" : "0")
+          //dumbdisplay.layerVisible(this, visible)
+      }
+      //% block='set %this(myLayer) layer opacity %opacity'
+      //% opacity.min=0 opacity.max=255 
+      //% group='Layer'
+      public layerOpacity(opacity: number) {
+          this._ddHelper.sendCommand1("opacity", opacity.toString())
+          //dumbdisplay.layerOpacity(this, opacity)
+      }
+      //% block='set %this(myLayer) layer background color %color'
+      //% color.shadow="colorNumberPicker"
+      //% group='Layer'
+      public layerBackgroundColorNum(color: number) {
+          this._ddHelper.sendCommand1("bgcolor", color.toString())
+      }
+      //% block='set %this(myLayer) layer background color %color'
+      //% group='Layer'
+      public layerBackgroundColor(color: string) {
+          this._ddHelper.sendCommand1("bgcolor", color)
+      }
+      //% block='set %this(myLayer) layer no background color'
+      //% group='Layer'
+      public layerNoBackgroundColor() {
+          this._ddHelper.sendCommand0("nobgcolor")
+      }
+      //% block='clear the layer'
+      //% group='Layer'
+      public layerClear() {
+          this._ddHelper.sendCommand0("clear")
+      }
+  }
+
+
+  
+  export class LedGridLayer extends DDLayer {
     private horizontal: boolean
     public constructor(layerId: string, horizontal: boolean) {
         super(layerId)
@@ -52,7 +101,9 @@ namespace ddlayers {
     }
   }
 
-  export class LcdLayer extends dumbdisplay.DDLayer {
+
+
+  export class LcdLayer extends DDLayer {
     public constructor(layerId: string) {
         super(layerId)
     }
