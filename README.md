@@ -27,6 +27,7 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 * customizable LED color
 * many screen-related MakeCode Core-like commands
 * can mix with a Turtle layer using many Turtle-like commands
+* can create other layers like LED Grid layer and LCD layer
 
 
 # Usage
@@ -35,7 +36,7 @@ For example, you can take advantage of your phone high-resolution screen to rend
 
 You can also make use of DumbDisplay LED Grid / LCD layers for displaying your experiment result, without the need to actualy attach real LEDs or LCD to your Micro:bit.
 
-There should be quite a few ways you can be aided by DumbDisplay.
+There should be quite a few ways you use DumbDisplay as a tool to realize your creativity.
 
 
 # Sample Code
@@ -251,10 +252,18 @@ Additional LCD "Layer" operations:
 A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can call DumbDisplay.connect() explicitly to disallow DumbDisplay to use Bluetooth or USB Serial.
 
 
+# Thank You!
+
+Greeting from the author Trevor Lee:
+
+>  Hope you will enjoy this little extension.
+>  Be good! Be happy!
+>  Peace be with you!
 
 
-Change History
---------------
+
+
+# Change History
 
 v0.2.0 
 - added LCD layer
@@ -277,14 +286,6 @@ v0.0.1
 - initial internal release
 
 
-
-# Thank You!
-
-Greeting from the author Trevor Lee:
-
->  Hope you will enjoy this little extension.
->  Be good! Be happy!
->  Peace be with you!
 
 
 
