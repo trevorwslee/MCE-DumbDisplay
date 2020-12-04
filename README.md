@@ -14,7 +14,6 @@ DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen 
 
 You explode your creativity with a little help from this extension, and use DumbDisplay to realize an enhanced Micro:bit virtual screen on your Android phone.
 
-
 You can install the free DumbDisplay app from Android Play Store -- https://play.google.com/store/apps/details?id=nobody.trevorlee.dumbdisplay
 
 
@@ -30,8 +29,16 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 * can mix with a Turtle layer using many Turtle-like commands
 
 
+# Usage
 
-# Usage and Sample Code
+For example, you can take advantage of your phone high-resolution screen to render Turtle-like drawings from your Micro:bit code.
+
+You can also make use of DumbDisplay LED Grid / LCD layers for displaying your experiment result, without the need to actualy attach real LEDs or LCD to your Micro:bit.
+
+There should be quite a few ways you can be aided by DumbDisplay.
+
+
+# Sample Code
 
 To start with, you must setup DumbDisplay (DD) like
 
@@ -42,7 +49,7 @@ To start with, you must setup DumbDisplay (DD) like
 - DumbDisplayMB `ddmb.setupLikeLocal()` -- setup a DD screen layer similar to Micro:bit screen; additionally, most DumbDisplayMB commands will be replicated to Micro:bit internal screen
 - DumbDisplayTurtle `ddturtle.setup(300, 200)` -- setup a DD screen layer with size 300x200
 - notes:
-  * you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top
+  * you can have 1 DumbDisplayMB screen layer + 1 DumbDisplayTurtle screen layer at the same time; the layer you setup first will be on top over the other layer
   * setting up will wait for connection to DumbDisplay Android app; therefore, make sure your phone is ready to accept connection (Bluetooth or USB Serial)
   * at any time, if you want to start again, press the reset button on the back of your Micro:bit
 
@@ -50,7 +57,7 @@ To start with, you must setup DumbDisplay (DD) like
 Then you can program something more interesting, like
 
     // setup a Micro:bit layer of size (5, 5)
-	ddmb.setup(5, 5)
+    ddmb.setup(5, 5)
     basic.forever(function () {
         // draw a heart icon to Micro:bit layer
         ddmb.showIcon(IconNames.Heart)
@@ -58,6 +65,7 @@ Then you can program something more interesting, like
         // draw a small heart icon to Micro:bit layer
         ddmb.showIcon(IconNames.SmallHeart)
     })
+
 
 Or like
 
@@ -87,9 +95,9 @@ Or like
 
 Or like
 
-    // exclicitly wait for connection and setup the imaginary "pin frame" to be 3 units x 1 unit
+    // exclicitly wait for connection
     dumbdisplay.connect()
-    // setup auto pin (layout) layers in Vertical direction
+    // configure to "auto pin (layout) layers" in Vertical direction
     dumbdisplay.configAutoPinLayers(AutoPinDirection.Vertical)
 
     // create a LED layer
@@ -186,15 +194,21 @@ DumbDisplayTurtle:
   * can be used for some functions of DumbDisplay
 
 DumbDisplay:
-- `powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true)` -- if not explicitly called, powerUp() is automatically called when you setup DumbDisplayMB or DumbDisplayTurtle; however, you may want to call powerUp() before setting up layers in order to dictate more "power up" options
+- `connect(enableBluetooth: boolean = true, enableSerial: boolean = true)` -- explicitly wait for connection, at the same time you also have an opportunity to override some default settings 
   * `enableBluetooth` -- set to false so that Bluetooth is not used
     ; this will leave more memory for your program
   * `enableSerial` -- set to false so that Serial is not used, and you can freely make use of Serial
-- `toColor(r: number, g: number, b: number)` -- turn RGB into color name that you can use, say to set LED color
-  * in fact, the "color name" is simply the combine of the 3 RBG numbers -- e.g. R 100, B 0, G 200, will become "100-0-200"  
+- `configPinLayers(xUnitCount: number = 100, yUnitCount: number = 100)` -- configure the size of the virtual "pin frame" for pinning the layers (refer to pinLayer() below)
+- `configAutoPinLayers(direction: AutoPinDirection)` -- configure to autocat pin layers in either horizontal or vertical direction
+- `pinLayer(layer: ddlayers.DDLayer, uLeft: number, uTop: number, uWidth: number, uHeight: number)` -- pin a layer on the virtual "pin frame" @ position (uLeft, uTop) with size (uWidth x uHeight)  
 transparent; 255 being total opaque)
 - `removeLayer(layer: Layer)` -- remove a layer; yes, you can setup the layer again 
 - `writeSerial(msg: string)` -- you can write some "comment" to the serial port (which will not be harmful to DD operations)
+- `toColor(r: number, g: number, b: number)` -- a helper function that turns RGB into color name that you can use, say to set LED color
+  * in fact, the "color name" is simply the combine of the 3 RBG numbers -- e.g. R 100, B 0, G 200, will become "100-0-200"  
+- `setupLedGridLayer(numCols: number = 1, numRows: number = 1)` -- setup and create a LED Grid layer have numCols x numRows LEDs
+- `setupLcdLayer(numCols: number = 16, numRows: number = 2)` -- setup and create a LCD layer capable of displaying numRows rows of numCols characters
+-   
 
 "Layer" operations:
 - `layerVisible(visible: boolean)` -- set whether a layer is visible or not
@@ -204,8 +218,37 @@ transparent; 255 being total opaque)
 - `layerNoBackgroundColor()` -- set the background of a layer to no color (i.e. transparent) 
 - `layerClear()` -- clear the layer
 
+Additional LEDGrid "Layer" operations:
+- `ledOn(x: number = 0, y: number = 0)` -- turn LED on
+- `ledOff(x: number = 0, y: number = 0)` -- turn LED off
+- `ledToggle(x: number = 0, y: number = 0)` -- toggle LED on / off
+- `ledBar(count: number)` -- treat the LED Grid as a bar-meter, turning on a bar of count LEDs 
+- `ledOnColorNum(color: number)` -- set the LED on color with color number
+- `ledOnColor(color: string)` -- set the LED on color with color name
+- `ledOffColorNum(color: number)` -- set the LED off color with color number
+- `ledOffColor(color: string)` -- set the LED off color with color name
 
-A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can use DumbDisplay.powerUp() to disallow DumbDisplay to use Bluetooth or USB Serial.
+Additional LCD "Layer" operations:
+- `setCursor(x: number, y: number)` -- set cursor position; (0, 0) to start with
+- `print(text: string)` -- print text to cursor position
+- `home()` -- set cursor to (0, 0)
+- `cursor()` -- show cursor on the LCD
+- `noCursor()` -- no show cursor on the LCD
+- `autoscroll()` -- auto scroll when print text
+- `noAutoscroll()` -- no auto scroll when print text
+- `display()` -- LCD will display 
+- `noDisplay()` -- LCD will not display
+- `scrollDisplayLeft()` -- scroll LCD left
+- `scrollDisplayRight()` -- scroll LCD right
+- `writeLine(line: string, y: number = 0)` -- write text as a line to row y (note that the row will be erased first)
+- `pixelColorNum(color: number)` -- set the color of the LCD pixels with color number
+- `pixelColor(color: string)` -- set the color of the LCD pixels with color name
+- `bgPixelColorNum(color: number)` -- set the color of the LCD "background / off" pixels with color number
+- `bgPixelColor(color: string)` -- set the color of the LCD "background / off" pixels with color name
+- `noBgPixelColor()` -- set the LCD "background / off" pixels to no color (i.e. not show)
+
+
+A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can call DumbDisplay.connect() explicitly to disallow DumbDisplay to use Bluetooth or USB Serial.
 
 
 
@@ -240,7 +283,10 @@ v0.0.1
 Greeting from the author Trevor Lee:
 
 >  Hope you will enjoy this little extension.
->  Be happy! Jesus loves you!
+>  Be good! Be happy!
+>  Peace be with you!
+
+
 
 
 

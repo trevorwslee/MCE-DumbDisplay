@@ -75,7 +75,7 @@ namespace dumbdisplay {
 
 
 
-    //% block='pin a layer to the virtual "pin frame" @ position (%uLeft, %uTop) with size (%uWidth x %uHeight)'
+    //% block='pin a layer on the virtual "pin frame" @ position (%uLeft, %uTop) with size (%uWidth x %uHeight)'
     //% group='Layer'
     //% advanced=true
     export function pinLayer(layer: ddlayers.DDLayer, uLeft: number, uTop: number, uWidth: number, uHeight: number) {
