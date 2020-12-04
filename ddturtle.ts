@@ -1,4 +1,4 @@
-//% color=#007700 icon="\uf14d" block="DumbDisplay.Turtle"
+//% color=#007700 icon="\uf14d" block="DD.Turtle"
 //% groups=['Setup', 'Movement', 'Drawing', 'Setting', 'Advanced', 'Experimental']
 namespace ddturtle {
 

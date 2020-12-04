@@ -1,5 +1,5 @@
 
-//% color=#770000 icon="\uf14d" block="DumbDisplay.MB"
+//% color=#770000 icon="\uf14d" block="DD.MB"
 //% groups=['Setup', 'Basic', 'Led', 'Images', 'Advanced', 'Experimental']
 namespace ddmb {
 
