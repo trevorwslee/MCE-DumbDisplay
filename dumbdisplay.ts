@@ -1,4 +1,12 @@
 
+enum AutoPinDirection {
+    //% block="horizontal"
+    Horizontal,
+    //% block="vertical"
+    Vertical
+}
+
+
 //% color=#000077 icon="\uf14d" block="DumbDisplay"
 //% groups=['Setup', 'Basic', 'Math', 'Layer', 'Advanced', 'Experimental', 'Led Layer', 'Lcd Layer']
 namespace dumbdisplay {
@@ -29,26 +37,42 @@ namespace dumbdisplay {
         _reset_callback = callback
     }
 
-    //% block='explicitly power up with Bluetooth %enableBluetooth and Serial %enableSerial'
+    // //% block='explicitly power up with Bluetooth %enableBluetooth and Serial %enableSerial'
+    // //% advanced=true
+    // //% group='Setup'
+    // export function powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true) {
+    //     let enableWhat = (enableBluetooth ? 1 : 0) + (enableSerial ? 2 : 0)
+    //     _powerUp(enableWhat)
+    // }
+    
+    //% block='explicitly wait for a connection, setting Bluetooth %enableBluetooth and Serial %enableSerial'
     //% advanced=true
     //% group='Setup'
-    export function powerUp(enableBluetooth: boolean = true, enableSerial: boolean = true) {
+    export function connect(enableBluetooth: boolean = true, enableSerial: boolean = true): void {
         let enableWhat = (enableBluetooth ? 1 : 0) + (enableSerial ? 2 : 0)
-        _powerUp(enableWhat)
+        _initConnection(enableWhat)
     }
-    
-    //% block='explicitly wait for a connection (also setup "pin frame" to be %xUnitCount by %yUnitCount)'
+
+    //% block='config "pin layers frame" to be %xUnitCount by %yUnitCount'
     //% xUnitCount.defl=100 yUnitCount.defl=100
     //% advanced=true
     //% group='Setup'
-    export function connect(xUnitCount: number = 100, yUnitCount: number = 100): void {
-        _preSetup()
-        // _powerUp(DEF_ENABLE_WHAT)
-        // _connect();
+    export function configPinLayers(xUnitCount: number = 100, yUnitCount: number = 100) {
+        _initConnection(DEF_ENABLE_WHAT)
         if (xUnitCount != 100 || yUnitCount != 100) {
             _sendCommand2("SUPF", xUnitCount.toString(), yUnitCount.toString());
         }
     }
+
+    //% block='config "auto pin layers" to be in the direction %direction'
+    //% advanced=true
+    //% group='Setup'
+    export function configAutoPinLayers(direction: AutoPinDirection) {
+        let layoutSpec = direction == AutoPinDirection.Horizontal ? "H(*)" : "V(*)"
+        _sendCommand1("SUAP", layoutSpec);
+    }
+
+
 
 
     //% block='pin a layer to the virtual "pin frame" @ position (%uLeft, %uTop) with size (%uWidth x %uHeight)'
@@ -194,13 +218,13 @@ namespace dumbdisplay {
     let _reset_callback: () => void
 
  
-    function _preSetup() {
-        _powerUp(DEF_ENABLE_WHAT)
+    function _initConnection(enableWhat: number) {
+        _powerUp(enableWhat)
         if (!connected())
             _connect()
     }
     function _setup(layerId: string, layerType: string, width: number, height: number) {
-        _preSetup();
+        _initConnection(DEF_ENABLE_WHAT);
         _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
         if (LOG_CONNECTION) {
             writeSerial("% setup layer " + layerId + "." + layerType)
