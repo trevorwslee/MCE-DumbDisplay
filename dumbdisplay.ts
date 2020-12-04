@@ -60,7 +60,7 @@ namespace dumbdisplay {
     export function configPinLayers(xUnitCount: number = 100, yUnitCount: number = 100) {
         _initConnection(DEF_ENABLE_WHAT)
         if (xUnitCount != 100 || yUnitCount != 100) {
-            _sendCommand2("SUPF", xUnitCount.toString(), yUnitCount.toString());
+            _sendCommand2("CFGPF", xUnitCount.toString(), yUnitCount.toString());
         }
     }
 
@@ -69,7 +69,7 @@ namespace dumbdisplay {
     //% group='Setup'
     export function configAutoPinLayers(direction: AutoPinDirection) {
         let layoutSpec = direction == AutoPinDirection.Horizontal ? "H(*)" : "V(*)"
-        _sendCommand1("SUAP", layoutSpec);
+        _sendCommand1("CFGAP", layoutSpec);
     }
 
 
@@ -319,26 +319,26 @@ namespace dumbdisplay {
     //% block='a LED-grid layer with size %numCols column(s) by %numRows row(s)'
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
     //% group='Setup'
-    export function setupLedGridLayer(numCols: number = 1, numRows: number = 1): dumbdisplay.LedGridLayer {
+    export function setupLedGridLayer(numCols: number = 1, numRows: number = 1): LedGridLayer {
         let layerId = (_next_layer_id++).toString()
         _setup(layerId, "ledgrid", numCols, numRows)
         // _sendPartCommand1(layerId + ".SU", "led")
         // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
         // _sendCommand0((NO_COMMAND_IN))
-        return new dumbdisplay.LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
+        return new LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
     }
 
     //% block='a LCD layer with size %numCols column(s) by %numRows row(s)'
     //% numRows.min=1 numRows.defl=2 numCols.min=1 numCols.defl=16
     //% group='Setup'
-    export function setupLcdLayer(numCols: number = 16, numRows: number = 2): dumbdisplay.LcdLayer {
+    export function setupLcdLayer(numCols: number = 16, numRows: number = 2): LcdLayer {
         let layerId = (_next_layer_id++).toString()
         _setup(layerId, "lcd", numCols, numRows)
         // _preSetup();
         // _sendPartCommand1(layerId + ".SU", "lcd")
         // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
         // _sendCommand0((NO_COMMAND_IN))
-        return new dumbdisplay.LcdLayer(layerId)
+        return new LcdLayer(layerId)
     }
     
 
@@ -491,7 +491,7 @@ namespace dumbdisplay {
         public constructor(layerId: string) {
             super(layerId)
         }
-        //% block='print %text to %this(myLcdLayer)'
+        //% block='print to %this(myLcdLayer) text %text '
         //% group='Lcd Layer'
         public print(text: string) {
             this._ddHelper.sendCommand1("print", text)
@@ -546,7 +546,7 @@ namespace dumbdisplay {
         public scrollDisplayRight() {
             this._ddHelper.sendCommand0("scrollright")
         }
-        //% block='write to %this(myLcdLayer) write %line as a line to %y'
+        //% block='write to %this(myLcdLayer) text %line as a line to %y'
         //% group='Lcd Layer'
         public writeLine(line: string, y: number = 0) {
             this._ddHelper.sendCommand3("writeline", y.toString(), "L", line)

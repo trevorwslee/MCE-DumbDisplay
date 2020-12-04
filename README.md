@@ -88,17 +88,14 @@ Or like
 Or like
 
     // exclicitly wait for connection and setup the imaginary "pin frame" to be 3 units x 1 unit
-    dumbdisplay.connect(3, 2)
+    dumbdisplay.connect()
+    // setup auto pin (layout) layers in Vertical direction
+    dumbdisplay.configAutoPinLayers(AutoPinDirection.Vertical)
 
     // create a LED layer
     let ledLayer = dumbdisplay.setupLedGridLayer(3, 1)
     // create a LCD layer
     let lcdLayer = dumbdisplay.setupLcdLayer()
-
-    // pin LED layer to position (0, 0) with size (3, 1)
-    dumbdisplay.pinLayer(ledLayer, 0, 0, 3, 1)
-    // pin LCD layer to position (0, 1) with size (3, 1)
-    dumbdisplay.pinLayer(lcdLayer, 0, 1, 3, 1)
 
     // turn on LEDs
     ledLayer.ledOnColor("red")
