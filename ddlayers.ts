@@ -2,28 +2,21 @@
 //% groups=['Layer', 'Led Layer', 'Lcd Layer']
 namespace ddlayers {
 
-  let _next_layer_id = 3
-
-  export class DDLayer /*extends Layer */{
-      //public layerId: string
+  export class DDLayer {
       public _ddHelper: dumbdisplay.DDHelper
       public constructor(layerId: string) {
-          //super(layerId)
-          //this.layerId = layerId
           this._ddHelper = new dumbdisplay.DDHelper(layerId)
       }
       //% block='set %this(myLayer) layer visibility %visible'
       //% group='Layer'
       public layerVisible(visible: boolean) {
           this._ddHelper.sendCommand1("visible", visible ? "1" : "0")
-          //dumbdisplay.layerVisible(this, visible)
       }
       //% block='set %this(myLayer) layer opacity %opacity'
       //% opacity.min=0 opacity.max=255 
       //% group='Layer'
       public layerOpacity(opacity: number) {
           this._ddHelper.sendCommand1("opacity", opacity.toString())
-          //dumbdisplay.layerOpacity(this, opacity)
       }
       //% block='set %this(myLayer) layer background color %color'
       //% color.shadow="colorNumberPicker"
@@ -49,7 +42,7 @@ namespace ddlayers {
   }
 
 
-  
+
   export class LedGridLayer extends DDLayer {
     private horizontal: boolean
     public constructor(layerId: string, horizontal: boolean) {
