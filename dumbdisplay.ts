@@ -55,7 +55,7 @@ namespace dumbdisplay {
 
     //% block='config "pin layers frame" to be %xUnitCount by %yUnitCount'
     //% xUnitCount.defl=100 yUnitCount.defl=100
-    //% advanced=true
+    //% weight=0
     //% group='Setup'
     export function configPinLayers(xUnitCount: number = 100, yUnitCount: number = 100) {
         _initConnection(DEF_ENABLE_WHAT)
@@ -65,9 +65,10 @@ namespace dumbdisplay {
     }
 
     //% block='config "auto pin layers" to be in the direction %direction'
-    //% advanced=true
+    //% weight=0
     //% group='Setup'
     export function configAutoPinLayers(direction: AutoPinDirection) {
+        _initConnection(DEF_ENABLE_WHAT)
         let layoutSpec = direction == AutoPinDirection.Horizontal ? "H(*)" : "V(*)"
         _sendCommand1("CFGAP", layoutSpec);
     }
