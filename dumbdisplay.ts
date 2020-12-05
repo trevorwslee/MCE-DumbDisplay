@@ -86,21 +86,23 @@ namespace dumbdisplay {
         _sendCommand0(NO_COMMAND_IN)
     }
 
-    //% block='a LED-grid layer with size %numCols column(s) by %numRows row(s)'
+    //% block='a LED-grid layer with size %numCols by %numRows (LED sub-size %numSubCols by %numSubRows'
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
+    //% numSubRows.min=1 numSubRows.defl=1 numSubCols.min=1 numSubCols.defl=1
     //% group='Setup'
-    export function setupLedGridLayer(numCols: number = 1, numRows: number = 1): ddlayers.LedGridLayer {
+    export function setupLedGridLayer(numCols: number = 1, numRows: number = 1, numSubCols: number = 1, numSubRows: number = 1): ddlayers.LedGridLayer {
         _initConnection(DEF_ENABLE_WHAT);
         let layerId = (_next_layer_id++).toString()
-        _sendPartCommand1(layerId + ".SU", "led")
+        _sendPartCommand1(layerId + ".SU", "ledgrid")
         _sendPartCommand2(NO_COMMAND_IN, numCols.toString(), numRows.toString())
+        _sendPartCommand2(NO_COMMAND_IN, numSubCols.toString(), numSubRows.toString())
         _sendCommand0((NO_COMMAND_IN))
         // let layerId = (_next_layer_id++).toString()
         // _setup(layerId, "ledgrid", numCols, numRows)
-        return new ddlayers.LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
+        return new ddlayers.LedGridLayer(layerId/*, numRows, numCols*/, numCols >= numRows)
     }
 
-    //% block='a LCD layer with size %numCols column(s) by %numRows row(s)'
+    //% block='a LCD layer with size %numCols by %numRows'
     //% numRows.min=1 numRows.defl=2 numCols.min=1 numCols.defl=16
     //% group='Setup'
     export function setupLcdLayer(numCols: number = 16, numRows: number = 2): ddlayers.LcdLayer {

@@ -42,7 +42,7 @@ Your coding can be interactivity; your drawings on the different layers can be a
 * compass direct
 * etc
 
-There should be a few ways you can use DumbDisplay as a tool to realize your creativity .
+There should be a few ways you can use DumbDisplay as a tool to realize your creativity.
 
 
 # Sample Code
@@ -103,7 +103,7 @@ Or like
     })
 
 
-### *using LEDs and LCD for whatever purpose that suits you*
+### *using LEDs and LCD (auto pinning the 2 layers)*
 
 Or like
 
@@ -128,6 +128,25 @@ Or like
     lcdLayer.print("Hello There!")
     lcdLayer.setCursor(2, 1)
     lcdLayer.print("How are you!")
+
+
+### *using LED Grid as Bar Meter*
+
+    // create a LED layer of size 10 by 1 (with sub-led size 1 by 5)
+    let horiBarMeter = dumbdisplay.setupLedGridLayer(10, 1, 1, 5)
+
+    // set colors
+    horiBarMeter.layerBackgroundColor("darkblue")
+    horiBarMeter.ledOnColor("green")
+    horiBarMeter.ledOffColor("lightgray")
+
+    // loop show bar of different values 
+    basic.forever(function () {
+        for (let c = 1; c <= 10; c++) {
+            horiBarMeter.ledBar(c)
+            basic.pause(200)
+        }
+    })
 
 
 ### *pinning 3 LEDs in a more controlled way*
@@ -250,7 +269,8 @@ DumbDisplay:
   * `enableSerial` -- set to false so that Serial is not used (defaul to true), and you can freely make use of Serial
 - `configPinLayers(xUnitCount: number = 100, yUnitCount: number = 100)` -- configure the size of the virtual "pin frame" for pinning the layers (refer to pinLayer() below)
 - `configAutoPinLayers(direction: AutoPinDirection)` -- configure to auto pin layers in either horizontal or vertical direction
-- `setupLedGridLayer(numCols: number = 1, numRows: number = 1)` -- setup and create a LED Grid layer have numCols x numRows LEDs
+- `setupLedGridLayer(numCols: number = 1, numRows: number = 1, numSubCols: number = 1, numSubRows: number = 1)` -- setup and create a LED Grid layer have numCols x numRows LEDs  (with each LED composed of numSubCols by numSubRows sub-leds)
+  * note that sub-leds can make a LED looks rectangular ( like a bar)
 - `setupLcdLayer(numCols: number = 16, numRows: number = 2)` -- setup and create a LCD layer capable of displaying numRows rows of numCols characters
 - `pinLayer(layer: ddlayers.DDLayer, uLeft: number, uTop: number, uWidth: number, uHeight: number)` -- pin a layer on the virtual "pin frame" at position (uLeft, uTop) with size (uWidth x uHeight)  
 transparent; 255 being total opaque)
