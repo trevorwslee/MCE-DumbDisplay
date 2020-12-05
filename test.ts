@@ -9,7 +9,7 @@ let testRound = 0
 
 
 // *** Develop Test
-let ledGridLayer: dumbdisplay.LedGridLayer = null
+let ledGridLayer: ddlayers.LedGridLayer = null
 function initDevelopTest() {
     ledGridLayer = dumbdisplay.setupLedGridLayer(2, 2)
     ledGridLayer.ledOnColor("green")

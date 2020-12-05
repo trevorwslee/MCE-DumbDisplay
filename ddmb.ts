@@ -1,6 +1,7 @@
 
-//% color=#770000 icon="\uf14d" block="DumbDisplay.MB"
+//% color=#770000 icon="\uf14d" block="DD.MB"
 //% groups=['Setup', 'Basic', 'Led', 'Images', 'Advanced', 'Experimental']
+//% fixedInstance
 namespace ddmb {
 
     //% block='setup MB layer width %width and height %height'
@@ -200,7 +201,7 @@ namespace ddmb {
     //% block='layer'
     //% advanced=true
     //% group='Advanced'
-    export function layer():dumbdisplay.Layer { return _layer }
+    export function layer(): ddlayers.DDLayer { return _layer }
 
 
 
@@ -208,10 +209,13 @@ namespace ddmb {
 
 
 
-    //% fixedInstance whenUsed
-    let _layer = new dumbdisplay.Layer(LAYER_ID)
-    //% fixedInstance whenUsed
-    let _ddHelper = new dumbdisplay.DDHelper(LAYER_ID)
+    // //% fixedInstance whenUsed
+    // let _layer = new dumbdisplay.Layer(LAYER_ID)
+    // //% fixedInstance whenUsed
+    // let _ddHelper = new dumbdisplay.DDHelper(LAYER_ID)
+    
+    let _layer = new ddlayers.DDLayer(LAYER_ID)
+    let _ddHelper = _layer._ddHelper
     let _width = 0
     let _height = 0
     let _also_output_to_screen: boolean = false

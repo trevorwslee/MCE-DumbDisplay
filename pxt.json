@@ -10,6 +10,7 @@
         "dumbdisplay.ts",
         "ddmb.ts",
         "ddturtle.ts",
+        "ddlayers.ts",
         "dumbdisplay.cpp"
     ],
     "testFiles": [
@@ -33,7 +34,7 @@
         },
         "optionalConfig": {
             "microbit-dal": {
-                "stack_size": 1024,
+                "stack_size": 896,
                 "gatt_table_size": "0x700"
             }
         }

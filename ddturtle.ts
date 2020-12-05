@@ -1,5 +1,6 @@
-//% color=#007700 icon="\uf14d" block="DumbDisplay.Turtle"
+//% color=#007700 icon="\uf14d" block="DD.Turtle"
 //% groups=['Setup', 'Movement', 'Drawing', 'Setting', 'Advanced', 'Experimental']
+//% fixedInstance
 namespace ddturtle {
 
     //% block='setup Turtle layer width %width and height %height'
@@ -268,16 +269,19 @@ namespace ddturtle {
     //% block='layer'
     //% advanced=true
     //% group='Advanced'
-    export function layer():dumbdisplay.Layer { return _layer }
+    export function layer():ddlayers.DDLayer { return _layer }
 
 
     const LAYER_ID = "2"
 
 
-    //% fixedInstance whenUsed
-    let _layer = new dumbdisplay.Layer(LAYER_ID)
-    //% fixedInstance whenUsed
-    let _ddHelper = new dumbdisplay.DDHelper(LAYER_ID)
+    // //% fixedInstance whenUsed
+    // let _layer = new dumbdisplay.Layer(LAYER_ID)
+    // //% fixedInstance whenUsed
+    // let _ddHelper = new dumbdisplay.DDHelper(LAYER_ID)
+
+    let _layer = new ddlayers.DDLayer(LAYER_ID)
+    let _ddHelper = _layer._ddHelper
     let _width = 0
     let _height = 0
 
