@@ -1,7 +1,7 @@
 # DumbDisplay MakeCode Extension
 
 
-DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth or USB Serial.
+DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth LE or USB Serial.
 
 ![DumbDisplay MakeCode Extension Illustration](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/makecode.png)
 
@@ -27,16 +27,22 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 * customizable LED color
 * many screen-related MakeCode Core-like commands
 * can mix with a Turtle layer using many Turtle-like commands
-* can create other layers like LED Grid layer and LCD layer
+* can create other types of layers like LED Grid layer and LCD layer
 
 
 # Usage
 
-For example, you can take advantage of your phone high-resolution screen to render Turtle-like drawings from your Micro:bit code.
+For example, you can take advantage of your phone high-resolution screen to render Turtle-like drawings by your Micro:bit.
 
-You can also make use of DumbDisplay LED Grid / LCD layers for displaying your experiment result, without the need to actualy attach real LEDs or LCD to your Micro:bit.
+You can also make use of DumbDisplay LED Grid / LCD layers for showing your experiment results, without the need to actualy attach real LEDs and/or LCD to your Micro:bit.
 
-There should be quite a few ways you use DumbDisplay as a tool to realize your creativity.
+Your coding can be interactivity; your drawings on the different layers can be according to Micro:bit different input mechanism like
+* push of buttont
+* temperature
+* compass direct
+* etc
+
+There should be a few ways you can use DumbDisplay as a tool to realize your creativity .
 
 
 # Sample Code
@@ -55,7 +61,9 @@ To start with, you must setup DumbDisplay (DD) like
   * at any time, if you want to start again, press the reset button on the back of your Micro:bit
 
 
-Then you can program something more interesting, like
+### *imitating your Micro:bit screen with your phone*
+
+Then you can program something more interesting, like 
 
     // setup a Micro:bit layer of size (5, 5)
     ddmb.setup(5, 5)
@@ -68,8 +76,9 @@ Then you can program something more interesting, like
     })
 
 
-Or like
+### *showing drawings realized by Turtle-like operations (with Micro:bit icons as background)*
 
+Or like
 
     // setup a Turtle layer of size (100, 100)
     ddturtle.setup(100, 100)
@@ -94,11 +103,11 @@ Or like
     })
 
 
+### *using LEDs and LCD for whatever purpose that suits you*
+
 Or like
 
-    // exclicitly wait for connection
-    dumbdisplay.connect()
-    // configure to "auto pin (layout) layers" in Vertical direction
+    // configure to "auto pin (layout) layers" in the vertical direction
     dumbdisplay.configAutoPinLayers(AutoPinDirection.Vertical)
 
     // create a LED layer
@@ -120,9 +129,45 @@ Or like
     lcdLayer.setCursor(2, 1)
     lcdLayer.print("How are you!")
 
-You largely do not need to use DumpDisplay package. Instead, you will mostly use DumbDisplayMB and/or DumbDisplayTurtle to render drawings on the corresponding layers.
 
-DumbDisplayMB:
+### *pinning 3 LEDs in a more controlled way*
+
+Or like
+
+    // configure the imaginary "pin frame" to be 3 units x 3 units
+    dumbdisplay.configPinLayers(3, 3)
+
+    // create 3 LED layers
+    let ledLayer1 = dumbdisplay.setupLedGridLayer()
+    let ledLayer2 = dumbdisplay.setupLedGridLayer()
+    let ledLayer3 = dumbdisplay.setupLedGridLayer()
+
+    // pin LED layer 1 to position (0, 0) with size (1, 1)
+    dumbdisplay.pinLayer(ledLayer1, 0, 0, 1, 1)
+    // pin LED layer 2 to position (1, 1) with size (1, 1)
+    dumbdisplay.pinLayer(ledLayer2, 1, 1, 1, 1)
+    // pin LED layer 3 to position (2, 2) with size (1, 1)
+    dumbdisplay.pinLayer(ledLayer3, 2, 2, 1, 1)
+
+    // turn on LEDs
+    ledLayer1.layerBackgroundColor("lightgray")
+    ledLayer2.layerBackgroundColor("lightgray")
+    ledLayer3.layerBackgroundColor("lightgray")
+    ledLayer1.ledOnColor("red")
+    ledLayer1.ledOn()
+    ledLayer2.ledOnColor("green")
+    ledLayer2.ledOn()
+    ledLayer3.ledOnColor("blue")
+    ledLayer3.ledOn()
+
+
+# Reference
+
+You largely do not need to use DumpDisplay package. Instead, you will mostly use DD.MB and/or DD.Turtle to render drawings on the corresponding layers.
+
+### Micro:bit
+
+DD.MB:
 - `showIcon(name: IconNames)` -- similar to `Basic`
 - `showArrow(name: ArrowNames)` -- similar to `Basic`
 - `showString(str: string)` -- similar to `Basic`
@@ -144,7 +189,10 @@ DumbDisplayMB:
     - char `|` -- end of row
     - e.g. `.####.||||#....#` represents 5 rows, with 1st row being `.####.` and last row being `#....#` 
 
-DumbDisplayTurtle:
+
+### Turtle
+
+DD.Turtle:
 - `forward(distance: number)` -- move forward
 - `backward(distance: number)` -- move backward
 - `right(angle: number)` -- turn right
@@ -167,7 +215,7 @@ DumbDisplayTurtle:
 - `centeredRectangle(width: number, height: number)` -- draw a rectangle with current position being the center
 - `triangle(side1: number, angle: number, side2: number)` -- draw a triangle given SAS (side1, angle, side2)    
 - `isoscelesTriangle(side: number, angle: number)` -- draw an isosceles triangle given side and angle
-- `polygon(side: number, vertexCount: number)` -- draw a polygon given side and # vertices
+- `polygon(side: number, vertexCount: number)` -- draw a polygon given side and number of vertices
 - `centeredPolygon(radius: number, vertexCount: number)` -- draw a polygon with current position being the center (and surrounding an imaginary circle)
 - `dot(size: number)` -- draw a dot (with certain pen size)
 - `dotOfColorNum(size: number, color: number)` -- draw a dot (with certain pen size and pen color number)
@@ -188,38 +236,46 @@ DumbDisplayTurtle:
 - `clear()` -- clear the screen
 - `jumpHome()` -- move to home (center of screen) without drawing 
 - `jumpTo(x: number, y: number)` -- go to a position on screen without drawing 
-- `penFilled(fillPen: boolean)` -- set whether pen filled (with fill color); note that when pen filled,  drawn shape will be filled
+- `penFilled(fillPen: boolean)` -- set whether pen filled (with fill color); note that when pen filled, drawn shape will be filled
 - `penTextSize(size: number)` -- set the size of text (the default pen text size depends on your phone setting)
-- `layer()` -- return the layer object
-  * "Layer"  object have some common operations
-  * can be used for some functions of DumbDisplay
+- `layer()` -- return the layer object -- "Layer" object have some common operations (refer to DDLayer below)
+
+
+### DumbDisplay
 
 DumbDisplay:
 - `connect(enableBluetooth: boolean = true, enableSerial: boolean = true)` -- explicitly wait for connection, at the same time you also have an opportunity to override some default settings 
-  * `enableBluetooth` -- set to false so that Bluetooth is not used
+  * `enableBluetooth` -- set to false so that Bluetooth is not used (defaul to true)
     ; this will leave more memory for your program
-  * `enableSerial` -- set to false so that Serial is not used, and you can freely make use of Serial
+  * `enableSerial` -- set to false so that Serial is not used (defaul to true), and you can freely make use of Serial
 - `configPinLayers(xUnitCount: number = 100, yUnitCount: number = 100)` -- configure the size of the virtual "pin frame" for pinning the layers (refer to pinLayer() below)
-- `configAutoPinLayers(direction: AutoPinDirection)` -- configure to autocat pin layers in either horizontal or vertical direction
-- `pinLayer(layer: ddlayers.DDLayer, uLeft: number, uTop: number, uWidth: number, uHeight: number)` -- pin a layer on the virtual "pin frame" @ position (uLeft, uTop) with size (uWidth x uHeight)  
-transparent; 255 being total opaque)
-- `removeLayer(layer: Layer)` -- remove a layer; yes, you can setup the layer again 
-- `writeSerial(msg: string)` -- you can write some "comment" to the serial port (which will not be harmful to DD operations)
-- `toColor(r: number, g: number, b: number)` -- a helper function that turns RGB into color name that you can use, say to set LED color
-  * in fact, the "color name" is simply the combine of the 3 RBG numbers -- e.g. R 100, B 0, G 200, will become "100-0-200"  
+- `configAutoPinLayers(direction: AutoPinDirection)` -- configure to auto pin layers in either horizontal or vertical direction
 - `setupLedGridLayer(numCols: number = 1, numRows: number = 1)` -- setup and create a LED Grid layer have numCols x numRows LEDs
 - `setupLcdLayer(numCols: number = 16, numRows: number = 2)` -- setup and create a LCD layer capable of displaying numRows rows of numCols characters
+- `pinLayer(layer: ddlayers.DDLayer, uLeft: number, uTop: number, uWidth: number, uHeight: number)` -- pin a layer on the virtual "pin frame" at position (uLeft, uTop) with size (uWidth x uHeight)  
+transparent; 255 being total opaque)
+- `removeLayer(layer: Layer)` -- remove a layer; yes, you can setup the layer again 
+- `writeComment(msg: string)` -- write out some "comment", in a way that will not be harmful to the DD operations.
+- `writeSerial(msg: string)` -- write out some "comment" to the serial port (without affecting DD operations)
+- `toColor(r: number, g: number, b: number)` -- a helper operation that turns RGB into color name that you can use, say to set LED color
+  * in fact, the "color name" is simply the combine of the 3 RBG numbers -- e.g. R 100, B 0, G 200, will become "100-0-200"  
 -   
 
-"Layer" operations:
+
+### "Layer"
+
+DDLayer -- "layer" operations (all layer objects including applicable to Micro:bit layer and Turtle layer):
 - `layerVisible(visible: boolean)` -- set whether a layer is visible or not
-- `layerOpacity(opacity: number)` -- set the opacity of a layer (0 being totally 
+- `layerOpacity(opacity: number)` -- set the opacity of a layer (0 to 255) 
 - `layerBackgroundColorNum(color: number)` -- set the background color of a layer with color number 
 - `layerBackgroundColor(color: number)` -- set the background color of a layer with color name like "green", or a hex number (starting with "#")
 - `layerNoBackgroundColor()` -- set the background of a layer to no color (i.e. transparent) 
 - `layerClear()` -- clear the layer
 
-Additional LEDGrid "Layer" operations:
+
+### LedGridLayer
+
+DDLayer -- additional LEDGrid operations:
 - `ledOn(x: number = 0, y: number = 0)` -- turn LED on
 - `ledOff(x: number = 0, y: number = 0)` -- turn LED off
 - `ledToggle(x: number = 0, y: number = 0)` -- toggle LED on / off
@@ -229,7 +285,10 @@ Additional LEDGrid "Layer" operations:
 - `ledOffColorNum(color: number)` -- set the LED off color with color number
 - `ledOffColor(color: string)` -- set the LED off color with color name
 
-Additional LCD "Layer" operations:
+
+### LcdLayer
+
+DDLayer -- additional LCD operations:
 - `setCursor(x: number, y: number)` -- set cursor position; (0, 0) to start with
 - `print(text: string)` -- print text to cursor position
 - `home()` -- set cursor to (0, 0)
@@ -249,17 +308,19 @@ Additional LCD "Layer" operations:
 - `noBgPixelColor()` -- set the LCD "background / off" pixels to no color (i.e. not show)
 
 
-A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can call DumbDisplay.connect() explicitly to disallow DumbDisplay to use Bluetooth or USB Serial.
+### Reminder
+
+A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can call DumbDisplay.connect() explicitly, and set to disallow DumbDisplay to use Bluetooth or USB Serial.
+
 
 
 # Thank You!
 
 Greeting from the author Trevor Lee:
 
->  Hope you will enjoy this little extension.
->  Be good! Be happy!
->  Peace be with you!
-
+> Joy to you!
+> Hope you will enjoy this little extension.
+> Be good! Be happy!
 
 
 

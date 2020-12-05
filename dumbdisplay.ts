@@ -8,7 +8,7 @@ enum AutoPinDirection {
 
 
 //% color=#000077 icon="\uf14d" block="DumbDisplay"
-//% groups=['Setup', 'Helper', 'Advanced', 'Experimental']
+//% groups=['Setup', 'Helper', 'Experimental']
 namespace dumbdisplay {
 
     export const LAYER_TYPE_MB = "mb"
@@ -90,11 +90,13 @@ namespace dumbdisplay {
     //% numRows.min=1 numRows.defl=1 numCols.min=1 numCols.defl=1
     //% group='Setup'
     export function setupLedGridLayer(numCols: number = 1, numRows: number = 1): ddlayers.LedGridLayer {
+        _initConnection(DEF_ENABLE_WHAT);
         let layerId = (_next_layer_id++).toString()
-        _setup(layerId, "ledgrid", numCols, numRows)
-        // _sendPartCommand1(layerId + ".SU", "led")
-        // _sendPartCommand2(NO_COMMAND_IN, numRows.toString(), numCols.toString())
-        // _sendCommand0((NO_COMMAND_IN))
+        _sendPartCommand1(layerId + ".SU", "led")
+        _sendPartCommand2(NO_COMMAND_IN, numCols.toString(), numRows.toString())
+        _sendCommand0((NO_COMMAND_IN))
+        // let layerId = (_next_layer_id++).toString()
+        // _setup(layerId, "ledgrid", numCols, numRows)
         return new ddlayers.LedGridLayer(layerId/*, numRows, numCols*/, numRows >= numCols)
     }
 
@@ -125,8 +127,13 @@ namespace dumbdisplay {
 
 
     //% block
-    //% advanced=true
-    //% group='Advanced'
+    //% group='Helper'
+    export function writeComment(msg: string) {
+        _sendCommand0("// " + msg)
+    }
+
+    //% block
+    //% group='Helper'
     export function writeSerial(msg: string) {
         serial.writeString("// " + msg + "\n")
     }
@@ -255,9 +262,9 @@ namespace dumbdisplay {
     function _setup(layerId: string, layerType: string, width: number, height: number) {
         _initConnection(DEF_ENABLE_WHAT);
         _sendCommand3(layerId + ".SU", layerType, width.toString(), height.toString())
-        if (LOG_CONNECTION) {
-            writeSerial("% setup layer " + layerId + "." + layerType)
-        }
+        // if (LOG_CONNECTION) {
+        //     writeSerial("% setup layer " + layerId + "." + layerType)
+        // }
     }
     
     function _connect() {
