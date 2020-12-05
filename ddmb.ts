@@ -1,6 +1,7 @@
 
 //% color=#770000 icon="\uf14d" block="DD.MB"
 //% groups=['Setup', 'Basic', 'Led', 'Images', 'Advanced', 'Experimental']
+//% fixedInstance
 namespace ddmb {
 
     //% block='setup MB layer width %width and height %height'
@@ -213,7 +214,6 @@ namespace ddmb {
     // //% fixedInstance whenUsed
     // let _ddHelper = new dumbdisplay.DDHelper(LAYER_ID)
     
-    //% fixedInstance whenUsed
     let _layer = new ddlayers.DDLayer(LAYER_ID)
     let _ddHelper = _layer._ddHelper
     let _width = 0

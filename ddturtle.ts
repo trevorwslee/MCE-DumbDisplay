@@ -1,5 +1,6 @@
 //% color=#007700 icon="\uf14d" block="DD.Turtle"
 //% groups=['Setup', 'Movement', 'Drawing', 'Setting', 'Advanced', 'Experimental']
+//% fixedInstance
 namespace ddturtle {
 
     //% block='setup Turtle layer width %width and height %height'
@@ -279,7 +280,6 @@ namespace ddturtle {
     // //% fixedInstance whenUsed
     // let _ddHelper = new dumbdisplay.DDHelper(LAYER_ID)
 
-    //% fixedInstance whenUsed
     let _layer = new ddlayers.DDLayer(LAYER_ID)
     let _ddHelper = _layer._ddHelper
     let _width = 0
