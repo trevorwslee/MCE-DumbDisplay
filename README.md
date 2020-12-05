@@ -346,10 +346,9 @@ Greeting from the author Trevor Lee:
 
 # Change History
 
-v0.2.0 
+v0.2.1 
 - added LCD layer
 - added LED layer
-
 
 v0.1.1 
 - bug fixes
