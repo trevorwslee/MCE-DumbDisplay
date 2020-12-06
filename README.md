@@ -1,9 +1,9 @@
-# DumbDisplay MakeCode Extension
+# DumbDisplay MakeCode Extension (v0.2.1)
 
 
 DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth LE or USB Serial.
 
-![DumbDisplay MakeCode Extension Illustration](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/makecode.png)
+![DumbDisplay MakeCode Extension Illustration](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/makecode.png) 
 
 | Micro:bit | Turtle | LEDs + LCD | 
 |-----------|--------|------------|
@@ -14,7 +14,7 @@ DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen 
 
 You explode your creativity with a little help from this extension, and use DumbDisplay to realize an enhanced Micro:bit virtual screen on your Android phone.
 
-You can install the free DumbDisplay app from Android Play Store -- https://play.google.com/store/apps/details?id=nobody.trevorlee.dumbdisplay
+You can install the free DumbDisplay app (v0.3.2 or later) from Android Play Store -- https://play.google.com/store/apps/details?id=nobody.trevorlee.dumbdisplay
 
 
 The app can accept connection via
@@ -32,22 +32,22 @@ In a nutshell, this extension allows you to use DumbDisplay as a screen in place
 
 # Usage
 
-For example, you can take advantage of your phone high-resolution screen to render Turtle-like drawings by your Micro:bit.
+For example, you can take advantage of your phone high-resolution screen to render drawings from your Micro:bit with Turtle-like operations.
 
 You can also make use of DumbDisplay LED Grid / LCD layers for showing your experiment results, without the need to actualy attach real LEDs and/or LCD to your Micro:bit.
 
-Your coding can be interactivity; your drawings on the different layers can be according to Micro:bit different input mechanism like
+Your program can be interactivity; your drawings on the different layers can be according to Micro:bit different input mechanisms like
 * push of buttont
 * temperature
 * compass direct
 * etc
 
-There should be a few ways you can use DumbDisplay as a tool to realize your creativity.
+There should be many ways you can use DumbDisplay as a tool to realize your creativity.
 
 
 # Sample Code
 
-To start with, you must setup DumbDisplay (DD) like
+To start with, you should setup DumbDisplay (DD) like
 
     // set a Micro:bit layer of size (5, 5)
     ddmb.setup(5, 5)
@@ -61,7 +61,15 @@ To start with, you must setup DumbDisplay (DD) like
   * at any time, if you want to start again, press the reset button on the back of your Micro:bit
 
 
-### *imitating your Micro:bit screen with your phone*
+## Samples
+
+| 1. Micro:bit | 2. Turtle | 3. LEDs + LCD | 4. "Bar Meter" | 5. Manual "pin" layers |  
+|---|---|---|---|---|
+|![](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/mcmb.png)|![](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/mcturtle.png)|![](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/mcledlcd.png)|![](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/mcbarmeter.png)|![](https://raw.githubusercontent.com/trevorwslee/MCExtension-DumbDisplay/master/screenshots/mcpinlayers.png)|
+
+
+
+### Screenshot 1 -- *imitating your Micro:bit screen with your phone*
 
 Then you can program something more interesting, like 
 
@@ -76,9 +84,9 @@ Then you can program something more interesting, like
     })
 
 
-### *showing drawings realized by Turtle-like operations (with Micro:bit icons as background)*
+###  Screenshot 2 -- *showing drawings realized by Turtle-like operations (with Micro:bit icons as background)*
 
-Or like
+You can use Turtle-like operations to draw something interesting, like
 
     // setup a Turtle layer of size (100, 100)
     ddturtle.setup(100, 100)
@@ -103,9 +111,9 @@ Or like
     })
 
 
-### *using LEDs and LCD (auto pinning the 2 layers)*
+### Screenshot 3 -- *using LEDs and LCD (auto pinning the 2 layers)*
 
-Or like
+By making use of LED / LCD layers, you can show experiment result values in various ways, like
 
     // configure to "auto pin (layout) layers" in the vertical direction
     dumbdisplay.configAutoPinLayers(AutoPinDirection.Vertical)
@@ -130,7 +138,9 @@ Or like
     lcdLayer.print("How are you!")
 
 
-### *using LED Grid as Bar Meter*
+### Screenshot 4 -- *using LED Grid as Bar Meter*
+
+In fact, you can use the LED grid layer as some sort of "Bar Meter" that shows meter values, like
 
     // create a LED layer of size 10 by 1 (with sub-led size 1 by 5)
     let horiBarMeter = dumbdisplay.setupLedGridLayer(10, 1, 1, 5)
@@ -149,9 +159,9 @@ Or like
     })
 
 
-### *pinning 3 LEDs in a more controlled way*
+### Screenshot 5 -- *pinning 3 LEDs in a more controlled way*
 
-Or like
+You can fine tune how different layers be "pinned", like
 
     // configure the imaginary "pin frame" to be 3 units x 3 units
     dumbdisplay.configPinLayers(3, 3)
