@@ -1,4 +1,4 @@
-# DumbDisplay MakeCode Extension (v0.2.1)
+# DumbDisplay MakeCode Extension (v0.2.2)
 
 
 DumbDisplay MakeCode Extension is a simple tool to extend your Micro:bit screen to your Android phone via Micro:bit built-in Bluetooth LE or USB Serial.
@@ -22,7 +22,7 @@ The app can accept connection via
 * USB (OTG) -- which is faster, but requires a cable and an adaptor (OTG)
 
 
-In a nutshell, this extension allows you to use DumbDisplay as a screen in place of the Micro:bit built-in screen
+In summary, this extension allows you to use DumbDisplay as a screen in place of the Micro:bit built-in screen
 * customizable screen size
 * customizable LED color
 * many screen-related MakeCode Core-like commands
@@ -221,7 +221,7 @@ DD.MB:
 
 ### Turtle
 
-DD.Turtle:
+`DD.Turtle`:
 - `forward(distance: number)` -- move forward
 - `backward(distance: number)` -- move backward
 - `right(angle: number)` -- turn right
@@ -233,7 +233,8 @@ DD.Turtle:
 - `centeredCircle(radius: number)` -- draw a circle with current position being the center
 - `rectangle(width: number, height: number)` -- draw a rectangle
   * it is similar to
-     ```forward(width)
+     ```
+        forward(width)
         left(90)
         forward(height)
         left(90)
@@ -241,6 +242,7 @@ DD.Turtle:
         left(90)
         forward(height)
         left(90)
+    ```    
 - `centeredRectangle(width: number, height: number)` -- draw a rectangle with current position being the center
 - `triangle(side1: number, angle: number, side2: number)` -- draw a triangle given SAS (side1, angle, side2)    
 - `isoscelesTriangle(side: number, angle: number)` -- draw an isosceles triangle given side and angle
@@ -272,7 +274,7 @@ DD.Turtle:
 
 ### DumbDisplay
 
-DumbDisplay:
+`DumbDisplay`:
 - `connect(enableBluetooth: boolean = true, enableSerial: boolean = true)` -- explicitly wait for connection, at the same time you also have an opportunity to override some default settings 
   * `enableBluetooth` -- set to false so that Bluetooth is not used (defaul to true)
     ; this will leave more memory for your program
@@ -292,9 +294,9 @@ transparent; 255 being total opaque)
 -   
 
 
-### "Layer"
+### "Layers"
 
-DDLayer -- "layer" operations (all layer objects including applicable to Micro:bit layer and Turtle layer):
+`DDLayer` -- "layer" operations (all layer objects including applicable to Micro:bit layer and Turtle layer):
 - `layerVisible(visible: boolean)` -- set whether a layer is visible or not
 - `layerOpacity(opacity: number)` -- set the opacity of a layer (0 to 255) 
 - `layerBackgroundColorNum(color: number)` -- set the background color of a layer with color number 
@@ -305,7 +307,7 @@ DDLayer -- "layer" operations (all layer objects including applicable to Micro:b
 
 ### LedGridLayer
 
-DDLayer -- additional LEDGrid operations:
+on top of `DDLayer`, additional `LedGridLayer` operations:
 - `ledOn(x: number = 0, y: number = 0)` -- turn LED on
 - `ledOff(x: number = 0, y: number = 0)` -- turn LED off
 - `ledToggle(x: number = 0, y: number = 0)` -- toggle LED on / off
@@ -316,9 +318,9 @@ DDLayer -- additional LEDGrid operations:
 - `ledOffColor(color: string)` -- set the LED off color with color name
 
 
-### LcdLayer
+### LcdLayer    
 
-DDLayer -- additional LCD operations:
+on top of `DDLayer`, additional `LcdLayer` operations:
 - `setCursor(x: number, y: number)` -- set cursor position; (0, 0) to start with
 - `print(text: string)` -- print text to cursor position
 - `home()` -- set cursor to (0, 0)
@@ -344,42 +346,11 @@ A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB
 
 
 
-# Thank You!
+# Supported target
 
-Greeting from the author Trevor Lee:
-
-> Joy to you! 
-> Be good! Be happy!
-> Hope you will enjoy this little extension.
-> Thank you!
+* for PXT/microbit
 
 
-# Change History
+#License
 
-v0.2.1 
-- added LCD layer
-- added LED layer
-
-v0.1.1 
-- bug fixes
-
-v0.1.0 
-- initial release
-
-v0.0.3 
-- bug fixes
-
-v0.0.2
-- bug fixes
-
-v0.0.1
-- initial internal release
-
-
-
-
-
-
-
-
-
+MIT
