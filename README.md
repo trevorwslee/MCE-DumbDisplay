@@ -351,6 +351,8 @@ A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB
 PXT/microbit
 
 
-#License
+# License
 
 MIT
+
+
