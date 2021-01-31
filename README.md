@@ -344,6 +344,15 @@ on top of `DDLayer`, additional `LcdLayer` operations:
 A reminder -- DumbDisplay will make use of both your Micro:bit Bluetooth and USB Serial, therefore you should not be making use of them for your own purposes. However, if you really need to use any one of them, you can call DumbDisplay.connect() explicitly, and set to disallow DumbDisplay to use Bluetooth or USB Serial.
 
 
+# Thank You!
+
+Greeting from the author Trevor Lee:
+
+> Be good! Be happy!
+> Peace be with you!
+> Jesus loves you!
+
+
 
 # Supported target
 
